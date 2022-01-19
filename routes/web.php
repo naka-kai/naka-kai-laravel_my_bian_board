@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\BoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+// Route::get('/', [BoardController::class, 'index'])->name('board.index');
