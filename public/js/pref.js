@@ -3,11 +3,6 @@ var __webpack_exports__ = {};
 /*!******************************!*\
   !*** ./resources/js/pref.js ***!
   \******************************/
-// let pref_areas = ['pref_all', 'pref_hoto', 'pref_kan', 'pref_chubu'];
-// pref_areas.forEach(function(element) {
-//     let element = document.querySelector(".element");
-//     console.log(element);
-// });
 //全選択・解除のチェックボックス
 var pref_all = document.querySelector(".pref_all"); //全選択のチェックボックスのリスト
 

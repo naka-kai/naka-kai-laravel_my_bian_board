@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\BoardController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,4 +24,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-// Route::get('/', [BoardController::class, 'index'])->name('board.index');
+Route::prefix('post')->group(function() {
+    Route::get('/', [PostController::class, 'index'])->name('post.index');
+    Route::get('/create', [PostController::class, 'create'])->name('post.create');
+});
