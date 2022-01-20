@@ -1,9 +1,3 @@
-// let pref_areas = ['pref_all', 'pref_hoto', 'pref_kan', 'pref_chubu'];
-
-// pref_areas.forEach(function(element) {
-//     let element = document.querySelector(".element");
-//     console.log(element);
-// });
 
 //全選択・解除のチェックボックス
 let pref_all = document.querySelector(".pref_all");
