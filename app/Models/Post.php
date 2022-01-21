@@ -24,13 +24,8 @@ class Post extends Model
         return $this->hasMany(Wanted::class);
     }
 
-    public function post_outsides()
+    public function post_sexes()
     {
-        return $this->hasMany(Outside::class);
-    }
-
-    public function post_insides()
-    {
-        return $this->hasMany(Inside::class);
+        return $this->hasMany(Sex::class);
     }
 }

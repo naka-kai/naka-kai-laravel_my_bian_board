@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePost_insideRequest;
-use App\Http\Requests\UpdatePost_insideRequest;
-use App\Models\Post_inside;
+use App\Http\Requests\StoreSexRequest;
+use App\Http\Requests\UpdateSexRequest;
+use App\Models\Sex;
 
-class PostInsideController extends Controller
+class SexController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class PostInsideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePost_insideRequest  $request
+     * @param  \App\Http\Requests\StoreSexRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost_insideRequest $request)
+    public function store(StoreSexRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class PostInsideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post_inside  $post_inside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Http\Response
      */
-    public function show(Post_inside $post_inside)
+    public function show(Sex $sex)
     {
         //
     }
@@ -53,10 +53,10 @@ class PostInsideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post_inside  $post_inside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post_inside $post_inside)
+    public function edit(Sex $sex)
     {
         //
     }
@@ -64,11 +64,11 @@ class PostInsideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePost_insideRequest  $request
-     * @param  \App\Models\Post_inside  $post_inside
+     * @param  \App\Http\Requests\UpdateSexRequest  $request
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePost_insideRequest $request, Post_inside $post_inside)
+    public function update(UpdateSexRequest $request, Sex $sex)
     {
         //
     }
@@ -76,10 +76,10 @@ class PostInsideController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post_inside  $post_inside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post_inside $post_inside)
+    public function destroy(Sex $sex)
     {
         //
     }
