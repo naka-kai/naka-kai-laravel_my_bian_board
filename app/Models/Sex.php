@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inside extends Model
+class Sex extends Model
 {
     use HasFactory;
 
-    public function post_inside()
+    public function post_sexes()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post_sex::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOutsidesTable extends Migration
+class CreateSexesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateOutsidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('outsides', function (Blueprint $table) {
+        Schema::create('sexes', function (Blueprint $table) {
             $table->id();
-            $table->string('outside');
+            $table->string('sex');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateOutsidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('outsides');
+        Schema::dropIfExists('sexes');
     }
 }

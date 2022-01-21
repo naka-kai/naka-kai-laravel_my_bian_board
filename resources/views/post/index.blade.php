@@ -166,29 +166,29 @@
                             <!-- セク選択 -->
                             <ul class="flex space-x-10 justify-center mt-2">
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="outside" id="outside1" value="1"><label for="outside1"
+                                    <input type="checkbox" name="" value="1" id="sex1"><label for="sex1"
                                         class="ml-1">フェム</label>
                                 </li>
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="outside" id="outside2" value="2"><label for="outside2"
+                                    <input type="checkbox" name="" id="sex2" value="2"><label for="sex2"
                                         class="ml-1">中性</label>
                                 </li>
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="outside" id="outside3" value="3"><label for="outside3"
+                                    <input type="checkbox" name="" id="sex3" value="3"><label for="sex3"
                                         class="ml-1">ボイ</label>
                                 </li>
                             </ul>
                             <ul class="flex space-x-10 justify-center mt-2">
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="inside" id="inside1" value="1"><label for="inside1"
+                                    <input type="checkbox" name="" id="sex4" value="4"><label for="sex4"
                                         class="ml-1">タチ</label>
                                 </li>
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="inside" id="inside2" value="2"><label for="inside2"
+                                    <input type="checkbox" name="" id="sex5" value="5"><label for="sex5"
                                         class="ml-1">リバ</label>
                                 </li>
                                 <li class="flex items-center">
-                                    <input type="checkbox" name="inside" id="inside3" value="3"><label for="inside3"
+                                    <input type="checkbox" name="" id="sex6" value="6"><label for="sex6"
                                         class="ml-1">フェム</label>
                                 </li>
                             </ul>
@@ -276,7 +276,5 @@
     <x-slot name="script">
         <script src="{{ mix('js/pref.js') }}"></script>
         <script src="{{ mix('js/searchReset.js') }}"></script>
-        <script>
-        </script>
     </x-slot>
 </x-guest-layout>

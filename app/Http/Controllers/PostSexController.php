@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePost_outsideRequest;
-use App\Http\Requests\UpdatePost_outsideRequest;
-use App\Models\Post_outside;
+use App\Http\Requests\StorePost_sexRequest;
+use App\Http\Requests\UpdatePost_sexRequest;
+use App\Models\Post_sex;
 
-class PostOutsideController extends Controller
+class PostSexController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class PostOutsideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePost_outsideRequest  $request
+     * @param  \App\Http\Requests\StorePost_sexRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost_outsideRequest $request)
+    public function store(StorePost_sexRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class PostOutsideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post_outside  $post_outside
+     * @param  \App\Models\Post_sex  $post_sex
      * @return \Illuminate\Http\Response
      */
-    public function show(Post_outside $post_outside)
+    public function show(Post_sex $post_sex)
     {
         //
     }
@@ -53,10 +53,10 @@ class PostOutsideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post_outside  $post_outside
+     * @param  \App\Models\Post_sex  $post_sex
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post_outside $post_outside)
+    public function edit(Post_sex $post_sex)
     {
         //
     }
@@ -64,11 +64,11 @@ class PostOutsideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePost_outsideRequest  $request
-     * @param  \App\Models\Post_outside  $post_outside
+     * @param  \App\Http\Requests\UpdatePost_sexRequest  $request
+     * @param  \App\Models\Post_sex  $post_sex
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePost_outsideRequest $request, Post_outside $post_outside)
+    public function update(UpdatePost_sexRequest $request, Post_sex $post_sex)
     {
         //
     }
@@ -76,10 +76,10 @@ class PostOutsideController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post_outside  $post_outside
+     * @param  \App\Models\Post_sex  $post_sex
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post_outside $post_outside)
+    public function destroy(Post_sex $post_sex)
     {
         //
     }

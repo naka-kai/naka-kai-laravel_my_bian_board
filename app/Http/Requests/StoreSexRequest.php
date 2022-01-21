@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOutsideRequest extends FormRequest
+class StoreSexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Outside;
+use App\Models\Sex;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OutsidePolicy
+class SexPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class OutsidePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Outside  $outside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Outside $outside)
+    public function view(User $user, Sex $sex)
     {
         //
     }
@@ -48,10 +48,10 @@ class OutsidePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Outside  $outside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Outside $outside)
+    public function update(User $user, Sex $sex)
     {
         //
     }
@@ -60,10 +60,10 @@ class OutsidePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Outside  $outside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Outside $outside)
+    public function delete(User $user, Sex $sex)
     {
         //
     }
@@ -72,10 +72,10 @@ class OutsidePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Outside  $outside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Outside $outside)
+    public function restore(User $user, Sex $sex)
     {
         //
     }
@@ -84,10 +84,10 @@ class OutsidePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Outside  $outside
+     * @param  \App\Models\Sex  $sex
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Outside $outside)
+    public function forceDelete(User $user, Sex $sex)
     {
         //
     }

@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\Console\Output\Output;
 
-class Post_outside extends Model
+class Post_sex extends Model
 {
     use HasFactory;
 
@@ -15,8 +14,8 @@ class Post_outside extends Model
         return $this->hasOne(Post::class);
     }
 
-    public function outsides()
+    public function sexes()
     {
-        return $this->hasMany(Outside::class);
+        return $this->hasMany(Sex::class);
     }
 }

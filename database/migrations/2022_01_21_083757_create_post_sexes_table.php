@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostInsidesTable extends Migration
+class CreatePostSexesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreatePostInsidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_insides', function (Blueprint $table) {
+        Schema::create('post_sexes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')
                 ->references('id')
                 ->on('posts')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('inside_id');
-            $table->foreign('inside_id')
+            $table->unsignedBigInteger('sex_id');
+            $table->foreign('sex_id')
                 ->references('id')
-                ->on('insides')
+                ->on('sexes')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreatePostInsidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_insides');
+        Schema::dropIfExists('post_sexes');
     }
 }
