@@ -1,10 +1,13 @@
 <x-guest-layout>
-
     <x-slot name="title">
         ビアン掲示板TOP
     </x-slot>
 
-    <x-slot name="header">
+    <x-slot name="head">
+        <link rel="stylesheet" href="{{ mix('css/board-index.css') }}">
+    </x-slot>
+
+    <x-slot name="header" class="bg-rainbow">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             ビアン掲示板TOP
         </h2>
@@ -13,268 +16,462 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200"><!-- 初期-->
+                <div class="p-6 border-b border-gray-200 bg-white">
+                    <!-- 初期 -->
 
-                    <div class="flex justify-end"><!-- 新規投稿ボタン -->
-                        <a href="" class="block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">新規投稿する</a>
-                    </div><!-- /新規投稿ボタン -->
+                    <div class="border-2 border-dashed border-sky-200 p-3">
+                        <!-- white dash border -->
 
-                    <form action="">
-                        <div>
-                            <h3 class="font-bold text-xl py-2">絞り込み検索</h3>
+                        <div class="flex justify-end mb-5">
+                            <!-- 新規投稿ボタン -->
+                            <a href="{{ route('post.create') }}"
+                                class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow">新規投稿する</a>
+                        </div>
+                        <!-- /新規投稿ボタン -->
+
+                        <div class="border-t-4 border-b-2 border-sky-100">
                             <!-- 都道府県選択 -->
-                            @csrf
-                            <div class="border p-3">
+
+                            <div class="p-1 flex items-center">
+                                <!-- 全て選択 / 解除 -->
+                                <input type="checkbox" name="prefs" class="pref_all mr-1">
+                                <label for="" class="font-semibold text-gray-700"> 全て選択 / 解除</label>
+                            </div>
+                            <!-- 全て選択 / 解除 -->
+
+                            <hr class="border-sky-100 mx-1">
+                            <!-- hr border -->
+
+                            <div class="p-1" x-data="accordion(1)">
+                                <!-- 北海道・東北地方 -->
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="prefs" class="pref_all_list pref_hoto mb-1 mr-1"
+                                        id="toho" value="1">
+                                    <label for="toho" class="font-semibold text-gray-700"
+                                        class="font-semibold text-gray-700"
+                                        x-on:click="handleClick()">北海道・東北地方</label><i
+                                        class="fas fa-chevron-down text-gray-700 ml-2"></i>
+                                </div>
+                                <div class="flex overflow-hidden max-h-0 duration-500 transition-all" x-ref="tab"
+                                    :style="handleToggle()">
+                                    <div class="py-3 pl-1 flex">
+                                        <div class="flex items-center">
+                                            <!-- 北海道 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">北海道</label>
+                                        </div>
+                                        <!-- /北海道 -->
+                                        <div class="flex items-center">
+                                            <!-- 青森県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">青森県</label>
+                                        </div>
+                                        <!-- /青森県 -->
+                                        <div class="flex items-center">
+                                            <!-- 岩手県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">岩手県</label>
+                                        </div>
+                                        <!-- /岩手県 -->
+                                        <div class="flex items-center">
+                                            <!-- 宮城県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">宮城県</label>
+                                        </div>
+                                        <!-- /宮城県 -->
+                                        <div class="flex items-center">
+                                            <!-- 秋田県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">秋田県</label>
+                                        </div>
+                                        <!-- /秋田県 -->
+                                        <div class="flex items-center">
+                                            <!-- 山形県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">山形県</label>
+                                        </div>
+                                        <!-- /山形県 -->
+                                        <div class="flex items-center">
+                                            <!-- 福島県 -->
+                                            <input type="checkbox" name="prefs"
+                                                class="pref_all_list pref_hoto_list mr-1" value="1">
+                                            <label for="" class="text-gray-600 mr-2">福島県</label>
+                                        </div>
+                                        <!-- /福島県 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /北海道・東北地方 -->
+
+                            <hr class="border-sky-100 mx-1">
+                            <!-- hr border -->
+
+                            <div class="p-1" x-data="accordion(2)">
+                                <!-- 関東地方 -->
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="prefs" class="pref_all_list pref_kan mb-1 mr-1"
+                                        value="1">
+                                    <label for="" class="font-semibold text-gray-700"
+                                        class="font-semibold text-gray-700" x-on:click="handleClick()">関東地方</label><i
+                                        class="fas fa-chevron-down text-gray-700 ml-2"></i>
+                                </div>
+                                <div class="flex overflow-hidden max-h-0 duration-500 transition-all" x-ref="tab"
+                                    :style="handleToggle()">
+                                    <div class="py-3 pl-1 flex">
+                                        <div class="flex items-center">
+                                            <!-- 茨城県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">茨城県</label>
+                                        </div>
+                                        <!-- /茨城県 -->
+                                        <div class="flex items-center">
+                                            <!-- 栃木県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">栃木県</label>
+                                        </div>
+                                        <!-- /栃木県 -->
+                                        <div class="flex items-center">
+                                            <!-- 群馬県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">群馬県</label>
+                                        </div>
+                                        <!-- /群馬県 -->
+                                        <div class="flex items-center">
+                                            <!-- 埼玉県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">埼玉県</label>
+                                        </div>
+                                        <!-- /埼玉県 -->
+                                        <div class="flex items-center">
+                                            <!-- 千葉県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">千葉県</label>
+                                        </div>
+                                        <!-- /千葉県 -->
+                                        <div class="flex items-center">
+                                            <!-- 東京都 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">東京都</label>
+                                        </div>
+                                        <!-- /東京都 -->
+                                        <div class="flex items-center">
+                                            <!-- 神奈川県 -->
+                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
+                                                value="1">
+                                            <label for="" class="text-gray-600 mr-2">神奈川県</label>
+                                        </div>
+                                        <!-- /神奈川県 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /関東地方 -->
+
+                        </div>
+                        <!-- /都道府県選択 -->
+
+                        <div class="border-y-2 border-t-0 border-sky-100 p-3">
+                            <!-- sex -->
+                            <div class="flex space-x-10 justify-center items-center">
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        フェム
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        中性
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        ボイ
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="flex space-x-10 justify-center items-center">
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        タチ
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        リバ
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        ネコ
+                                    </span>
+                                </label>
+                            </div>
+                        </div><!-- /sex -->
+
+                        <div class="flex items-center justify-center py-3 border-y-2 border-t-0 border-sky-100">
+                            <!-- age -->
+                            <div class="w-1/3 mx-auto" id="reset">
+                                <select
+                                    class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="grid-state">
+                                    <option>全年代</option>
+                                    <option>10代(18歳以上)</option>
+                                    <option>20代</option>
+                                    <option>30代</option>
+                                    <option>40代</option>
+                                    <option>50歳以上</option>
+                                </select>
+                            </div>
+                        </div><!-- /age -->
+
+                        <div class="border-y-4 border-t-0 border-sky-100 p-3">
+                            <!-- wanted -->
+                            <div class="flex space-x-10 justify-center items-center" id="reset">
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        友達募集
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        恋人募集
+                                    </span>
+                                </label>
+                                <label class="block text-gray-500 font-bold">
+                                    <input class="mr-2 leading-tight" type="checkbox">
+                                    <span class="text-sm">
+                                        遠距離可
+                                    </span>
+                                </label>
+                            </div>
+                        </div><!-- /wanted -->
+
+                        <div class="flex justify-end mt-3 mb-5">
+                            <!-- /resetButton -->
+                            <input type="reset"
+                                class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow"
+                                value="リセット">
+                        </div><!-- /resetButton -->
+
+                        <div class="text-gray-600">
+                            <!-- posts -->
+                            <a href="">
+                                <!-- post -->
+                                <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
+                                    <div class="flex items-center">
+                                        <div class="flex flex-col justify-center">
+                                            <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                            <p class="text-sm">15分前に投稿</p>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p>タイトル1</p>
+                                            <p>ニックネーム1</p>
+                                        </div>
+                                    </div>
+                                    <div class="ml-auto mr-10">
+                                        <p>都道府県</p>
+                                    </div>
+                                    <div>
+                                        <div
+                                            class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
+                                            <p>友達募集</p>
+                                        </div>
+                                        <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                            <p>恋人募集</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <!-- /post -->
+
+                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
+                                <!-- post -->
+                                <div class="flex items-center">
+                                    <div class="flex flex-col justify-center">
+                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                        <p class="text-sm">15分前に投稿</p>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p>タイトル2</p>
+                                        <p>ニックネーム2</p>
+                                    </div>
+                                </div>
+                                <div class="ml-auto mr-10">
+                                    <p>都道府県</p>
+                                </div>
                                 <div>
-                                    <label for="" class="p-1 align-middle"><input type="checkbox" name="prefs"
-                                            class="pref_all"> 全て選択 / 解除</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto mb-1" value="1">北海道・東北地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="1">北海道</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">青森県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">岩手県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">宮城県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">秋田県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">山形県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_hoto_list" value="3">福島県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block mb-1"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan" value="1">関東地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="1">茨城県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="2">栃木県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="3">群馬県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="3">埼玉県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="3">千葉県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="3">東京都</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kan_list" value="3">神奈川県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu mb-1" value="1">中部地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="1">山梨県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="2">長野県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">新潟県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">富山県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">石川県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">福井県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">静岡県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">愛知県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chubu_list" value="3">岐阜県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin mb-1" value="1">近畿地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="1">三重県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="2">滋賀県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="3">京都府</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="3">大阪府</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="3">兵庫県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="3">奈良県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kin_list" value="3">和歌山県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku mb-1" value="1">中国地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku_list" value="1">鳥取県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku_list" value="2">島根県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku_list" value="3">岡山県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku_list" value="3">広島県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_chugoku_list" value="3">山口県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_shi mb-1" value="1">四国地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_shi_list" value="1">香川県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_shi_list" value="2">愛媛県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_shi_list" value="3">徳島県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_shi_list" value="3">高知県</label>
-                                </div>
-                                <hr>
-                                <div class="p-1">
-                                    <label for="" class="font-semibold block"><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu mb-1" value="1">九州地方</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="1">福岡県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="2">佐賀県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">長崎県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">熊本県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">大分県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">宮崎県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">鹿児島県</label>
-                                    <label for=""><input type="checkbox" name="prefs"
-                                            class="pref_all_list pref_kyu_list" value="3">沖縄県</label>
+                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                        <p>恋人募集</p>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /post -->
 
-                        </div><!-- /都道府県選択 -->
-
-                        <div class="border p-3">
-                            <!-- セク選択 -->
-                            <ul class="flex space-x-10 justify-center mt-2">
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" value="1" id="sex1"><label for="sex1"
-                                        class="ml-1">フェム</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" id="sex2" value="2"><label for="sex2"
-                                        class="ml-1">中性</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" id="sex3" value="3"><label for="sex3"
-                                        class="ml-1">ボイ</label>
-                                </li>
-                            </ul>
-                            <ul class="flex space-x-10 justify-center mt-2">
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" id="sex4" value="4"><label for="sex4"
-                                        class="ml-1">タチ</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" id="sex5" value="5"><label for="sex5"
-                                        class="ml-1">リバ</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="" id="sex6" value="6"><label for="sex6"
-                                        class="ml-1">フェム</label>
-                                </li>
-                            </ul>
-                        </div><!-- /セク選択 -->
-                        <div class="flex justify-center py-3 border items-center">
-                            <!-- 年齢選択 -->
-                            <select name="" id="" id="reset">
-                                <option value="">全年代</option>
-                                <option value="">18歳未満</option>
-                                <option value="">20代</option>
-                                <option value="">30代</option>
-                                <option value="">40代</option>
-                                <option value="">50歳以上</option>
-                            </select>
-                        </div><!-- /年齢選択 -->
-                        <div class="border p-3">
-                            <!-- 募集項目選択 -->
-                            <ul class="flex space-x-10 justify-center mt-2">
-                                <li class="flex items-center" id="reset">
-                                    <input type="checkbox" name="wanted" id="wanted1" value="1"><label for="wanted1"
-                                        class="ml-1">友達募集</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="wanted" id="wanted2" value="2"><label for="wanted2"
-                                        class="ml-1">恋人募集</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input type="checkbox" name="wanted" id="wanted3" value="3"><label for="wanted3"
-                                        class="ml-1">遠距離可</label>
-                                </li>
-                            </ul>
-                        </div><!-- /募集項目選択 -->
-
-                        <div class="flex justify-end"><!-- /リセットボタン -->
-                            <input type="reset" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow my-3" value="リセット">
-                        </div><!-- /リセットボタン -->
-                    </form>
-
-                    <div><!-- post -->
-                        <div class="border-t flex justify-between items-center p-3">
-                            <div class="flex">
-                                <i class="far fa-smile fa-3x"></i>
-                                <div class="ml-3">
-                                    <p>タイトル1</p>
-                                    <p>ニックネーム1</p>
+                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
+                                <!-- post -->
+                                <div class="flex items-center">
+                                    <div class="flex flex-col justify-center">
+                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                        <p class="text-sm">15分前に投稿</p>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p>タイトル3</p>
+                                        <p>ニックネーム3</p>
+                                    </div>
+                                </div>
+                                <div class="ml-auto mr-10">
+                                    <p>都道府県</p>
+                                </div>
+                                <div>
+                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
+                                        <p>友達募集</p>
+                                    </div>
+                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                        <p>恋人募集</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <p>都道府県</p>
-                            </div>
-                            <div>
-                                <p>友達募集</p>
-                                <p>恋人募集</p>
-                            </div>
-                        </div>
-                        <div class="border-t flex justify-between items-center p-3">
-                            <div class="flex">
-                                <i class="far fa-smile fa-3x"></i>
-                                <div class="ml-3">
-                                    <p>タイトル2</p>
-                                    <p>ニックネーム2</p>
+                            <!-- /post -->
+
+                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
+                                <!-- post -->
+                                <div class="flex items-center">
+                                    <div class="flex flex-col justify-center">
+                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                        <p class="text-sm">15分前に投稿</p>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p>タイトル4</p>
+                                        <p>ニックネーム4</p>
+                                    </div>
+                                </div>
+                                <div class="ml-auto mr-10">
+                                    <p>都道府県</p>
+                                </div>
+                                <div>
+                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
+                                        <p>友達募集</p>
+                                    </div>
+                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                        <p>恋人募集</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <p>都道府県</p>
+                            <!-- /post -->
+
+                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
+                                <!-- post -->
+                                <div class="flex items-center">
+                                    <div class="flex flex-col justify-center">
+                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                        <p class="text-sm">15分前に投稿</p>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p>タイトル5</p>
+                                        <p>ニックネーム5</p>
+                                    </div>
+                                </div>
+                                <div class="ml-auto mr-10">
+                                    <p>都道府県</p>
+                                </div>
+                                <div>
+                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
+                                        <p>友達募集</p>
+                                    </div>
+                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                        <p>恋人募集</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p>友達募集</p>
-                                <p>恋人募集</p>
+                            <!-- /post -->
+
+                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
+                                <!-- post -->
+                                <div class="flex items-center">
+                                    <div class="flex flex-col justify-center">
+                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                        <p class="text-sm">15分前に投稿</p>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p>タイトル6</p>
+                                        <p>ニックネーム6</p>
+                                    </div>
+                                </div>
+                                <div class="ml-auto mr-10">
+                                    <p>都道府県</p>
+                                </div>
+                                <div>
+                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
+                                        <p>友達募集</p>
+                                    </div>
+                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
+                                        <p>恋人募集</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div><!-- /post -->
-                        <div class="border-y p-3">
+                            <!-- /post -->
+
+                        </div><!-- /posts -->
+
+                        <div class="border-y-2 border-sky-100 p-3 text-gray-700 cursor-pointer more">
+                            <!-- more -->
                             <p class="text-center">もっと見る</p>
                         </div>
-                    <div><!-- もっと見る -->
+                        <!-- /more -->
 
-                    </div><!-- /もっと見る -->
+                    </div>
+                    <!-- /white dash border -->
 
-                </div><!-- /初期-->
+                </div>
+                <!-- /初期 -->
             </div>
         </div>
     </div>
 
     <x-slot name="script">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="{{ mix('js/pref.js') }}"></script>
-        <script src="{{ mix('js/searchReset.js') }}"></script>
+        <script src="{{ mix('js/morePosts.js') }}"></script>
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('accordion', {
+                    tab: 0
+                });
+
+                Alpine.data('accordion', (idx) => ({
+                    init() {
+                        this.idx = idx;
+                    },
+                    idx: -1,
+                    handleClick() {
+                        this.$store.accordion.tab = this.$store.accordion.tab === this.idx ? 0 : this.idx;
+                    },
+                    handleToggle() {
+                        return this.$store.accordion.tab === this.idx ?
+                            `max-height: ${this.$refs.tab.scrollHeight}px` : '';
+                    }
+                }));
+            })
+        </script>
     </x-slot>
 </x-guest-layout>

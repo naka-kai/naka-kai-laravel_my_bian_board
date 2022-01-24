@@ -18,7 +18,7 @@ class PostSeeder extends Seeder
         DB::table('posts')->insert([
             [
                 'title' => 'タイトル1',
-                'name' => '翼',
+                'name' => 'ゆうき',
                 'age_id' => '2',
                 'prefecture_id' => '3',
                 'email' => 'test1@test.com',
@@ -26,7 +26,7 @@ class PostSeeder extends Seeder
             ],
             [
                 'title' => 'タイトル2',
-                'name' => '葵',
+                'name' => 'あきら',
                 'age_id' => '3',
                 'prefecture_id' => '12',
                 'email' => 'test2@test.com',

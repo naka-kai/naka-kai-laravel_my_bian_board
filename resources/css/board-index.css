@@ -1,0 +1,12 @@
+.post {
+    overflow: hidden;
+}
+
+.is-hidden {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    margin: 0 10px;
+    padding: 0;
+}

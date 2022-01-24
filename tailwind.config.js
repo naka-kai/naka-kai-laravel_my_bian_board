@@ -9,6 +9,10 @@ module.exports = {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'board': "url('../img/board.jpg')",
+                'rainbow': "url('../img/rainbow.png')",
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
