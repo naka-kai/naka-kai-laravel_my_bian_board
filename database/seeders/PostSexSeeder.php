@@ -15,7 +15,7 @@ class PostSexSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('post_sexes')->insert([
+        DB::table('post_sex')->insert([
             [
                 'post_id' => '1',
                 'sex_id' => '2'

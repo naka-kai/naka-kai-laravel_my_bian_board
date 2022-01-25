@@ -9,9 +9,14 @@ class Post_wanted extends Model
 {
     use HasFactory;
 
-    public function post()
+    protected $fillable = [
+        'post_id',
+        'wanted_id'
+    ];
+
+    public function posts()
     {
-        return $this->hasOne(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     public function wanteds()

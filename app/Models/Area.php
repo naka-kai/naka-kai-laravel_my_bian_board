@@ -10,6 +10,10 @@ class Area extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'area'
+    ];
+
     public function prefectures()
     {
         return $this->hasMany(Prefecture::class);

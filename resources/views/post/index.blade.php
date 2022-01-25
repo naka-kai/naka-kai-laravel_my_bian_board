@@ -42,6 +42,9 @@
                             <hr class="border-sky-100 mx-1">
                             <!-- hr border -->
 
+                            {{-- @foreach ( as )
+
+                            @endforeach --}}
                             <div class="p-1" x-data="accordion(1)">
                                 <!-- 北海道・東北地方 -->
                                 <div class="flex items-center">
@@ -274,161 +277,45 @@
 
                         <div class="text-gray-600">
                             <!-- posts -->
-                            <a href="">
-                                <!-- post -->
-                                <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
-                                    <div class="flex items-center">
-                                        <div class="flex flex-col justify-center">
-                                            <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                            <p class="text-sm">15分前に投稿</p>
+
+                            @foreach ($getPosts as $post)
+                                <a href="" class="post">
+                                    <!-- post -->
+                                    <div class="border-t border-sky-100 flex justify-between items-center p-3">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-col justify-center">
+                                                <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                                <p class="text-sm">15分前に投稿</p>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p>{{ $post->title }}</p>
+                                                <p>{{ $post->name }}</p>
+                                            </div>
                                         </div>
-                                        <div class="ml-3">
-                                            <p>タイトル1</p>
-                                            <p>ニックネーム1</p>
+                                        <div class="ml-auto mr-10">
+                                            <p>{{ $post->prefecture->prefecture }}</p>
                                         </div>
-                                    </div>
-                                    <div class="ml-auto mr-10">
-                                        <p>都道府県</p>
-                                    </div>
-                                    <div>
-                                        <div
-                                            class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
-                                            <p>友達募集</p>
-                                        </div>
-                                        <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                            <p>恋人募集</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- /post -->
 
-                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
-                                <!-- post -->
-                                <div class="flex items-center">
-                                    <div class="flex flex-col justify-center">
-                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                        <p class="text-sm">15分前に投稿</p>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p>タイトル2</p>
-                                        <p>ニックネーム2</p>
-                                    </div>
-                                </div>
-                                <div class="ml-auto mr-10">
-                                    <p>都道府県</p>
-                                </div>
-                                <div>
-                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                        <p>恋人募集</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
+                                        <div>
+                                            <!-- 募集項目 -->
+                                            @foreach ($post->wanteds as $wanted)
+                                                <div
+                                                    class="border @if ($wanted->id == 1)
+                                            bg-orange-100 border-orange-300
+                                            @elseif ($wanted->id == 2)
+                                            bg-pink-100 border-pink-300
+                                            @elseif ($wanted->id == 3)
+                                            bg-blue-100 border-blue-300
+                                            @endif px-2 py-1 mr-3 rounded my-1">
+                                                    <p>{{ $wanted->wanted }}</p>
+                                                </div>
+                                            @endforeach
+                                        </div><!-- /募集項目 -->
 
-                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post">
-                                <!-- post -->
-                                <div class="flex items-center">
-                                    <div class="flex flex-col justify-center">
-                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                        <p class="text-sm">15分前に投稿</p>
                                     </div>
-                                    <div class="ml-3">
-                                        <p>タイトル3</p>
-                                        <p>ニックネーム3</p>
-                                    </div>
-                                </div>
-                                <div class="ml-auto mr-10">
-                                    <p>都道府県</p>
-                                </div>
-                                <div>
-                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
-                                        <p>友達募集</p>
-                                    </div>
-                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                        <p>恋人募集</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
-                                <!-- post -->
-                                <div class="flex items-center">
-                                    <div class="flex flex-col justify-center">
-                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                        <p class="text-sm">15分前に投稿</p>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p>タイトル4</p>
-                                        <p>ニックネーム4</p>
-                                    </div>
-                                </div>
-                                <div class="ml-auto mr-10">
-                                    <p>都道府県</p>
-                                </div>
-                                <div>
-                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
-                                        <p>友達募集</p>
-                                    </div>
-                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                        <p>恋人募集</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
-                                <!-- post -->
-                                <div class="flex items-center">
-                                    <div class="flex flex-col justify-center">
-                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                        <p class="text-sm">15分前に投稿</p>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p>タイトル5</p>
-                                        <p>ニックネーム5</p>
-                                    </div>
-                                </div>
-                                <div class="ml-auto mr-10">
-                                    <p>都道府県</p>
-                                </div>
-                                <div>
-                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
-                                        <p>友達募集</p>
-                                    </div>
-                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                        <p>恋人募集</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <div class="border-t border-sky-100 flex justify-between items-center p-3 post is-hidden">
-                                <!-- post -->
-                                <div class="flex items-center">
-                                    <div class="flex flex-col justify-center">
-                                        <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                        <p class="text-sm">15分前に投稿</p>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p>タイトル6</p>
-                                        <p>ニックネーム6</p>
-                                    </div>
-                                </div>
-                                <div class="ml-auto mr-10">
-                                    <p>都道府県</p>
-                                </div>
-                                <div>
-                                    <div class="bg-orange-100 border border-orange-300 px-2 py-1 mr-3 rounded my-1">
-                                        <p>友達募集</p>
-                                    </div>
-                                    <div class="bg-pink-100 border border-pink-300 px-2 py-1 mr-3 rounded">
-                                        <p>恋人募集</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
+                                </a>
+                                <!-- /post -->
+                            @endforeach
 
                         </div><!-- /posts -->
 
