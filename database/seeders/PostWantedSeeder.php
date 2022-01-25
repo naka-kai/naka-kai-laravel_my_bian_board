@@ -15,7 +15,7 @@ class PostWantedSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('post_wanteds')->insert([
+        DB::table('post_wanted')->insert([
             [
                 'post_id' => '1',
                 'wanted_id' => '1'

@@ -9,8 +9,12 @@ class Wanted extends Model
 {
     use HasFactory;
 
-    public function post_outside()
+    protected $fillable = [
+        'wanted'
+    ];
+
+    public function posts()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsToMany(Post::class);
     }
 }

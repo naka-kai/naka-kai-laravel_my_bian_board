@@ -9,8 +9,24 @@ class Sex extends Model
 {
     use HasFactory;
 
-    public function post_sexes()
+    protected $fillable = [
+        'sex'
+    ];
+
+    public function getSexes()
     {
-        return $this->belongsTo(Post_sex::class);
+        $getSexes = Sex::with([
+            'posts'
+        ])
+        ->get();
+
+        // dd($getSexes);
+
+        return $getSexes;
+    }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
     }
 }

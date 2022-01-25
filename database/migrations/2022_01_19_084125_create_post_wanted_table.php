@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostSexesTable extends Migration
+class CreatePostWantedTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreatePostSexesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_sexes', function (Blueprint $table) {
+        Schema::create('post_wanted', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')
                 ->references('id')
                 ->on('posts')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('sex_id');
-            $table->foreign('sex_id')
+            $table->unsignedBigInteger('wanted_id');
+            $table->foreign('wanted_id')
                 ->references('id')
-                ->on('sexes')
+                ->on('wanteds')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreatePostSexesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_sexes');
+        Schema::dropIfExists('post_wanteds');
     }
 }

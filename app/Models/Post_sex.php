@@ -9,9 +9,16 @@ class Post_sex extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'post_id',
+        'sex_id'
+    ];
+
+
+
     public function post()
     {
-        return $this->hasOne(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     public function sexes()

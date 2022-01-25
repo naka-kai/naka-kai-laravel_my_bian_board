@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\Post_sex;
+use App\Models\Sex;
 
 class PostController extends Controller
 {
@@ -16,8 +18,10 @@ class PostController extends Controller
     public function index()
     {
         //
+        $post = new Post;
+        $getPosts = $post->getPosts();
 
-        return view('post.index');
+        return view('post.index', compact('getPosts'));
     }
 
     /**
