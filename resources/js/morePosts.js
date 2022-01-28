@@ -1,6 +1,6 @@
-var show = 2; //最初に表示する件数
-var num = 2;  //clickごとに表示したい件数
-var contents = '.post'; // 対象のlist
+let show = 2; //最初に表示する件数
+let num = 2;  //clickごとに表示したい件数
+let contents = '.post'; // 対象のlist
 
 $(function() {
 

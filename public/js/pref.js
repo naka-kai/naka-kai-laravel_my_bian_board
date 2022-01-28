@@ -12,15 +12,39 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //全選択・解除のチェックボックス
 var pref_all = document.querySelector(".pref_all"); //全選択のチェックボックスのリスト
 
-var pref_all_list = document.querySelectorAll(".pref_all_list"); //北海道・東北地方のチェックボックス
+var pref_all_list = document.querySelectorAll(".pref_all_list"); //北海道のチェックボックス
 
-var pref_hoto = document.querySelector(".pref_hoto"); //北海道・東北地方のチェックボックスのリスト
+var pref_hokk = document.querySelector(".pref_hokk"); //北海道のチェックボックスのリスト
 
-var pref_hoto_list = document.querySelectorAll(".pref_hoto_list"); //関東地方のチェックボックス
+var pref_hokk_list = document.querySelectorAll(".pref_hokk_list"); //東北地方のチェックボックス
+
+var pref_toho = document.querySelector(".pref_toho"); //東北地方のチェックボックスのリスト
+
+var pref_toho_list = document.querySelectorAll(".pref_toho_list"); //関東地方のチェックボックス
 
 var pref_kan = document.querySelector(".pref_kan"); //関東地方のチェックボックスのリスト
 
-var pref_kan_list = document.querySelectorAll(".pref_kan_list"); // 全て選択のチェックボックスがクリックされた時
+var pref_kan_list = document.querySelectorAll(".pref_kan_list"); //中部地方のチェックボックス
+
+var pref_chubu = document.querySelector(".pref_chubu"); //中部地方のチェックボックスのリスト
+
+var pref_chubu_list = document.querySelectorAll(".pref_chubu_list"); //近畿地方のチェックボックス
+
+var pref_kin = document.querySelector(".pref_kin"); //近畿地方のチェックボックスのリスト
+
+var pref_kin_list = document.querySelectorAll(".pref_kin_list"); //中国地方のチェックボックス
+
+var pref_chug = document.querySelector(".pref_chug"); //中国地方のチェックボックスのリスト
+
+var pref_chug_list = document.querySelectorAll(".pref_chug_list"); //四国地方のチェックボックス
+
+var pref_sik = document.querySelector(".pref_sik"); //四国地方のチェックボックスのリスト
+
+var pref_sik_list = document.querySelectorAll(".pref_sik_list"); //九州地方のチェックボックス
+
+var pref_kyu = document.querySelector(".pref_kyu"); //九州地方のチェックボックスのリスト
+
+var pref_kyu_list = document.querySelectorAll(".pref_kyu_list"); // 全て選択のチェックボックスがクリックされた時
 
 pref_all.addEventListener('click', function () {
   var _iterator = _createForOfIteratorHelper(pref_all_list),
@@ -50,16 +74,16 @@ pref_all_list.forEach(function (element) {
       pref_all.checked = true;
     }
   });
-}); //東北
+}); //北海道の全て選択のチェックボックスがクリックされた時
 
-pref_hoto.addEventListener('click', function () {
-  var _iterator2 = _createForOfIteratorHelper(pref_hoto_list),
+pref_hokk.addEventListener('click', function () {
+  var _iterator2 = _createForOfIteratorHelper(pref_hokk_list),
       _step2;
 
   try {
     for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
       val = _step2.value;
-      pref_hoto.checked == true ? val.checked = true : val.checked = false;
+      pref_hokk.checked == true ? val.checked = true : val.checked = false;
     }
   } catch (err) {
     _iterator2.e(err);
@@ -67,31 +91,58 @@ pref_hoto.addEventListener('click', function () {
     _iterator2.f();
   }
 });
-pref_hoto_list.forEach(function (element) {
+pref_hokk_list.forEach(function (element) {
   element.addEventListener('click', function () {
     if (element.checked == false) {
-      pref_hoto.checked = false;
+      pref_hokk.checked = false;
     }
 
-    if (document.querySelectorAll('.pref_hoto_list:checked').length == pref_hoto_list.length) {
-      pref_hoto.checked = true;
+    if (document.querySelectorAll('.pref_hokk_list:checked').length == pref_hokk_list.length) {
+      pref_hokk.checked = true;
     }
   });
-}); //関東
+}); //東北の全て選択のチェックボックスがクリックされた時
 
-pref_kan.addEventListener('click', function () {
-  var _iterator3 = _createForOfIteratorHelper(pref_kan_list),
+pref_toho.addEventListener('click', function () {
+  var _iterator3 = _createForOfIteratorHelper(pref_toho_list),
       _step3;
 
   try {
     for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
       val = _step3.value;
-      pref_kan.checked == true ? val.checked = true : val.checked = false;
+      pref_toho.checked == true ? val.checked = true : val.checked = false;
     }
   } catch (err) {
     _iterator3.e(err);
   } finally {
     _iterator3.f();
+  }
+});
+pref_toho_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_toho.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_toho_list:checked').length == pref_toho_list.length) {
+      pref_toho.checked = true;
+    }
+  });
+}); //関東の全て選択のチェックボックスがクリックされた時
+
+pref_kan.addEventListener('click', function () {
+  var _iterator4 = _createForOfIteratorHelper(pref_kan_list),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      val = _step4.value;
+      pref_kan.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
   }
 });
 pref_kan_list.forEach(function (element) {
@@ -102,6 +153,141 @@ pref_kan_list.forEach(function (element) {
 
     if (document.querySelectorAll('.pref_kan_list:checked').length == pref_kan_list.length) {
       pref_kan.checked = true;
+    }
+  });
+}); //中部の全て選択のチェックボックスがクリックされた時
+
+pref_chubu.addEventListener('click', function () {
+  var _iterator5 = _createForOfIteratorHelper(pref_chubu_list),
+      _step5;
+
+  try {
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      val = _step5.value;
+      pref_chubu.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+});
+pref_chubu_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_chubu.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_chubu_list:checked').length == pref_chubu_list.length) {
+      pref_chubu.checked = true;
+    }
+  });
+}); //近畿の全て選択のチェックボックスがクリックされた時
+
+pref_kin.addEventListener('click', function () {
+  var _iterator6 = _createForOfIteratorHelper(pref_kin_list),
+      _step6;
+
+  try {
+    for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+      val = _step6.value;
+      pref_kin.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator6.e(err);
+  } finally {
+    _iterator6.f();
+  }
+});
+pref_kin_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_kin.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_kin_list:checked').length == pref_kin_list.length) {
+      pref_kin.checked = true;
+    }
+  });
+}); //中国の全て選択のチェックボックスがクリックされた時
+
+pref_chug.addEventListener('click', function () {
+  var _iterator7 = _createForOfIteratorHelper(pref_chug_list),
+      _step7;
+
+  try {
+    for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+      val = _step7.value;
+      pref_chug.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator7.e(err);
+  } finally {
+    _iterator7.f();
+  }
+});
+pref_chug_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_chug.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_chug_list:checked').length == pref_chug_list.length) {
+      pref_chug.checked = true;
+    }
+  });
+}); //四国の全て選択のチェックボックスがクリックされた時
+
+pref_sik.addEventListener('click', function () {
+  var _iterator8 = _createForOfIteratorHelper(pref_sik_list),
+      _step8;
+
+  try {
+    for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+      val = _step8.value;
+      pref_sik.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator8.e(err);
+  } finally {
+    _iterator8.f();
+  }
+});
+pref_sik_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_sik.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_sik_list:checked').length == pref_sik_list.length) {
+      pref_sik.checked = true;
+    }
+  });
+}); //九州の全て選択のチェックボックスがクリックされた時
+
+pref_kyu.addEventListener('click', function () {
+  var _iterator9 = _createForOfIteratorHelper(pref_kyu_list),
+      _step9;
+
+  try {
+    for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+      val = _step9.value;
+      pref_kyu.checked == true ? val.checked = true : val.checked = false;
+    }
+  } catch (err) {
+    _iterator9.e(err);
+  } finally {
+    _iterator9.f();
+  }
+});
+pref_kyu_list.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == false) {
+      pref_kyu.checked = false;
+    }
+
+    if (document.querySelectorAll('.pref_kyu_list:checked').length == pref_kyu_list.length) {
+      pref_kyu.checked = true;
     }
   });
 });

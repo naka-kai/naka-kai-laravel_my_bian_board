@@ -157,36 +157,52 @@ class PrefectureSeeder extends Seeder
                 'area_id' => '6'
             ],
             [
-                'prefecture' => '福岡県',
+                'prefecture' => '徳島県',
                 'area_id' => '7'
+            ],
+            [
+                'prefecture' => '香川県',
+                'area_id' => '7'
+            ],
+            [
+                'prefecture' => '愛媛県',
+                'area_id' => '7'
+            ],
+            [
+                'prefecture' => '高知県',
+                'area_id' => '7'
+            ],
+            [
+                'prefecture' => '福岡県',
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '佐賀県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '長崎県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '熊本県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '大分県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '宮崎県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '鹿児島県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
             [
                 'prefecture' => '沖縄県',
-                'area_id' => '7'
+                'area_id' => '8'
             ],
 
         ]);
