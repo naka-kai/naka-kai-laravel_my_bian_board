@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Area;
 use App\Models\Post;
 use App\Models\Post_sex;
+use App\Models\Prefecture;
 use App\Models\Sex;
 
 class PostController extends Controller
@@ -21,7 +23,15 @@ class PostController extends Controller
         $post = new Post;
         $getPosts = $post->getPosts();
 
-        return view('post.index', compact('getPosts'));
+        $prefecture = new Prefecture;
+        $linkAreaPrefectures = $prefecture->linkAreaPrefectures();
+        
+        // $getPrefectures = $prefecture->getPrefectures();
+
+        // $area = new Area;
+        // $getAreas = $area->getAreas();
+
+        return view('post.index', compact('getPosts', 'linkAreaPrefectures'));
     }
 
     /**

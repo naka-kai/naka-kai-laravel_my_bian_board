@@ -14,6 +14,11 @@ class Area extends Model
         'area'
     ];
 
+    public function getAreas()
+    {
+        $getAreas = Area::all();
+    }
+
     public function prefectures()
     {
         return $this->hasMany(Prefecture::class);
