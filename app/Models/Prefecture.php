@@ -30,17 +30,18 @@ class Prefecture extends Model
     //     $areas = Area::all();
     //     $prefectures = Prefecture::all();
 
-    //     // $linkAreaPrefectures = [];
+    //     $linkAreaPrefectures = [];
     //     foreach ($areas as $area) {
-    //         // $linkAreaPrefectures[$area->area] = array();
+    //         // $linkAreaPrefectures[$area->area] = [];
     //         foreach ($prefectures as $prefecture) {
     //             // dd($prefecture);
     //             if($prefecture->area_id == $area->id) {
-    //                 $linkAreaPrefectures[$area->area][] = [$prefecture->id => $prefecture->prefecture];
+    //                 $linkAreaPrefectures[$area->area] = [$prefecture->id => $prefecture->prefecture];
     //             }
     //         }
     //     }
-    //     // dd($linkAreaPrefectures);
+    //     dd($linkAreaPrefectures);
+    //     return $linkAreaPrefectures;
     // }
 
     public function linkAreaPrefectures()
@@ -101,6 +102,7 @@ class Prefecture extends Model
                 $areaClasses[$area->area] = 'kyu';
             }
         }
+        // dd($areaClasses);
         return $areaClasses;
     }
 
