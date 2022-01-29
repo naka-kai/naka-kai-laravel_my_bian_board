@@ -117,11 +117,9 @@
                                     class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-state">
                                     <option>全年代</option>
-                                    <option>10代(18歳以上)</option>
-                                    <option>20代</option>
-                                    <option>30代</option>
-                                    <option>40代</option>
-                                    <option>50歳以上</option>
+                                    @foreach ($getAges as $age)
+                                    <option>{{ $age->age }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div><!-- /age -->
