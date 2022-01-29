@@ -44,153 +44,44 @@
 
                             @php
                                 $acdNum = 1;
+                                $areaNum = 1;
                                 $prefNum = 0;
-                                // dd($linkAreaPrefectures);
                             @endphp
-                            {{-- {{ dd($linkAreaPrefectures) }} --}}
-                            @foreach ($linkAreaPrefectures as $areaPefecturesKey => $areaPefecturesVal)
-                                {{-- {{ dd($areaPefecturesVal[0][1]) }} --}}
+                            @foreach ($linkAreaPrefectures as $key => $areaPefectures)
+                                {{-- {{ dd($areaClasses['北海道']) }} --}}
                                 <div class="p-1" x-data="accordion({{ $acdNum }})">
-                                    <!-- 北海道・東北地方 -->
+                                    <!-- 地方 -->
                                     <div class="flex items-center">
-                                        {{-- {{ dd($prefNum) }} --}}
-                                        <input type="checkbox" name="prefs"
-                                            class="pref_all_list mb-1 mr-1
-                                    @if ($areaPefecturesVal[0][1] == 1)
-                                    pref_hokk
-                                    @elseif ($areaPefecturesVal[2][1] >= 2 || $areaPefecturesVal[2][1] <= 7)
-                                    pref_toho
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 8 || $areaPefecturesVal[$prefNum][1] <= 14)
-                                    pref_kan
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 15 || $areaPefecturesVal[$prefNum][1] <= 23)
-                                    pref_chubu
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 24 || $areaPefecturesVal[$prefNum][1] <= 30)
-                                    pref_kin
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 31 || $areaPefecturesVal[$prefNum][1] <= 35)
-                                    pref_chug
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 36 || $areaPefecturesVal[$prefNum][1] <= 39)
-                                    pref_sik
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 40 || $areaPefecturesVal[$prefNum][1] <= 47)
-                                    pref_kyu
-                                    @endif"
-                                            id="@if ($areaPefecturesVal[0][1] == 1)
-                                    hokk
-                                    @elseif ($areaPefecturesVal[2][1] >= 2 || $areaPefecturesVal[2][1] <= 7)
-                                    toho
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 8 || $areaPefecturesVal[$prefNum][1] <= 14)
-                                    kan
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 15 || $areaPefecturesVal[$prefNum][1] <= 23)
-                                    chubu
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 24 || $areaPefecturesVal[$prefNum][1] <= 30)
-                                    kin
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 31 || $areaPefecturesVal[$prefNum][1] <= 35)
-                                    chug
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 36 || $areaPefecturesVal[$prefNum][1] <= 39)
-                                    sik
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 40 || $areaPefecturesVal[$prefNum][1] <= 47)
-                                    kyu
-                                    @endif" value="1">
-                                        <label for="@if ($areaPefecturesVal[0][1] == 1)
-                                    hokk
-                                    @elseif ($areaPefecturesVal[2][1] >= 2 || $areaPefecturesVal[2][1] <= 7)
-                                    toho
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 8 || $areaPefecturesVal[$prefNum][1] <= 14)
-                                    kan
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 15 || $areaPefecturesVal[$prefNum][1] <= 23)
-                                    chubu
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 24 || $areaPefecturesVal[$prefNum][1] <= 30)
-                                    kin
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 31 || $areaPefecturesVal[$prefNum][1] <= 35)
-                                    chug
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 36 || $areaPefecturesVal[$prefNum][1] <= 39)
-                                    sik
-                                    @elseif ($areaPefecturesVal[$prefNum][1] >= 40 || $areaPefecturesVal[$prefNum][1] <= 47)
-                                    kyu
-                                    @endif" class="font-semibold text-gray-700"
-                                            class="font-semibold text-gray-700"
-                                            x-on:click="handleClick()">{{ $areaPefecturesKey }}</label><i
+                                        <!-- <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_hokk" id="prefs_hokk" value="1">となる -->
+                                        <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_{{ $areaClasses[$key] }}"
+                                            id="prefs_{{ $areaClasses[$key] }}" value="1">
+                                        <!-- <label for="prefs_hokk" class="font-semibold text-gray-700">北海道(東北地方)</label>となる -->
+                                        <label for="prefs_{{ $areaClasses[$key] }}" class="font-semibold text-gray-700"
+                                            x-on:click="handleClick()">{{ $key }}</label><i
                                             class="fas fa-chevron-down text-gray-700 ml-2"></i>
                                     </div>
                                     <div class="flex overflow-hidden max-h-0 duration-500 transition-all" x-ref="tab"
                                         :style="handleToggle()">
                                         <div class="py-3 pl-1 flex sm:flex-wrap h-auto">
-                                            @foreach ($areaPefecturesVal as $prefectureKey => $prefectureVal)
+                                            @foreach ($areaPefectures as $prefectureKey => $prefectureVal)
                                                 <div class="flex items-center mb-2">
-                                                    <!-- 北海道 -->
+                                                    <!-- 都道府県 -->
+                                                    <!-- <input type="checkbox" name="prefs" class="pref_all_list mr-1 pref_hokk_list" id="1(prefecture->idのこと)" value="1">になる -->
                                                     <input type="checkbox" name="prefs"
-                                                        class="pref_all_list mr-1
-                                                @if ($prefectureVal[1] == 1)
-                                                pref_hokk_list
-                                                @elseif ($prefectureVal[1] >= 2 && $prefectureVal[1] <= 7)
-                                                pref_toho_list
-                                                @elseif ($prefectureVal[1] >= 8 && $prefectureVal[1] <= 14)
-                                                pref_kan_list
-                                                @elseif ($prefectureVal[1] >= 15 && $prefectureVal[1] <= 23)
-                                                pref_chubu_list
-                                                @elseif ($prefectureVal[1] >= 24 && $prefectureVal[1] <= 30)
-                                                pref_kin_list
-                                                @elseif ($prefectureVal[1] >= 31 && $prefectureVal[1] <= 35)
-                                                pref_chug_list
-                                                @elseif ($prefectureVal[1] >= 36 && $prefectureVal[1] <= 39)
-                                                pref_sik_list
-                                                @elseif ($prefectureVal[1] >= 40 && $prefectureVal[1] <= 47)
-                                                pref_kyu_list
-                                                @endif"
-                                                    id="{{ $prefectureVal[1] }}" value="1">
-                                                    <label for="{{ $prefectureVal[1] }}"
-                                                        class="text-gray-600 mr-2">{{ $prefectureVal[0] }}</label>
+                                                        class="pref_all_list mr-1 pref_{{ $areaClasses[$key] }}_list"
+                                                        id="pref_{{ $prefectureVal[1] }}" value="1">
+                                                    <!-- <label for="1(prefecture->idのこと)" class="text-gray-600 mr-2">北海道(青森県)</label> -->
+                                                    <label for="pref_{{ $prefectureVal[1] }}" class="text-gray-600 mr-2">{{ $prefectureVal[0] }}</label>
                                                 </div>
-                                                <!-- /北海道 -->
+                                                <!-- /都道府県 -->
                                                 @php
                                                     $acdNum++;
                                                 @endphp
                                             @endforeach
-                                            {{-- <div class="flex items-center">
-                                            <!-- 青森県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">青森県</label>
-                                        </div>
-                                        <!-- /青森県 -->
-                                        <div class="flex items-center">
-                                            <!-- 岩手県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">岩手県</label>
-                                        </div>
-                                        <!-- /岩手県 -->
-                                        <div class="flex items-center">
-                                            <!-- 宮城県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">宮城県</label>
-                                        </div>
-                                        <!-- /宮城県 -->
-                                        <div class="flex items-center">
-                                            <!-- 秋田県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">秋田県</label>
-                                        </div>
-                                        <!-- /秋田県 -->
-                                        <div class="flex items-center">
-                                            <!-- 山形県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">山形県</label>
-                                        </div>
-                                        <!-- /山形県 -->
-                                        <div class="flex items-center">
-                                            <!-- 福島県 -->
-                                            <input type="checkbox" name="prefs"
-                                                class="pref_all_list pref_hoto_list mr-1" value="1">
-                                            <label for="" class="text-gray-600 mr-2">福島県</label>
-                                        </div>
-                                        <!-- /福島県 --> --}}
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /北海道・東北地方 -->
+                                <!-- /地方 -->
                                 @php
                                     $prefNum++;
                                 @endphp
@@ -198,72 +89,6 @@
 
                             <hr class="border-sky-100 mx-1">
                             <!-- hr border -->
-
-                            {{-- <div class="p-1" x-data="accordion(2)">
-                                <!-- 関東地方 -->
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="prefs" class="pref_all_list pref_kan mb-1 mr-1"
-                                        value="1">
-                                    <label for="" class="font-semibold text-gray-700"
-                                        class="font-semibold text-gray-700" x-on:click="handleClick()">関東地方</label><i
-                                        class="fas fa-chevron-down text-gray-700 ml-2"></i>
-                                </div>
-                                <div class="flex overflow-hidden max-h-0 duration-500 transition-all" x-ref="tab"
-                                    :style="handleToggle()">
-                                    <div class="py-3 pl-1 flex">
-                                        <div class="flex items-center">
-                                            <!-- 茨城県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">茨城県</label>
-                                        </div>
-                                        <!-- /茨城県 -->
-                                        <div class="flex items-center">
-                                            <!-- 栃木県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">栃木県</label>
-                                        </div>
-                                        <!-- /栃木県 -->
-                                        <div class="flex items-center">
-                                            <!-- 群馬県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">群馬県</label>
-                                        </div>
-                                        <!-- /群馬県 -->
-                                        <div class="flex items-center">
-                                            <!-- 埼玉県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">埼玉県</label>
-                                        </div>
-                                        <!-- /埼玉県 -->
-                                        <div class="flex items-center">
-                                            <!-- 千葉県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">千葉県</label>
-                                        </div>
-                                        <!-- /千葉県 -->
-                                        <div class="flex items-center">
-                                            <!-- 東京都 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">東京都</label>
-                                        </div>
-                                        <!-- /東京都 -->
-                                        <div class="flex items-center">
-                                            <!-- 神奈川県 -->
-                                            <input type="checkbox" name="prefs" class="pref_all_list pref_kan_list mr-1"
-                                                value="1">
-                                            <label for="" class="text-gray-600 mr-2">神奈川県</label>
-                                        </div>
-                                        <!-- /神奈川県 -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /関東地方 --> --}}
 
                         </div>
                         <!-- /都道府県選択 -->

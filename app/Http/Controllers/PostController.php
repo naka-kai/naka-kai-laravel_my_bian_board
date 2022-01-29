@@ -25,13 +25,13 @@ class PostController extends Controller
 
         $prefecture = new Prefecture;
         $linkAreaPrefectures = $prefecture->linkAreaPrefectures();
-        
+        $areaClasses = $prefecture->areaClass();
         // $getPrefectures = $prefecture->getPrefectures();
 
         // $area = new Area;
         // $getAreas = $area->getAreas();
 
-        return view('post.index', compact('getPosts', 'linkAreaPrefectures'));
+        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses'));
     }
 
     /**
