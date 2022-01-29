@@ -127,24 +127,14 @@
                         <div class="border-y-4 border-t-0 border-sky-100 p-3">
                             <!-- wanted -->
                             <div class="flex space-x-10 justify-center items-center" id="reset">
+                                @foreach ($getWanteds as $wanted)
                                 <label class="block text-gray-500 font-bold">
                                     <input class="mr-2 leading-tight" type="checkbox">
                                     <span class="text-sm">
-                                        友達募集
+                                        {{ $wanted->wanted }}
                                     </span>
                                 </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        恋人募集
-                                    </span>
-                                </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        遠距離可
-                                    </span>
-                                </label>
+                                @endforeach
                             </div>
                         </div><!-- /wanted -->
 

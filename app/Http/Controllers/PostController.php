@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Post_sex;
 use App\Models\Prefecture;
 use App\Models\Sex;
+use App\Models\Wanted;
 
 class PostController extends Controller
 {
@@ -34,7 +35,10 @@ class PostController extends Controller
         $age = new Age;
         $getAges = $age->getAges();
 
-        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses', 'getSexes', 'getAges'));
+        $wanted = new Wanted;
+        $getWanteds = $wanted->getWanteds();
+
+        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses', 'getSexes', 'getAges', 'getWanteds'));
     }
 
     /**
