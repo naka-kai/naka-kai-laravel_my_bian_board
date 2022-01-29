@@ -15,10 +15,7 @@ class Sex extends Model
 
     public function getSexes()
     {
-        $getSexes = Sex::with([
-            'posts'
-        ])
-        ->get();
+        $getSexes = Sex::all();
 
         // dd($getSexes);
 

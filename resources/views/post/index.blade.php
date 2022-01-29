@@ -53,10 +53,12 @@
                                     <!-- 地方 -->
                                     <div class="flex items-center">
                                         <!-- <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_hokk" id="prefs_hokk" value="1">となる -->
-                                        <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_{{ $areaClasses[$key] }}"
+                                        <input type="checkbox" name="prefs"
+                                            class="pref_all_list mb-1 mr-1 pref_{{ $areaClasses[$key] }}"
                                             id="prefs_{{ $areaClasses[$key] }}" value="1">
                                         <!-- <label for="prefs_hokk" class="font-semibold text-gray-700">北海道(東北地方)</label>となる -->
-                                        <label for="prefs_{{ $areaClasses[$key] }}" class="font-semibold text-gray-700"
+                                        <label for="prefs_{{ $areaClasses[$key] }}"
+                                            class="font-semibold text-gray-700"
                                             x-on:click="handleClick()">{{ $key }}</label><i
                                             class="fas fa-chevron-down text-gray-700 ml-2"></i>
                                     </div>
@@ -71,7 +73,8 @@
                                                         class="pref_all_list mr-1 pref_{{ $areaClasses[$key] }}_list"
                                                         id="pref_{{ $prefectureVal[1] }}" value="1">
                                                     <!-- <label for="1(prefecture->idのこと)" class="text-gray-600 mr-2">北海道(青森県)</label> -->
-                                                    <label for="pref_{{ $prefectureVal[1] }}" class="text-gray-600 mr-2">{{ $prefectureVal[0] }}</label>
+                                                    <label for="pref_{{ $prefectureVal[1] }}"
+                                                        class="text-gray-600 mr-2">{{ $prefectureVal[0] }}</label>
                                                 </div>
                                                 <!-- /都道府県 -->
                                                 @php
@@ -87,7 +90,7 @@
                                 @endphp
                             @endforeach
 
-                            <hr class="border-sky-100 mx-1">
+                            {{-- <hr class="border-sky-100 mx-1"> --}}
                             <!-- hr border -->
 
                         </div>
@@ -96,44 +99,14 @@
                         <div class="border-y-2 border-t-0 border-sky-100 p-3">
                             <!-- sex -->
                             <div class="flex space-x-10 justify-center items-center">
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        フェム
-                                    </span>
-                                </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        中性
-                                    </span>
-                                </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        ボイ
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="flex space-x-10 justify-center items-center">
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        タチ
-                                    </span>
-                                </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        リバ
-                                    </span>
-                                </label>
-                                <label class="block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight" type="checkbox">
-                                    <span class="text-sm">
-                                        ネコ
-                                    </span>
-                                </label>
+                                @foreach ($getSexes as $i => $sex)
+                                    <label class="block text-gray-500 font-bold">
+                                        <input class="mr-2 leading-tight" type="checkbox">
+                                        <span class="text-sm">
+                                            {{ $sex->sex }}
+                                        </span>
+                                    </label>
+                                @endforeach
                             </div>
                         </div><!-- /sex -->
 
