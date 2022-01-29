@@ -13,6 +13,13 @@ class Wanted extends Model
         'wanted'
     ];
 
+    public function getWanteds()
+    {
+        $getWanted = Wanted::all();
+
+        return $getWanted;
+    }
+
     public function posts()
     {
         return $this->belongsToMany(Post::class);
