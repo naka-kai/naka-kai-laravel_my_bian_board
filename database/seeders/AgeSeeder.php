@@ -16,7 +16,7 @@ class AgeSeeder extends Seeder
     {
         //
         DB::table('ages')->insert([
-            ['age' => '18歳以上'],
+            ['age' => '10代(18歳以上)'],
             ['age' => '20代'],
             ['age' => '30代'],
             ['age' => '40代'],

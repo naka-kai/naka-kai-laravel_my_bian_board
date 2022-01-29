@@ -13,6 +13,13 @@ class Age extends Model
         'age'
     ];
 
+    public function getAges()
+    {
+        $getAges = Age::all();
+
+        return $getAges;
+    }
+
     public function post()
     {
         return $this->hasOne(Post::class);

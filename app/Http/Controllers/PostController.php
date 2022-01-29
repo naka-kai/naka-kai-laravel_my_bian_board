@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Age;
 use App\Models\Area;
 use App\Models\Post;
 use App\Models\Post_sex;
@@ -30,8 +31,10 @@ class PostController extends Controller
         $sex = new Sex;
         $getSexes = $sex->getSexes();
 
+        $age = new Age;
+        $getAges = $age->getAges();
 
-        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses', 'getSexes'));
+        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses', 'getSexes', 'getAges'));
     }
 
     /**
