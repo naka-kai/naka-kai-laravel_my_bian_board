@@ -25,58 +25,20 @@ class Prefecture extends Model
         dd($getPrefectures);
     }
 
-    // public function linkAreaPrefectures()
-    // {
-    //     $areas = Area::all();
-    //     $prefectures = Prefecture::all();
-
-    //     $linkAreaPrefectures = [];
-    //     foreach ($areas as $area) {
-    //         // $linkAreaPrefectures[$area->area] = [];
-    //         foreach ($prefectures as $prefecture) {
-    //             // dd($prefecture);
-    //             if($prefecture->area_id == $area->id) {
-    //                 $linkAreaPrefectures[$area->area] = [$prefecture->id => $prefecture->prefecture];
-    //             }
-    //         }
-    //     }
-    //     dd($linkAreaPrefectures);
-    //     return $linkAreaPrefectures;
-    // }
-
     public function linkAreaPrefectures()
     {
         $areas = Area::all();
         $prefectures = Prefecture::all();
 
+        $linkAreaPrefectures = [];
         foreach ($areas as $area) {
-            foreach ($prefectures as $prefectureKey => $prefectureVal) {
-                if ($prefectureVal->area_id == $area->id) {
-                    if($prefectureVal->area_id == 1) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'hokk', $area->area];
-                    } elseif ($prefectureVal->area_id == 2) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'toho', $area->area];
-                    } elseif ($prefectureVal->area_id == 3) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'kan', $area->area];
-                    } elseif ($prefectureVal->area_id == 4) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'chubu', $area->area];
-                    } elseif ($prefectureVal->area_id == 5) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'kin', $area->area];
-                    } elseif ($prefectureVal->area_id == 6) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'chug', $area->area];
-                    } elseif ($prefectureVal->area_id == 7) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'sik', $area->area];
-                    } elseif ($prefectureVal->area_id == 8) {
-                        $linkAreaPrefecture[$area->area][] = [$prefectureVal->prefecture, $prefectureVal->id, 'kyu', $area->area];
-                    }
+            foreach ($prefectures as $prefecture) {
+                if($prefecture->area_id == $area->id) {
+                    $linkAreaPrefectures[$area->area][$prefecture->id] = $prefecture->prefecture;
                 }
             }
-            $linkAreaPrefectures[] = $linkAreaPrefecture;
-            // $linkAreaPrefecture = [];
         }
-
-        // dd($linkAreaPrefecture);
-        return $linkAreaPrefecture;
+        return $linkAreaPrefectures;
     }
 
     public function areaClass()

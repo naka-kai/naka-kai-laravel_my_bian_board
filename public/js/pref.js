@@ -9,6 +9,9 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+/**
+ * チェックがついたかどうか
+ */
 //全選択・解除のチェックボックス
 var pref_all = document.querySelector(".pref_all"); //全選択のチェックボックスのリスト
 
@@ -90,12 +93,15 @@ pref_hokk.addEventListener('click', function () {
   } finally {
     _iterator2.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_hokk_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_hokk.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_hokk_list:checked').length == pref_hokk_list.length) {
       pref_hokk.checked = true;
@@ -117,12 +123,15 @@ pref_toho.addEventListener('click', function () {
   } finally {
     _iterator3.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_toho_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_toho.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_toho_list:checked').length == pref_toho_list.length) {
       pref_toho.checked = true;
@@ -144,12 +153,15 @@ pref_kan.addEventListener('click', function () {
   } finally {
     _iterator4.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_kan_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_kan.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_kan_list:checked').length == pref_kan_list.length) {
       pref_kan.checked = true;
@@ -171,12 +183,15 @@ pref_chubu.addEventListener('click', function () {
   } finally {
     _iterator5.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_chubu_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_chubu.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_chubu_list:checked').length == pref_chubu_list.length) {
       pref_chubu.checked = true;
@@ -198,12 +213,15 @@ pref_kin.addEventListener('click', function () {
   } finally {
     _iterator6.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_kin_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_kin.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_kin_list:checked').length == pref_kin_list.length) {
       pref_kin.checked = true;
@@ -225,12 +243,15 @@ pref_chug.addEventListener('click', function () {
   } finally {
     _iterator7.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_chug_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_chug.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_chug_list:checked').length == pref_chug_list.length) {
       pref_chug.checked = true;
@@ -252,12 +273,15 @@ pref_sik.addEventListener('click', function () {
   } finally {
     _iterator8.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_sik_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_sik.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_sik_list:checked').length == pref_sik_list.length) {
       pref_sik.checked = true;
@@ -279,17 +303,52 @@ pref_kyu.addEventListener('click', function () {
   } finally {
     _iterator9.f();
   }
-});
+}); // 個別のチェックボックスがクリックされた時
+
 pref_kyu_list.forEach(function (element) {
   element.addEventListener('click', function () {
+    // チェックが1つでも外された時
     if (element.checked == false) {
       pref_kyu.checked = false;
-    }
+    } // 全てにチェックがされた時
+
 
     if (document.querySelectorAll('.pref_kyu_list:checked').length == pref_kyu_list.length) {
       pref_kyu.checked = true;
     }
   });
 });
+/**
+ * アコーディオン
+ */
+// $(function () {
+//     $('.acd-area').click(function () {
+//         $(this).next('.acd-prefs').slideToggle();
+//         $(this).toggleClass("open");
+//     });
+// });
+
+window.addEventListener('DOMContentLoaded', function (e) {
+  var acd_area = document.querySelectorAll(".acd-area");
+
+  function toggle() {
+    var acd_prefs = this.nextElementSibling;
+    this.classList.toggle("is-active");
+    acd_prefs.classList.toggle("is-open");
+  }
+
+  for (var i = 0; i < acd_area.length; i++) {
+    acd_area[i].addEventListener("click", toggle);
+    console.log('ok');
+  }
+}); // const acd_area = document.querySelectorAll(".acd-area");
+// const acd_prefs = document.querySelectorAll(".acd-prefs");
+// for (let i = 0; i < acd_area.length; i++) {
+//     acd_area[i].addEventListener("click", function () {
+//         console.log('ok');
+//         this.classList.toggle("active");
+//         acd_prefs[i].classList.toggle("active");
+//     });
+// }
 /******/ })()
 ;

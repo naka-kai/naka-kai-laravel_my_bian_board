@@ -3,5 +3,6 @@
     "/js/pref.js": "/js/pref.js",
     "/js/morePosts.js": "/js/morePosts.js",
     "/css/app.css": "/css/app.css",
-    "/css/board-index.css": "/css/board-index.css"
+    "/css/board-index.css": "/css/board-index.css",
+    "/css/pref.css": "/css/pref.css"
 }
