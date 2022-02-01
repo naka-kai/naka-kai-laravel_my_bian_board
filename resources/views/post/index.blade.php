@@ -212,27 +212,5 @@
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="{{ mix('js/pref.js') }}"></script>
         <script src="{{ mix('js/morePosts.js') }}"></script>
-        <script>
-            //アコーディオン
-            // document.addEventListener('alpine:init', () => {
-            //     Alpine.store('accordion', {
-            //         tab: 0
-            //     });
-
-            //     Alpine.data('accordion', (idx) => ({
-            //         init() {
-            //             this.idx = idx;
-            //         },
-            //         idx: -1,
-            //         handleClick() {
-            //             this.$store.accordion.tab = this.$store.accordion.tab === this.idx ? 0 : this.idx;
-            //         },
-            //         handleToggle() {
-            //             return this.$store.accordion.tab === this.idx ?
-            //                 `max-height: ${this.$refs.tab.scrollHeight}px` : '';
-            //         }
-            //     }));
-            // })
-        </script>
     </x-slot>
 </x-guest-layout>
