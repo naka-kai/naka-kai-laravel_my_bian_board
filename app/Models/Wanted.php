@@ -10,12 +10,15 @@ class Wanted extends Model
     use HasFactory;
 
     protected $fillable = [
-        'wanted'
+        'wanted',
+        'inputName',
     ];
 
     public function getWanteds()
     {
         $getWanted = Wanted::all();
+
+        // dd($getWanted);
 
         return $getWanted;
     }

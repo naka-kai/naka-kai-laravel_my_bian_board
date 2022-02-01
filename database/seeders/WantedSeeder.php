@@ -16,9 +16,18 @@ class WantedSeeder extends Seeder
     {
         //
         DB::table('wanteds')->insert([
-            ['wanted' => '友達募集'],
-            ['wanted' => '恋人募集'],
-            ['wanted' => '遠距離可'],
+            [
+                'wanted' => '友達募集',
+                'inputName' => 'wanted-friend'
+            ],
+            [
+                'wanted' => '恋人募集',
+                'inputName' => 'wanted-lover'
+            ],
+            [
+                'wanted' => '遠距離可',
+                'inputName' => 'wanted-longok'
+            ],
         ]);
     }
 }

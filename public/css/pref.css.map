@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACP,MAAM,EAAE,CAAC;EACT,QAAQ,EAAE,MAAM;EAChB,OAAO,EAAE,CAAC;EACV,mBAAmB,EAAE,IAAI;CAC5B;;AAED,AAAA,UAAU,AAAA,QAAQ,CAAC;EACf,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,CAAC;CACb",
     "sources": [
         "../../resources/sass/pref.scss"
     ],

@@ -17,6 +17,8 @@ class Age extends Model
     {
         $getAges = Age::all();
 
+        // dd($getAges);
+
         return $getAges;
     }
 

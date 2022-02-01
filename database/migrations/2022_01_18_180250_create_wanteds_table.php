@@ -16,6 +16,7 @@ class CreateWantedsTable extends Migration
         Schema::create('wanteds', function (Blueprint $table) {
             $table->id();
             $table->string('wanted');
+            $table->string('inputName');
             $table->timestamps();
         });
     }

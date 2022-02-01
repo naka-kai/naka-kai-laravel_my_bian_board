@@ -20,9 +20,10 @@ class Prefecture extends Model
         $getPrefectures = Prefecture::with([
             'area'
         ])
-            ->get();
+        ->get();
 
-        dd($getPrefectures);
+        // dd($getPrefectures);
+        return $getPrefectures;
     }
 
     public function linkAreaPrefectures()
@@ -33,7 +34,7 @@ class Prefecture extends Model
         $linkAreaPrefectures = [];
         foreach ($areas as $area) {
             foreach ($prefectures as $prefecture) {
-                if($prefecture->area_id == $area->id) {
+                if ($prefecture->area_id == $area->id) {
                     $linkAreaPrefectures[$area->area][$prefecture->id] = $prefecture->prefecture;
                 }
             }
