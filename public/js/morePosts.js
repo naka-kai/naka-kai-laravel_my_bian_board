@@ -3,18 +3,19 @@ var __webpack_exports__ = {};
 /*!***********************************!*\
   !*** ./resources/js/morePosts.js ***!
   \***********************************/
-var show = 2; //最初に表示する件数
-
-var num = 2; //clickごとに表示したい件数
-
-var contents = '.post'; // 対象のlist
-
 $(function () {
-  $(contents + ':nth-child(n + ' + (show + 1) + ')').addClass('is-hidden');
-  $('.more').on('click', function () {
-    $(contents + '.is-hidden').slice(0, num).removeClass('is-hidden');
+  var show = 2; //最初に表示する件数
 
-    if ($(contents + '.is-hidden').length == 0) {
+  var num = 2; //clickごとに表示したい件数
+
+  var contents = '.post'; // 対象のlist
+
+  console.log(contents + ':nth-child(n + ' + (show + 1) + ')');
+  $(contents + ':nth-child(n + ' + (show + 1) + ')').addClass('hidden');
+  $('.more').on('click', function () {
+    $(contents + '.hidden').slice(0, num).removeClass('hidden');
+
+    if ($(contents + '.hidden').length == 0) {
       $('.more').fadeOut();
     }
   });

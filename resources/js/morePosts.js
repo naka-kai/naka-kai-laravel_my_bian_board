@@ -1,13 +1,15 @@
-let show = 2; //最初に表示する件数
-let num = 2;  //clickごとに表示したい件数
-let contents = '.post'; // 対象のlist
 
 $(function() {
+    let show = 2; //最初に表示する件数
+    let num = 2;  //clickごとに表示したい件数
+    let contents = '.post'; // 対象のlist
 
-    $(contents + ':nth-child(n + ' + (show + 1) + ')').addClass('is-hidden');
+    console.log(contents + ':nth-child(n + ' + (show + 1) + ')');
+
+    $(contents + ':nth-child(n + ' + (show + 1) + ')').addClass('hidden');
     $('.more').on('click', function () {
-        $(contents + '.is-hidden').slice(0, num).removeClass('is-hidden');
-            if ($(contents + '.is-hidden').length == 0) {
+        $(contents + '.hidden').slice(0, num).removeClass('hidden');
+            if ($(contents + '.hidden').length == 0) {
                 $('.more').fadeOut();
         }
     });
