@@ -5,6 +5,7 @@
 
     <x-slot name="head">
         <link rel="stylesheet" href="{{ mix('css/board-index.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/pref.css') }}">
     </x-slot>
 
     <x-slot name="header" class="bg-rainbow">
@@ -63,11 +64,11 @@
                                                 class="font-semibold text-gray-700">{{ $key }}</label><i
                                                 class="fas fa-chevron-down text-gray-700 ml-2"></i>
                                         </div>
-                                        <div class="acd-prefs flex overflow-hidden max-h-0 duration-500 transition-all">
-                                            <div class="py-3 pl-1 flex sm:flex-wrap h-auto">
+                                        <div class="acd-prefs flex">
+                                            <div class="py-2 pl-1 flex sm:flex-wrap">
                                                 @foreach ($areaPefectures as $prefectureKey => $prefectureVal)
                                                     {{-- {{ dd($areaPefectures) }} --}}
-                                                    <div class="flex items-center mb-2">
+                                                    <div class="flex items-center">
                                                         <!-- 都道府県 -->
                                                         <!-- <input type="checkbox" name="prefs" class="pref_all_list mr-1 pref_hokk_list" id="pref_1" value="1">になる -->
                                                         <input type="checkbox" name="prefs"
@@ -76,7 +77,7 @@
                                                             value="{{ $prefectureKey }}">
                                                         <!-- <label for="1(prefecture->idのこと)" class="text-gray-600 mr-2">北海道(青森県)</label> -->
                                                         <label for="pref_{{ $prefectureKey }}"
-                                                            class="text-gray-600 mr-2">{{ $prefectureVal }}</label>
+                                                            class="text-gray-600 mr-4">{{ $prefectureVal }}</label>
                                                     </div>
                                                     <!-- /都道府県 -->
                                                     @php

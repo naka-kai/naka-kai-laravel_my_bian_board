@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
 use App\Models\Age;
 use App\Models\Area;
 use App\Models\Post;
@@ -49,7 +50,26 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('post.create');
+        $age = new Age;
+        $getAges = $age->getAges();
+
+        $wanted = new Wanted;
+        $getWanteds = $wanted->getWanteds();
+
+        $prefecture = new Prefecture;
+        $getPrefectures = $prefecture->getPrefectures();
+
+        $sex = new Sex;
+        $getSexes = $sex->getSexes();
+
+        return view('post.create', compact('getAges', 'getWanteds', 'getPrefectures', 'getSexes'));
+    }
+
+    public function create_confirm(Request $request)
+    {
+        $inputs = $request->all();
+
+        return view('post.create_confirm', compact('inputs'));
     }
 
     /**
@@ -58,9 +78,20 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
         //
+        // $inputs = $request->all();
+        Post::create([
+            'title' => $request->title,
+            'name' => $request->name,
+            'age_id' => $request->age,
+            'prefecture_id' => $request->prefecture,
+            'email' => $request->email,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('post.index');
     }
 
     /**

@@ -16,12 +16,30 @@ class SexSeeder extends Seeder
     {
         //
         DB::table('sexes')->insert([
-            [ 'sex' => 'フェム' ],
-            [ 'sex' => '中性' ],
-            [ 'sex' => 'ボイ' ],
-            [ 'sex' => 'タチ' ],
-            [ 'sex' => 'リバ' ],
-            [ 'sex' => 'ネコ' ],
+            [
+                'sex' => 'フェム',
+                'inputName' => 'fem'
+            ],
+            [
+                'sex' => '中性',
+                'inputName' => 'neutral'
+            ],
+            [
+                'sex' => 'ボイ',
+                'inputName' => 'boy'
+            ],
+            [
+                'sex' => 'タチ',
+                'inputName' => 'top'
+            ],
+            [
+                'sex' => 'リバ',
+                'inputName' => 'vers'
+            ],
+            [
+                'sex' => 'ネコ',
+                'inputName' => 'btm'
+            ],
         ]);
     }
 }

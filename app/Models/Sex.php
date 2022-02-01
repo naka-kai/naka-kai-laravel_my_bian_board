@@ -10,7 +10,8 @@ class Sex extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sex'
+        'sex',
+        'inputName'
     ];
 
     public function getSexes()

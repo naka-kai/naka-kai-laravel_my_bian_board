@@ -257,21 +257,20 @@ pref_kyu_list.forEach(element => {
 //     });
 // });
 
-window.addEventListener('DOMContentLoaded', function (e) {
+window.onload = function (e) {
 
     const acd_area = document.querySelectorAll(".acd-area")
 
-    function toggle() {
-        const acd_prefs = this.nextElementSibling;
-        this.classList.toggle("is-active");
-        acd_prefs.classList.toggle("is-open");
-    }
-
     for (let i = 0; i < acd_area.length; i++) {
-        acd_area[i].addEventListener("click", toggle);
-        console.log('ok');
+        acd_area[i].addEventListener("click", function toggle(event) {
+            if (event.target.id == 'pref_hokk' || event.target.id == 'pref_toho' || event.target.id == 'pref_kan' || event.target.id == 'pref_chubu' || event.target.id == 'pref_kin' || event.target.id == 'pref_chug' || event.target.id == 'pref_sik' || event.target.id == 'pref_kyu') {
+                const acd_prefs = this.nextElementSibling;
+                this.classList.toggle("is-active");
+                acd_prefs.classList.toggle("is-open");
+            }
+        });
     }
-});
+};
 
 // const acd_area = document.querySelectorAll(".acd-area");
 // const acd_prefs = document.querySelectorAll(".acd-prefs");

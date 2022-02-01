@@ -1,1 +1,13 @@
+.acd-prefs {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+}
 
+.acd-prefs.is-open {
+  height: auto;
+  opacity: 1;
+}
+/*# sourceMappingURL=pref.css.map */
