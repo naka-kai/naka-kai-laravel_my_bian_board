@@ -28,8 +28,9 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3" for="title">
                                 タイトル
                             </label>
-                            <p class="w-2/3 break-words">title5</p>
-                            <input type="hidden" name="title" value="">
+                            {{-- {{ dd($getAges) }} --}}
+                            <p class="w-2/3 break-words">{{ $inputs['title'] }}</p>
+                            <input type="hidden" name="title" value="{{ $inputs['title'] }}">
                         </div><!-- /title -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -37,8 +38,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3" for="name">
                                 ニックネーム
                             </label>
-                            <p class="w-2/3 break-words">name5</p>
-                            <input type="hidden" name="name" value="">
+                            <p class="w-2/3 break-words">{{ $inputs['name'] }}</p>
+                            <input type="hidden" name="name" value="{{ $inputs['name'] }}">
                         </div><!-- /name -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -46,8 +47,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 年齢
                             </label>
-                            <p class="w-2/3">20代</p>
-                            <input type="hidden" name="age" value="">
+                            <p class="w-2/3">{{ $inputs['age'] }}</p>
+                            <input type="hidden" name="age" value="{{ $inputs['age_id'] }}">
                         </div><!-- /age -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -55,8 +56,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 希望する相手の条件
                             </label>
-                            <p class="w-2/3 break-words">恋人募集, 友達募集</p>
-                            <input type="hidden" name="wanted" value="">
+                            <p class="w-2/3 break-words">{{ $inputs['wanted'] }}</p>
+                            <input type="hidden" name="wanted" value="{{ $inputs['wanted_id'] }}">
                         </div><!-- /wanted -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -64,8 +65,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 住んでいる場所
                             </label>
-                            <p class="w-2/3">北海道</p>
-                            <input type="hidden" name="prefecture" value="">
+                            <p class="w-2/3">{{ $inputs['prefecture'] }}</p>
+                            <input type="hidden" name="prefecture" value="{{ $inputs['prefecture_id'] }}">
                         </div><!-- /prefecture -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -73,8 +74,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 自分のセク
                             </label>
-                            <p class="w-2/3 break-words">ボイ, リバ</p>
-                            <input type="hidden" name="sex" value="">
+                            <p class="w-2/3 break-words">{{ $inputs['sex'] }}</p>
+                            <input type="hidden" name="sex" value="{{ $inputs['sex_id'] }}">
                         </div><!-- /sex -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -82,8 +83,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 メールアドレス
                             </label>
-                            <p class="w-2/3">test5@test.com</p>
-                            <input type="hidden" name="email" value="">
+                            <p class="w-2/3">{{ $inputs['email'] }}</p>
+                            <input type="hidden" name="email" value="{{ $inputs['email'] }}">
                         </div><!-- /email -->
 
                         <div class="w-1/2 mx-auto mb-6 flex">
@@ -91,8 +92,8 @@
                             <label class="block text-gray-700 font-bold mb-2 pr-4 w-1/3">
                                 投稿内容
                             </label>
-                            <p class="w-2/3 break-words">contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent<br>content</p>
-                            <input type="hidden" name="content" value="">
+                            <p class="w-2/3 break-words">{{ $inputs['content'] }}</p>
+                            <input type="hidden" name="content" value="{{ $inputs['content'] }}">
                         </div><!-- /content -->
 
                         <div class="flex items-center">

@@ -16,13 +16,13 @@ class Post_sex extends Model
 
 
 
-    public function post()
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function post()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 
-    public function sexes()
-    {
-        return $this->hasMany(Sex::class);
-    }
+    // public function sexes()
+    // {
+    //     return $this->hasMany(Sex::class);
+    // }
 }

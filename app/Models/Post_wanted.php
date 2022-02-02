@@ -14,13 +14,13 @@ class Post_wanted extends Model
         'wanted_id'
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function posts()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 
-    public function wanteds()
-    {
-        return $this->hasMany(Wanted::class);
-    }
+    // public function wanteds()
+    // {
+    //     return $this->hasMany(Wanted::class);
+    // }
 }

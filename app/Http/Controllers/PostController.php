@@ -9,9 +9,12 @@ use App\Models\Age;
 use App\Models\Area;
 use App\Models\Post;
 use App\Models\Post_sex;
+use App\Models\Post_wanted;
 use App\Models\Prefecture;
 use App\Models\Sex;
 use App\Models\Wanted;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -67,7 +70,54 @@ class PostController extends Controller
 
     public function create_confirm(Request $request)
     {
+
+        $age = new Age;
+        $getAges = $age->getAges();
+
+        $wanted = new Wanted;
+        $getWanteds = $wanted->getWanteds();
+
+        $prefecture = new Prefecture;
+        $getPrefectures = $prefecture->getPrefectures();
+
+        $sex = new Sex;
+        $getSexes = $sex->getSexes();
+
         $inputs = $request->all();
+
+        // dd($inputs);
+
+        foreach($getAges as $age) {
+            if($age->id == $inputs['age']) {
+                $inputs['age_id'] = $age->id;
+                $inputs['age'] = $age->age;
+            }
+        }
+
+        foreach ($getWanteds as $wanted) {
+            if ($wanted->id == $inputs['wanted']) {
+                $inputs['wanted_id'] = $wanted->id;
+                $inputs['wanted'] = $wanted->wanted;
+            }
+        }
+
+        // dd($getPrefectures);
+
+        foreach ($getPrefectures as $prefecture) {
+            if ($prefecture->id == $inputs['prefecture']) {
+                $inputs['prefecture_id'] = $prefecture->id;
+                $inputs['prefecture'] = $prefecture->prefecture;
+            }
+        }
+
+        foreach ($getSexes as $sex) {
+            if ($sex->id == $inputs['sex']) {
+                $inputs['sex_id'] = $sex->id;
+                $inputs['sex'] = $sex->sex;
+            }
+        }
+
+        // dd($inputs);
 
         return view('post.create_confirm', compact('inputs'));
     }
@@ -82,15 +132,32 @@ class PostController extends Controller
     {
         //
         // $inputs = $request->all();
-        Post::create([
-            'title' => $request->title,
-            'name' => $request->name,
-            'age_id' => $request->age,
-            'prefecture_id' => $request->prefecture,
-            'email' => $request->email,
-            'content' => $request->content,
-        ]);
+        // dd($inputs);
 
+        DB::beginTransaction();
+        try {
+
+            $wanted_id = $request->wanted;
+            $sex_id = $request->sex;
+            // dd($wanted_id);
+
+            $post = new Post;
+            $post->title = $request->title;
+            $post->name = $request->name;
+            $post->age_id = $request->age;
+            $post->prefecture_id = $request->prefecture;
+            $post->email = $request->email;
+            $post->content = $request->content;
+            $post->save();
+
+            $post->wanteds()->attach($wanted_id);
+            $post->sexes()->attach($sex_id);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->withInput();
+        }
+        DB::commit();
         return redirect()->route('post.index');
     }
 

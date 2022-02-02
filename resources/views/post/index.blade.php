@@ -116,7 +116,7 @@
                                 <div class="w-1/3 mx-auto" id="reset">
                                     <select
                                         class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="grid-state">
+                                        id="age">
                                         <option>全年代</option>
                                         @foreach ($getAges as $age)
                                             <option value="{{ $age->id }}">{{ $age->age }}</option>
@@ -164,10 +164,10 @@
                                                     <p>{{ $post->name }}</p>
                                                 </div>
                                             </div>
+                                            {{-- {{ dd($post) }} --}}
                                             <div class="ml-auto mr-10">
                                                 <p>{{ $post->prefecture->prefecture }}</p>
                                             </div>
-
                                             <div>
                                                 <!-- 募集項目 -->
                                                 @foreach ($post->wanteds as $wanted)

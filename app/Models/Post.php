@@ -28,7 +28,7 @@ class Post extends Model
         ])
         ->get();
 
-        // dd($getPosts[0]->prefecture);
+        // dd($getPosts);
 
         return $getPosts;
     }

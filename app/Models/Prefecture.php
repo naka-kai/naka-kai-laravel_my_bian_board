@@ -69,7 +69,7 @@ class Prefecture extends Model
         return $areaClasses;
     }
 
-    public function post()
+    public function posts()
     {
         return $this->hasOne(Post::class);
     }
