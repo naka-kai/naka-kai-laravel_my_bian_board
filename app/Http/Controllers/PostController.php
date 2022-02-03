@@ -68,7 +68,7 @@ class PostController extends Controller
         return view('post.create', compact('getAges', 'getWanteds', 'getPrefectures', 'getSexes'));
     }
 
-    public function create_confirm(Request $request)
+    public function create_confirm(StorePostRequest $request)
     {
 
         $age = new Age;
@@ -82,6 +82,8 @@ class PostController extends Controller
 
         $sex = new Sex;
         $getSexes = $sex->getSexes();
+
+        $validated = $request->validated();
 
         $inputs = $request->all();
 
@@ -119,7 +121,7 @@ class PostController extends Controller
 
         // dd($inputs);
 
-        return view('post.create_confirm', compact('inputs'));
+        return view('post.create_confirm', compact('inputs', 'validated'));
     }
 
     /**
