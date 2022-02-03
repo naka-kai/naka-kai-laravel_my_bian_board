@@ -29,6 +29,8 @@ class PostController extends Controller
         $post = new Post;
         $getPosts = $post->getPosts();
 
+        // dd($getPosts);
+
         $prefecture = new Prefecture;
         $linkAreaPrefectures = $prefecture->linkAreaPrefectures();
         $areaClasses = $prefecture->areaClass();
@@ -169,10 +171,18 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post, $id)
     {
         //
-        return view('post.show');
+        $post = new Post;
+        $getPosts = $post->getPosts();
+        $detailPost = $getPosts->find($id);
+
+        // dd($detailPost);
+
+        // dd($getPosts);
+
+        return view('post.show', compact('id', 'detailPost'));
     }
 
     /**

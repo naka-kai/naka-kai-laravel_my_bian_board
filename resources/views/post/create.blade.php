@@ -10,7 +10,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
             新規投稿
         </h2>
-        <a href="" class="underline text-blue-500">TOPに戻る</a>
+        <a href="{{ route('post.index') }}" class="underline text-blue-500">TOPに戻る</a>
     </x-slot>
 
     <div class="py-12">
