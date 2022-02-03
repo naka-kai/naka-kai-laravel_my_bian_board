@@ -25,10 +25,13 @@
                         @csrf
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- title -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="title">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold " for="title">
                                     タイトル
                                 </label>
+                                @error('title')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <input
@@ -39,10 +42,13 @@
 
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- name -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="name">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="name">
                                     ニックネーム
                                 </label>
+                                @error('name')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <input
@@ -53,10 +59,13 @@
 
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- age -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="age">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="age">
                                     年齢
                                 </label>
+                                @error('age')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <select
@@ -72,8 +81,8 @@
 
                         <div class="mb-6">
                             <!-- wanted -->
-                            <div class="">
-                                <p class="block text-gray-700 font-bold text-center mb-1 pr-4">
+                            <div class="mb-1 pr-4">
+                                <p class="text-gray-700 font-bold text-center">
                                     希望する相手の条件
                                 </p>
                             </div>
@@ -92,10 +101,13 @@
 
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- prefecture -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="">
                                     住んでいる場所
                                 </label>
+                                @error('prefecture')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <select
@@ -103,7 +115,8 @@
                                     name="prefecture">
                                     <option value="">選択してください</option>
                                     @foreach ($getPrefectures as $prefecture)
-                                        <option value="{{ $prefecture->id }}">{{ $prefecture->prefecture }}</option>
+                                        <option value="{{ $prefecture->id }}">{{ $prefecture->prefecture }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,29 +124,33 @@
 
                         <div class="mb-6">
                             <!-- sex -->
-                            <div class="">
-                                <p class="block text-gray-700 font-bold text-center mb-1 pr-4" for="">
+                            <div class="mb-1 pr-4">
+                                <p class="text-gray-700 font-bold text-center" for="">
                                     自分のセク
                                 </p>
                             </div>
                             <div class="flex space-x-10 justify-center items-center mb-1">
                                 @foreach ($getSexes as $sex)
-                                <label class="block text-gray-500 font-bold" for="{{ $sex->inputName }}">
-                                    <input class="mr-2 leading-tight" type="checkbox" id="{{ $sex->inputName }}" name="sex" value="{{ $sex->id }}">
-                                    <span class="text-sm">
-                                        {{ $sex->sex }}
-                                    </span>
-                                </label>
+                                    <label class="block text-gray-500 font-bold" for="{{ $sex->inputName }}">
+                                        <input class="mr-2 leading-tight" type="checkbox" id="{{ $sex->inputName }}"
+                                            name="sex" value="{{ $sex->id }}">
+                                        <span class="text-sm">
+                                            {{ $sex->sex }}
+                                        </span>
+                                    </label>
                                 @endforeach
                             </div>
                         </div><!-- /sex -->
 
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- email -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="email">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="email">
                                     メールアドレス
                                 </label>
+                                @error('email')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <input
@@ -144,20 +161,26 @@
 
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- content -->
-                            <div class="">
-                                <label class="block text-gray-700 font-bold mb-2 pr-4" for="content">
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="content">
                                     投稿内容
                                 </label>
+                                @error('content')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="">
                                 <textarea
                                     class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="content" rows="3" name="content"></textarea>
+                                    id="content" rows="10" name="content"></textarea>
                             </div>
                         </div><!-- /content -->
 
                         <div class="w-2/3 mx-auto mb-6 text-center">
                             <!-- caution -->
+                            @error('check')
+                                <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                            @enderror
                             <label class="inline text-gray-700 font-bold text-center" for="check">
                                 <input class="mr-2 leading-tight" type="checkbox" id="check" name="check">
                                 <span class="text-sm">

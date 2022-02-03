@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,26 @@ class StorePostRequest extends FormRequest
     {
         return [
             //
+            'title' => 'required',
+            'name' => 'required',
+            'age' => 'required',
+            'prefecture' => 'required',
+            'email' => 'required|email',
+            'content' => 'required',
+            'check' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'タイトルを入力してください',
+            'name.required' => 'お名前を入力してください',
+            'age.required' => '年齢を入力してください',
+            'prefecture.required' => 'お住まいを入力してください',
+            'email.required' => 'メールアドレスを入力してください',
+            'content.required' => '投稿内容を入力してください',
+            'check.required' => '注意事項を確認してください'
         ];
     }
 }
