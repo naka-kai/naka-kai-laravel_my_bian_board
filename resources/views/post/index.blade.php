@@ -151,7 +151,7 @@
                                 <!-- posts -->
 
                                 @foreach ($getPosts as $post)
-                                    <a href="" class="post">
+                                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="post">
                                         <!-- post -->
                                         <div class="border-t border-sky-100 flex justify-between items-center p-3">
                                             <div class="flex items-center">
@@ -173,12 +173,12 @@
                                                 @foreach ($post->wanteds as $wanted)
                                                     <div
                                                         class="border @if ($wanted->id == 1)
-                                            bg-orange-100 border-orange-300
-                                            @elseif ($wanted->id == 2)
-                                            bg-pink-100 border-pink-300
-                                            @elseif ($wanted->id == 3)
-                                            bg-blue-100 border-blue-300
-                                            @endif px-2 py-1 mr-3 rounded my-1">
+                                                        bg-orange-100 border-orange-300
+                                                        @elseif ($wanted->id == 2)
+                                                        bg-pink-100 border-pink-300
+                                                        @elseif ($wanted->id == 3)
+                                                        bg-blue-100 border-blue-300
+                                                        @endif px-2 py-1 mr-3 rounded my-1">
                                                         <p>{{ $wanted->wanted }}</p>
                                                     </div>
                                                 @endforeach
