@@ -16,7 +16,9 @@ class Area extends Model
 
     public function getAreas()
     {
-        $getAreas = Area::all();
+        $get_areas = Area::all();
+
+        return $get_areas;
     }
 
     public function prefectures()

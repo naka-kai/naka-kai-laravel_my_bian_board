@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PostSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class PostSeeder extends Seeder
                 'age_id' => '2',
                 'prefecture_id' => '3',
                 'email' => 'test1@test.com',
+                'password' => Hash::make('password1'),
                 'content' => '内容1',
             ],
             [
@@ -30,6 +32,7 @@ class PostSeeder extends Seeder
                 'age_id' => '3',
                 'prefecture_id' => '12',
                 'email' => 'test2@test.com',
+                'password' => Hash::make('password2'),
                 'content' => '内容2',
             ],
             [
@@ -38,6 +41,7 @@ class PostSeeder extends Seeder
                 'age_id' => '2',
                 'prefecture_id' => '3',
                 'email' => 'test3@test.com',
+                'password' => Hash::make('password3'),
                 'content' => '内容3',
             ],
             [
@@ -46,6 +50,7 @@ class PostSeeder extends Seeder
                 'age_id' => '2',
                 'prefecture_id' => '3',
                 'email' => 'test4@test.com',
+                'password' => Hash::make('password4'),
                 'content' => '内容4',
             ],
 

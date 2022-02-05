@@ -20,7 +20,7 @@ class Post extends Model
 
     public function getPosts()
     {
-        $getPosts = Post::with([
+        $get_posts = Post::with([
             'age',
             'prefecture.area',
             'wanteds',
@@ -30,7 +30,7 @@ class Post extends Model
 
         // dd($getPosts);
 
-        return $getPosts;
+        return $get_posts;
     }
 
     public function age()

@@ -27,24 +27,24 @@ class PostController extends Controller
     {
         //
         $post = new Post;
-        $getPosts = $post->getPosts();
+        $get_posts = $post->getPosts();
 
         // dd($getPosts);
 
         $prefecture = new Prefecture;
-        $linkAreaPrefectures = $prefecture->linkAreaPrefectures();
-        $areaClasses = $prefecture->areaClass();
+        $link_area_prefectures = $prefecture->linkAreaPrefectures();
+        $area_classes = $prefecture->areaClass();
 
         $sex = new Sex;
-        $getSexes = $sex->getSexes();
+        $get_sexes = $sex->getSexes();
 
         $age = new Age;
-        $getAges = $age->getAges();
+        $get_ages = $age->getAges();
 
         $wanted = new Wanted;
-        $getWanteds = $wanted->getWanteds();
+        $get_wanteds = $wanted->getWanteds();
 
-        return view('post.index', compact('getPosts', 'linkAreaPrefectures', 'areaClasses', 'getSexes', 'getAges', 'getWanteds'));
+        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
     }
 
     /**
@@ -56,49 +56,50 @@ class PostController extends Controller
     {
         //
         $age = new Age;
-        $getAges = $age->getAges();
+        $get_ages = $age->getAges();
 
         $wanted = new Wanted;
-        $getWanteds = $wanted->getWanteds();
+        $get_wanteds = $wanted->getWanteds();
 
         $prefecture = new Prefecture;
-        $getPrefectures = $prefecture->getPrefectures();
+        $get_prefectures = $prefecture->getPrefectures();
 
         $sex = new Sex;
-        $getSexes = $sex->getSexes();
+        $get_sexes = $sex->getSexes();
 
-        return view('post.create', compact('getAges', 'getWanteds', 'getPrefectures', 'getSexes'));
+        return view('post.create', compact('get_ages', 'get_wanteds', 'get_prefectures', 'get_sexes'));
     }
 
-    public function create_confirm(StorePostRequest $request)
+    /**
+     * 投稿確認画面
+     */
+    public function createConfirm(StorePostRequest $request)
     {
+        $inputs = $request->all();
+        $request->session()->put($inputs);
 
         $age = new Age;
-        $getAges = $age->getAges();
+        $get_ages = $age->getAges();
 
         $wanted = new Wanted;
-        $getWanteds = $wanted->getWanteds();
+        $get_wanteds = $wanted->getWanteds();
 
         $prefecture = new Prefecture;
-        $getPrefectures = $prefecture->getPrefectures();
+        $get_prefectures = $prefecture->getPrefectures();
 
         $sex = new Sex;
-        $getSexes = $sex->getSexes();
+        $get_sexes = $sex->getSexes();
 
         $validated = $request->validated();
 
-        $inputs = $request->all();
-
-        // dd($inputs);
-
-        foreach($getAges as $age) {
+        foreach($get_ages as $age) {
             if($age->id == $inputs['age']) {
                 $inputs['age_id'] = $age->id;
                 $inputs['age'] = $age->age;
             }
         }
 
-        foreach ($getWanteds as $wanted) {
+        foreach ($get_wanteds as $wanted) {
             if ($wanted->id == $inputs['wanted']) {
                 $inputs['wanted_id'] = $wanted->id;
                 $inputs['wanted'] = $wanted->wanted;
@@ -107,14 +108,14 @@ class PostController extends Controller
 
         // dd($getPrefectures);
 
-        foreach ($getPrefectures as $prefecture) {
+        foreach ($get_prefectures as $prefecture) {
             if ($prefecture->id == $inputs['prefecture']) {
                 $inputs['prefecture_id'] = $prefecture->id;
                 $inputs['prefecture'] = $prefecture->prefecture;
             }
         }
 
-        foreach ($getSexes as $sex) {
+        foreach ($get_sexes as $sex) {
             if ($sex->id == $inputs['sex']) {
                 $inputs['sex_id'] = $sex->id;
                 $inputs['sex'] = $sex->sex;
@@ -123,7 +124,7 @@ class PostController extends Controller
 
         // dd($inputs);
 
-        return view('post.create_confirm', compact('inputs', 'validated'));
+        return view('post.createConfirm', compact('inputs', 'validated'));
     }
 
     /**
@@ -134,9 +135,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $inputs = $request->all();
-        // dd($inputs);
+        $inputs = session()->all();
+        dd($inputs['title']);
 
         DB::beginTransaction();
         try {
@@ -144,6 +144,11 @@ class PostController extends Controller
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
             // dd($wanted_id);
+
+            $password = $request->password;
+            $password_confirmation = $request->password_confirmation;
+
+            dd($password);
 
             $post = new Post;
             $post->title = $request->title;
@@ -175,15 +180,24 @@ class PostController extends Controller
     {
         //
         $post = new Post;
-        $getPosts = $post->getPosts();
-        $detailPost = $getPosts->find($id);
+        $get_posts = $post->getPosts();
+        $detail_post = $get_posts->find($id);
 
         // dd($detailPost);
 
         // dd($getPosts);
 
-        return view('post.show', compact('id', 'detailPost'));
+        return view('post.show', compact('id', 'detail_post'));
     }
+
+    /**
+     * 編集時のパスワード確認
+     */
+    public function editPassConfirm()
+    {
+        return redirect()->route('post.edit');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -193,7 +207,15 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+
+    }
+
+    /**
+     * 編集内容確認画面
+     */
+    public function editConfirm()
+    {
+
     }
 
     /**

@@ -17,13 +17,13 @@ class Prefecture extends Model
     public function getPrefectures()
     {
 
-        $getPrefectures = Prefecture::with([
+        $get_prefectures = Prefecture::with([
             'area'
         ])
         ->get();
 
         // dd($getPrefectures);
-        return $getPrefectures;
+        return $get_prefectures;
     }
 
     public function linkAreaPrefectures()
@@ -31,15 +31,15 @@ class Prefecture extends Model
         $areas = Area::all();
         $prefectures = Prefecture::all();
 
-        $linkAreaPrefectures = [];
+        $link_area_prefectures = [];
         foreach ($areas as $area) {
             foreach ($prefectures as $prefecture) {
                 if ($prefecture->area_id == $area->id) {
-                    $linkAreaPrefectures[$area->area][$prefecture->id] = $prefecture->prefecture;
+                    $link_area_prefectures[$area->area][$prefecture->id] = $prefecture->prefecture;
                 }
             }
         }
-        return $linkAreaPrefectures;
+        return $link_area_prefectures;
     }
 
     public function areaClass()
@@ -48,25 +48,25 @@ class Prefecture extends Model
 
         foreach ($areas as $area) {
             if ($area->id == 1) {
-                $areaClasses[$area->area] = 'hokk';
+                $area_classes[$area->area] = 'hokk';
             } elseif ($area->id == 2) {
-                $areaClasses[$area->area] = 'toho';
+                $area_classes[$area->area] = 'toho';
             } elseif ($area->id == 3) {
-                $areaClasses[$area->area] = 'kan';
+                $area_classes[$area->area] = 'kan';
             } elseif ($area->id == 4) {
-                $areaClasses[$area->area] = 'chubu';
+                $area_classes[$area->area] = 'chubu';
             } elseif ($area->id == 5) {
-                $areaClasses[$area->area] = 'kin';
+                $area_classes[$area->area] = 'kin';
             } elseif ($area->id == 6) {
-                $areaClasses[$area->area] = 'chug';
+                $area_classes[$area->area] = 'chug';
             } elseif ($area->id == 7) {
-                $areaClasses[$area->area] = 'sik';
+                $area_classes[$area->area] = 'sik';
             } elseif ($area->id == 8) {
-                $areaClasses[$area->area] = 'kyu';
+                $area_classes[$area->area] = 'kyu';
             }
         }
         // dd($areaClasses);
-        return $areaClasses;
+        return $area_classes;
     }
 
     public function posts()

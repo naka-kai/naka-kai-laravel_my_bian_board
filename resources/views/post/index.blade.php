@@ -48,40 +48,40 @@
                                 <!-- hr border -->
 
                                 @php
-                                    $areaValue = 1;
+                                    $area_value = 1;
                                 @endphp
-                                @foreach ($linkAreaPrefectures as $key => $areaPefectures)
+                                @foreach ($link_area_prefectures as $key => $area_pefectures)
                                     {{-- {{ dd($areaPefectures) }} --}}
                                     <div class="p-1">
                                         <!-- 地方 -->
                                         <div class="acd-area flex items-center">
                                             <!-- <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_hokk" id="prefs_hokk" value="1">となる -->
                                             <input type="checkbox" name="prefs"
-                                                class="pref_all_list mb-1 mr-1 pref_{{ $areaClasses[$key] }}"
-                                                id="pref_{{ $areaClasses[$key] }}" value="{{ $areaValue }}">
+                                                class="pref_all_list mb-1 mr-1 pref_{{ $area_classes[$key] }}"
+                                                id="pref_{{ $area_classes[$key] }}" value="{{ $area_value }}">
                                             <!-- <label for="prefs_hokk" class="font-semibold text-gray-700">北海道(東北地方)</label>となる -->
-                                            <label for="pref_{{ $areaClasses[$key] }}"
+                                            <label for="pref_{{ $area_classes[$key] }}"
                                                 class="font-semibold text-gray-700">{{ $key }}</label><i
                                                 class="fas fa-chevron-down text-gray-700 ml-2"></i>
                                         </div>
                                         <div class="acd-prefs flex">
                                             <div class="py-2 pl-1 flex sm:flex-wrap">
-                                                @foreach ($areaPefectures as $prefectureKey => $prefectureVal)
+                                                @foreach ($area_pefectures as $prefecture_key => $prefecture_val)
                                                     {{-- {{ dd($areaPefectures) }} --}}
                                                     <div class="flex items-center">
                                                         <!-- 都道府県 -->
                                                         <!-- <input type="checkbox" name="prefs" class="pref_all_list mr-1 pref_hokk_list" id="pref_1" value="1">になる -->
                                                         <input type="checkbox" name="prefs"
-                                                            class="pref_all_list mr-1 pref_{{ $areaClasses[$key] }}_list"
-                                                            id="pref_{{ $prefectureKey }}"
-                                                            value="{{ $prefectureKey }}">
+                                                            class="pref_all_list mr-1 pref_{{ $area_classes[$key] }}_list"
+                                                            id="pref_{{ $prefecture_key }}"
+                                                            value="{{ $prefecture_key }}">
                                                         <!-- <label for="1(prefecture->idのこと)" class="text-gray-600 mr-2">北海道(青森県)</label> -->
-                                                        <label for="pref_{{ $prefectureKey }}"
-                                                            class="text-gray-600 mr-4">{{ $prefectureVal }}</label>
+                                                        <label for="pref_{{ $prefecture_key }}"
+                                                            class="text-gray-600 mr-4">{{ $prefecture_val }}</label>
                                                     </div>
                                                     <!-- /都道府県 -->
                                                     @php
-                                                        $areaValue++;
+                                                        $area_value++;
                                                     @endphp
                                                 @endforeach
                                             </div>
@@ -99,7 +99,7 @@
                             <div class="border-y-2 border-t-0 border-sky-100 p-3">
                                 <!-- sex -->
                                 <div class="flex space-x-10 justify-center items-center">
-                                    @foreach ($getSexes as $i => $sex)
+                                    @foreach ($get_sexes as $i => $sex)
                                         <label class="block text-gray-500 font-bold">
                                             <input class="mr-2 leading-tight" type="checkbox"
                                                 value="{{ $sex->id }}">
@@ -118,7 +118,7 @@
                                         class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="age">
                                         <option>全年代</option>
-                                        @foreach ($getAges as $age)
+                                        @foreach ($get_ages as $age)
                                             <option value="{{ $age->id }}">{{ $age->age }}</option>
                                         @endforeach
                                     </select>
@@ -128,7 +128,7 @@
                             <div class="border-y-4 border-t-0 border-sky-100 p-3">
                                 <!-- wanted -->
                                 <div class="flex space-x-10 justify-center items-center" id="reset">
-                                    @foreach ($getWanteds as $wanted)
+                                    @foreach ($get_wanteds as $wanted)
                                         <label class="block text-gray-500 font-bold">
                                             <input class="mr-2 leading-tight" type="checkbox"
                                                 value="{{ $wanted->id }}">
@@ -150,7 +150,7 @@
                             <div class="text-gray-600">
                                 <!-- posts -->
 
-                                @foreach ($getPosts as $post)
+                                @foreach ($get_posts as $post)
                                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="post">
                                         <!-- post -->
                                         <div class="border-t border-sky-100 flex justify-between items-center p-3">

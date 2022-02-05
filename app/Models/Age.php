@@ -15,11 +15,11 @@ class Age extends Model
 
     public function getAges()
     {
-        $getAges = Age::all();
+        $get_ages = Age::all();
 
         // dd($getAges);
 
-        return $getAges;
+        return $get_ages;
     }
 
     public function post()
