@@ -16,11 +16,11 @@ class Sex extends Model
 
     public function getSexes()
     {
-        $getSexes = Sex::all();
+        $get_sexes = Sex::all();
 
         // dd($getSexes);
 
-        return $getSexes;
+        return $get_sexes;
     }
 
     public function posts()

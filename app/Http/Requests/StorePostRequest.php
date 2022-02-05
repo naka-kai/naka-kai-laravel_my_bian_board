@@ -31,7 +31,9 @@ class StorePostRequest extends FormRequest
             'prefecture' => 'required',
             'email' => 'required|email',
             'content' => 'required',
-            'check' => 'required'
+            'password' => 'required|min:8|confirmed|string',
+            'password_confirmation' => 'required',
+            'check' => 'required',
         ];
     }
 
@@ -44,6 +46,10 @@ class StorePostRequest extends FormRequest
             'prefecture.required' => 'お住まいを入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'content.required' => '投稿内容を入力してください',
+            'password.required' => 'パスワードを入力してください',
+            'password.min' => '8文字以上で入力してください',
+            'password.confirmed' => 'パスワードが一致しません',
+            'password_confirmation.required' => 'パスワード確認を入力してください',
             'check.required' => '注意事項を確認してください'
         ];
     }

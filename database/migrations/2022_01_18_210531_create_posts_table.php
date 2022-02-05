@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('prefecture_id')->constrained();
             $table->string('email');
             $table->text('content');
+            $table->string('password');
             $table->timestamps();
         });
 

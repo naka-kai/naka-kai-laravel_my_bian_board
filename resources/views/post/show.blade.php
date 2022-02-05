@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        {{ $detailPost->name }}さんの詳細ページ
+        {{ $detail_post->name }}さんの詳細ページ
     </x-slot>
 
     <x-slot name="head">
@@ -8,9 +8,9 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
-            {{ $detailPost->name }}さんの詳細ページ
+            {{ $detail_post->name }}さんの詳細ページ
         </h2>
-        <a href="" class="underline text-blue-500">TOPに戻る</a>
+        <a href="{{ route('post.index') }}" class="underline text-blue-500">TOPに戻る</a>
     </x-slot>
 
     <div class="py-12">
@@ -20,14 +20,20 @@
                     <!-- 初期 -->
 
                     <div class="w-2/3 mx-auto text-gray-800" x-data="accordion">
-                        <h3 class="py-2 font-semibold text-lg">{{ $detailPost->title }}</h3>
+                        <div class="flex justify-between items-center">
+                            <h3 class="py-2 font-semibold text-lg">{{ $detail_post->title }}</h3>
+                            <div class="flex">
+                                <a href=""><div class="mr-3 text-blue-400">[ 編集 ]</div></a>
+                                <a href=""><div class="text-blue-400">[ 削除 ]</div></a>
+                            </div>
+                        </div>
                         <hr>
                         <p class="pt-3 pb-2">
-                            {{ date('Y/m/d h:m', strtotime($detailPost->created_at)) }}
+                            {{ date('Y/m/d h:m', strtotime($detail_post->created_at)) }}
                         </p>
                         <div class="flex py-2">
-                            @if ($detailPost->wanteds)
-                                @foreach ($detailPost->wanteds as $wanted)
+                            @if ($detail_post->wanteds)
+                                @foreach ($detail_post->wanteds as $wanted)
                                     <div class="flex">
                                         <div
                                             class="@if ($wanted->id == 1)
@@ -43,26 +49,26 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <p class="px-2 py-1">{{ $detailPost->prefecture->prefecture }}</p>
-                            <p class="px-2 py-1">{{ $detailPost->age->age }}</p>
+                            <p class="px-2 py-1">{{ $detail_post->prefecture->prefecture }}</p>
+                            <p class="px-2 py-1">{{ $detail_post->age->age }}</p>
                         </div>
 
                         <div class="flex my-2">
-                            <p class="mr-5">名前：{{ $detailPost->name }}さん</p>
-                            @if ($detailPost->sexes)
-                                @foreach ($detailPost->sexes as $sex)
-                                    <p class="mr-3">[{{ $sex->sex }}]</p>
+                            <p class="mr-5">名前：{{ $detail_post->name }}さん</p>
+                            @if ($detail_post->sexes)
+                                @foreach ($detail_post->sexes as $sex)
+                                    <p class="mr-3"><{{ $sex->sex }}></p>
                                 @endforeach
                             @endif
                         </div>
 
                         <div class="py-1 leading-7">
-                            {{ $detailPost->content }}
+                            {{ $detail_post->content }}
                         </div>
 
                         <div>
                             <p class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block"
-                                x-on:click="handleClick()">{{ $detailPost->name }}さんに連絡する！</p>
+                                x-on:click="handleClick()">{{ $detail_post->name }}さんに連絡する！</p>
                         </div>
                         <form action="" method="POST">
                             <div x-ref="tab" :style="handleToggle()"

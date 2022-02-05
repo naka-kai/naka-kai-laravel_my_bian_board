@@ -21,7 +21,7 @@
                     <p class="text-center">注意事項</p>
                     <p class="mb-8 text-center">※18歳未満の方の利用は禁止です。18歳になってから利用してください。</p>
 
-                    <form class="w-full" action="{{ route('post.create_confirm') }}" method="get">
+                    <form class="w-full" action="{{ route('post.createConfirm') }}" method="get">
                         @csrf
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- title -->
@@ -72,7 +72,7 @@
                                     class="block appearance-none w-full bg-sky-50 border border-sky-50 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="age" name="age">
                                     <option value="">選択してください</option>
-                                    @foreach ($getAges as $age)
+                                    @foreach ($get_ages as $age)
                                         <option value="{{ $age->id }}">{{ $age->age }}</option>
                                     @endforeach
                                 </select>
@@ -87,7 +87,7 @@
                                 </p>
                             </div>
                             <div class="flex space-x-10 justify-center items-center mb-1">
-                                @foreach ($getWanteds as $wanted)
+                                @foreach ($get_wanteds as $wanted)
                                     <label class="block text-gray-500 font-bold" for="{{ $wanted->inputName }}">
                                         <input class="mr-2 leading-tight" type="checkbox" name="wanted"
                                             id="{{ $wanted->inputName }}" value="{{ $wanted->id }}">
@@ -114,7 +114,7 @@
                                     class="block appearance-none w-full bg-sky-50 border border-sky-50 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="prefecture">
                                     <option value="">選択してください</option>
-                                    @foreach ($getPrefectures as $prefecture)
+                                    @foreach ($get_prefectures as $prefecture)
                                         <option value="{{ $prefecture->id }}">{{ $prefecture->prefecture }}
                                         </option>
                                     @endforeach
@@ -130,7 +130,7 @@
                                 </p>
                             </div>
                             <div class="flex space-x-10 justify-center items-center mb-1">
-                                @foreach ($getSexes as $sex)
+                                @foreach ($get_sexes as $sex)
                                     <label class="block text-gray-500 font-bold" for="{{ $sex->inputName }}">
                                         <input class="mr-2 leading-tight" type="checkbox" id="{{ $sex->inputName }}"
                                             name="sex" value="{{ $sex->id }}">
@@ -176,6 +176,40 @@
                             </div>
                         </div><!-- /content -->
 
+                        <div class="w-2/3 mx-auto mb-6">
+                            <!-- password -->
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="password">
+                                    パスワード
+                                </label>
+                                @error('password')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="">
+                                <input
+                                    class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="password" type="password" name="password">
+                            </div>
+                        </div><!-- /password -->
+
+                        <div class="w-2/3 mx-auto mb-6">
+                            <!-- password_confirmation -->
+                            <div class="mb-2 pr-4">
+                                <label class="text-gray-700 font-bold" for="password_confirmation">
+                                    パスワード確認
+                                </label>
+                                @error('password_confirmation')
+                                    <p class="text-sm py-1 text-red-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="">
+                                <input
+                                    class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="password_confirmation" type="password" name="password_confirmation">
+                            </div>
+                        </div><!-- /password_confirmation -->
+
                         <div class="w-2/3 mx-auto mb-6 text-center">
                             <!-- caution -->
                             @error('check')
@@ -188,6 +222,7 @@
                                 </span>
                             </label>
                         </div><!-- /caution -->
+
                         <div class="flex items-center">
                             <!-- confirmButton -->
                             <div class="mx-auto">

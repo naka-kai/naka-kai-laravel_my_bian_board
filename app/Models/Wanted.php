@@ -16,11 +16,11 @@ class Wanted extends Model
 
     public function getWanteds()
     {
-        $getWanted = Wanted::all();
+        $get_wanted = Wanted::all();
 
         // dd($getWanted);
 
-        return $getWanted;
+        return $get_wanted;
     }
 
     public function posts()
