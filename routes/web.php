@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 Route::prefix('post')->group(function() {
     Route::get('/', [PostController::class, 'index'])->name('post.index');
     Route::get('/create', [PostController::class, 'create'])->name('post.create');
-    Route::get('/create_confirm', [PostController::class, 'createConfirm'])->name('post.createConfirm');
+    Route::post('/create_confirm', [PostController::class, 'createConfirm'])->name('post.createConfirm');
     Route::post('/store',[PostController::class, 'store'])->name('post.store');
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show_message');
     Route::get('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm'])->name('post.editPassConfirm');
