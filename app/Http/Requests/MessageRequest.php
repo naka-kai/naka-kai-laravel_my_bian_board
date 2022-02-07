@@ -25,14 +25,15 @@ class MessageRequest extends FormRequest
     {
         return [
             //
-
+            'password' => 'required|min:8|string',
         ];
     }
 
     public function messages()
     {
         return [
-
+            'password.required' => 'パスワードを入力してください',
+            'password.min' => '8文字以上で入力してください',
         ];
     }
 }
