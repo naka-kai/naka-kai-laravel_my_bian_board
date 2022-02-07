@@ -29,8 +29,6 @@ class PostController extends Controller
         $post = new Post;
         $get_posts = $post->getPosts();
 
-        // dd($getPosts);
-
         $prefecture = new Prefecture;
         $link_area_prefectures = $prefecture->linkAreaPrefectures();
         $area_classes = $prefecture->areaClass();
@@ -74,7 +72,7 @@ class PostController extends Controller
     public function createConfirm(StorePostRequest $request)
     {
         $inputs = $request->all();
-        // $request->session()->put($inputs);
+        $request->session()->put($inputs);
 
         $age = new Age;
         $get_ages = $age->getAges();
@@ -104,8 +102,6 @@ class PostController extends Controller
             }
         }
 
-        // dd($getPrefectures);
-
         foreach ($get_prefectures as $prefecture) {
             if ($prefecture->id == $inputs['prefecture']) {
                 $inputs['prefecture_id'] = $prefecture->id;
@@ -120,9 +116,7 @@ class PostController extends Controller
             }
         }
 
-        // dd($inputs);
-
-        return view('post.createConfirm', compact('inputs', 'validated'));
+        return view('post.create_confirm', compact('inputs', 'validated'));
     }
 
     /**
@@ -130,7 +124,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $inputs = session()->all();
+        $inputs = session()->all();
         // dd($inputs['title']);
 
         DB::beginTransaction();
@@ -138,20 +132,17 @@ class PostController extends Controller
 
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
-            // dd($wanted_id);
 
             $password = Hash::make($request->password);
-            $password_confirmation = $request->password_confirmation;
-
-            dd($password);
 
             $post = new Post;
-            $post->title = $request->title;
-            $post->name = $request->name;
-            $post->age_id = $request->age;
-            $post->prefecture_id = $request->prefecture;
-            $post->email = $request->email;
-            $post->content = $request->content;
+            $post->title = $inputs['title'];
+            $post->name = $inputs['name'];
+            $post->age_id = $inputs['age'];
+            $post->prefecture_id = $inputs['prefecture'];
+            $post->email = $inputs['email'];
+            $post->content = $inputs['content'];
+            $post->password = $password;
             $post->save();
 
             $post->wanteds()->attach($wanted_id);
@@ -162,7 +153,24 @@ class PostController extends Controller
             return back()->withInput();
         }
         DB::commit();
-        return redirect()->route('post.index');
+
+        $post = new Post;
+        $get_posts = $post->getPosts();
+
+        $prefecture = new Prefecture;
+        $link_area_prefectures = $prefecture->linkAreaPrefectures();
+        $area_classes = $prefecture->areaClass();
+
+        $sex = new Sex;
+        $get_sexes = $sex->getSexes();
+
+        $age = new Age;
+        $get_ages = $age->getAges();
+
+        $wanted = new Wanted;
+        $get_wanteds = $wanted->getWanteds();
+
+        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
     }
 
     /**
@@ -174,10 +182,6 @@ class PostController extends Controller
         $post = new Post;
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
-
-        // dd($detailPost);
-
-        // dd($getPosts);
 
         return view('post.show_message', compact('id', 'detail_post'));
     }
@@ -215,13 +219,9 @@ class PostController extends Controller
             'password' => 'required|min:8|string',
         ]);
 
-        // dd($passCheck);
-
         if($passCheck) {
-            // dd('ok');
             return view('post.edit', compact('id', 'detail_post'));
         } else {
-            // dd('no');
             return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
         }
     }
