@@ -151,7 +151,7 @@
                                 <!-- posts -->
 
                                 @foreach ($get_posts as $post)
-                                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="post">
+                                    <a href="{{ route('post.show_message', ['id' => $post->id]) }}" class="post">
                                         <!-- post -->
                                         <div class="border-t border-sky-100 flex justify-between items-center p-3">
                                             <div class="flex items-center">

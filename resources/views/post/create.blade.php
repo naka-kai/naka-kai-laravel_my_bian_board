@@ -22,7 +22,7 @@
                     <p class="mb-8 text-center">※18歳未満の方の利用は禁止です。18歳になってから利用してください。</p>
 
                     <form class="w-full" action="{{ route('post.createConfirm') }}" method="get">
-                        @csrf
+                        {{-- @csrf --}}
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- title -->
                             <div class="mb-2 pr-4">

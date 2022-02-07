@@ -22,9 +22,14 @@
                     <div class="w-2/3 mx-auto text-gray-800" x-data="accordion">
                         <div class="flex justify-between items-center">
                             <h3 class="py-2 font-semibold text-lg">{{ $detail_post->title }}</h3>
+                            {{-- {{ dd($detail_post) }} --}}
                             <div class="flex">
-                                <a href=""><div class="mr-3 text-blue-400">[ 編集 ]</div></a>
-                                <a href=""><div class="text-blue-400">[ 削除 ]</div></a>
+                                <form action="{{ route('post.editPassConfirm', ['id' => $id]) }}" method="get">
+                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 編集 ]" name="editId">
+                                </form>
+                                <form action="" method="get">
+                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]" name="editId">
+                                </form>
                             </div>
                         </div>
                         <hr>
@@ -57,7 +62,7 @@
                             <p class="mr-5">名前：{{ $detail_post->name }}さん</p>
                             @if ($detail_post->sexes)
                                 @foreach ($detail_post->sexes as $sex)
-                                    <p class="mr-3"><{{ $sex->sex }}></p>
+                                    <p class="mr-3">[{{ $sex->sex }}]</p>
                                 @endforeach
                             @endif
                         </div>
@@ -67,7 +72,7 @@
                         </div>
 
                         <div>
-                            <p class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block"
+                            <p class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block cursor-pointer"
                                 x-on:click="handleClick()">{{ $detail_post->name }}さんに連絡する！</p>
                         </div>
                         <form action="" method="POST">

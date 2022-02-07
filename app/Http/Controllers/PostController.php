@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\MessageRequest;
 use Illuminate\Http\Request;
 use App\Models\Age;
 use App\Models\Area;
@@ -15,13 +16,12 @@ use App\Models\Sex;
 use App\Models\Wanted;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 掲示板画面
      */
     public function index()
     {
@@ -48,9 +48,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 新規投稿画面
      */
     public function create()
     {
@@ -76,7 +74,7 @@ class PostController extends Controller
     public function createConfirm(StorePostRequest $request)
     {
         $inputs = $request->all();
-        $request->session()->put($inputs);
+        // $request->session()->put($inputs);
 
         $age = new Age;
         $get_ages = $age->getAges();
@@ -128,15 +126,12 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePostRequest  $request
-     * @return \Illuminate\Http\Response
+     * 投稿機能
      */
     public function store(Request $request)
     {
-        $inputs = session()->all();
-        dd($inputs['title']);
+        // $inputs = session()->all();
+        // dd($inputs['title']);
 
         DB::beginTransaction();
         try {
@@ -145,7 +140,7 @@ class PostController extends Controller
             $sex_id = $request->sex;
             // dd($wanted_id);
 
-            $password = $request->password;
+            $password = Hash::make($request->password);
             $password_confirmation = $request->password_confirmation;
 
             dd($password);
@@ -171,10 +166,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * 個人詳細画面
      */
     public function show(Post $post, $id)
     {
@@ -187,27 +179,51 @@ class PostController extends Controller
 
         // dd($getPosts);
 
-        return view('post.show', compact('id', 'detail_post'));
+        return view('post.show_message', compact('id', 'detail_post'));
     }
 
     /**
      * 編集時のパスワード確認
      */
-    public function editPassConfirm()
+    public function editPassConfirm($id)
     {
-        return redirect()->route('post.edit');
+        $post = new Post;
+        $get_posts = $post->getPosts();
+        $detail_post = $get_posts->find($id);
+
+        return view('post.edit_pass_confirm', compact('id', 'detail_post'));
     }
 
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * 個人詳細編集画面
      */
-    public function edit(Post $post)
+    public function edit(Request $request, $id)
     {
 
+        if($request->get('back')) {
+            return redirect('post/'. $id);
+        }
+
+        $post = new Post;
+        $get_posts = $post->getPosts();
+        $detail_post = $get_posts->find($id);
+
+        $passCheck = Hash::check($request->password, $detail_post->password);
+
+        $validated = $request->validate([
+            'password' => 'required|min:8|string',
+        ]);
+
+        // dd($passCheck);
+
+        if($passCheck) {
+            // dd('ok');
+            return view('post.edit', compact('id', 'detail_post'));
+        } else {
+            // dd('no');
+            return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
+        }
     }
 
     /**
@@ -219,11 +235,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePostRequest  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * 個人詳細変更機能
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
@@ -231,10 +243,7 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * 個人詳細削除機能
      */
     public function destroy(Post $post)
     {
