@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\MailSendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,5 @@ Route::prefix('post')->group(function() {
     Route::post('edit/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::post('edit_confirm/{id}', [PostController::class, 'edit_confirm'])->name('post.edit_confirm');
 });
+
+Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');

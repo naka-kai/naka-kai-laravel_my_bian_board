@@ -222,7 +222,8 @@ class PostController extends Controller
         if($passCheck) {
             return view('post.edit', compact('id', 'detail_post'));
         } else {
-            return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
+            // return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
+            return redirect(route('post.editPassConfirm', compact('id')))->with(['notPass', 'パスワードが一致しません']);
         }
     }
 
