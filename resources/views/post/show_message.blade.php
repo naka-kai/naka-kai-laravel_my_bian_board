@@ -25,10 +25,12 @@
                             {{-- {{ dd($detail_post) }} --}}
                             <div class="flex">
                                 <form action="{{ route('post.editPassConfirm', ['id' => $id]) }}" method="get">
-                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 編集 ]" name="editId">
+                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 編集 ]"
+                                        name="editId">
                                 </form>
                                 <form action="" method="get">
-                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]" name="editId">
+                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]"
+                                        name="editId">
                                 </form>
                             </div>
                         </div>
@@ -70,12 +72,17 @@
                         <div class="py-1 leading-7">
                             {{ $detail_post->content }}
                         </div>
-
+                        @if (session('message'))
+                            <div class="mt-10 text-sky-400">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <div>
                             <p class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block cursor-pointer"
                                 x-on:click="handleClick()">{{ $detail_post->name }}さんに連絡する！</p>
                         </div>
-                        <form action="" method="POST">
+                        <form action="{{ route('mail.store', ['id' => $detail_post->id]) }}" method="POST">
+                            @csrf
                             <div x-ref="tab" :style="handleToggle()"
                                 class="overflow-hidden max-h-0 duration-500 transition-all mt-10">
                                 <div>
@@ -90,9 +97,12 @@
                                     <div class="mb-6 mx-auto">
                                         <!-- name -->
                                         <div>
-                                            <label class="block text-gray-700 font-bold mb-2 pr-4" for="name">
+                                            <label class="block text-gray-700 font-bold mb-1 pr-4" for="name">
                                                 お名前 <span class="text-red-400">*</span>
                                             </label>
+                                            @error('name')
+                                                <span class="text-sm text-red-400">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div>
                                             <input
@@ -103,9 +113,12 @@
                                     <div class="mx-auto mb-6">
                                         <!-- email -->
                                         <div>
-                                            <label class="block text-gray-700 font-bold mb-2 pr-4" for="email">
+                                            <label class="block text-gray-700 font-bold mb-1 pr-4" for="email">
                                                 メールアドレス <span class="text-red-400">*</span>
                                             </label>
+                                            @error('email')
+                                                <span class="text-sm text-red-400">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div>
                                             <input
@@ -117,9 +130,12 @@
                                 <div class="mx-auto mb-6">
                                     <!-- content -->
                                     <div>
-                                        <label class="block text-gray-700 font-bold mb-2 pr-4" for="message">
+                                        <label class="block text-gray-700 font-bold mb-1 pr-4" for="message">
                                             メッセージ <span class="text-red-400">*</span>
                                         </label>
+                                        @error('message')
+                                            <span class="text-sm text-red-400">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div>
                                         <textarea
@@ -131,6 +147,9 @@
 
                                 <div class="mx-auto mb-6">
                                     <!-- caution -->
+                                    @error('check')
+                                        <span class="block text-center text-sm text-red-400">{{ $message }}</span>
+                                    @enderror
                                     <label class="block text-gray-700 font-bold text-center">
                                         <input class="mr-2 leading-tight" type="checkbox" name="check">
                                         <span class="text-sm">
