@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\MailSendController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use App\Http\Controllers\PostController;
-use App\Models\Post;
+use App\Http\Controllers\MailSendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,21 +17,26 @@ use App\Models\Post;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::prefix('post')->group(function() {
+Route::prefix('post')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('post.index');
     Route::get('/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/create_confirm', [PostController::class, 'createConfirm'])->name('post.createConfirm');
-    Route::post('/store',[PostController::class, 'store'])->name('post.store');
+    Route::post('/store', [PostController::class, 'store'])->name('post.store');
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show_message');
     Route::get('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm'])->name('post.editPassConfirm');
     Route::post('edit/{id}', [PostController::class, 'edit'])->name('post.edit');

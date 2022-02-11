@@ -28,9 +28,10 @@ class Post extends Model
             'wanteds',
             'sexes'
         ])
+        ->orderBy('posts.id', 'desc')
         ->get();
 
-        // dd($getPosts);
+        // dd($get_posts);
 
         return $get_posts;
     }

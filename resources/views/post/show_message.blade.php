@@ -180,7 +180,8 @@
     </div>
 
     <x-slot name="script">
-        <script>
+        
+        {{-- <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.store('accordion', {
                     tab: 0
@@ -200,6 +201,6 @@
                     }
                 }));
             })
-        </script>
+        </script> --}}
     </x-slot>
 </x-guest-layout>
