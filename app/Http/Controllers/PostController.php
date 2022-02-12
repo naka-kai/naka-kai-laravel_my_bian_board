@@ -23,9 +23,10 @@ class PostController extends Controller
     /**
      * 掲示板画面
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $request->session()->flush();
         $post = new Post;
         $get_posts = $post->getPosts();
 
@@ -72,63 +73,7 @@ class PostController extends Controller
     public function createConfirm(StorePostRequest $request)
     {
 
-        $action = $request->get('action', 'back');
-        $input = $request->except('action');
-
-        if($action == 'back') {
-            $request->session()->flush();
-            return redirect()->route('post.index');
-        }
-
-        $inputs = $request->all();
-        $request->session()->put($inputs);
-
-        $age = new Age;
-        $get_ages = $age->getAges();
-
-        $wanted = new Wanted;
-        $get_wanteds = $wanted->getWanteds();
-
-        $prefecture = new Prefecture;
-        $get_prefectures = $prefecture->getPrefectures();
-
-        $sex = new Sex;
-        $get_sexes = $sex->getSexes();
-
-        $validated = $request->validated();
-
-        foreach ($get_ages as $age) {
-            if ($age->id == $inputs['age']) {
-                $inputs['age_id'] = $age->id;
-                $inputs['age'] = $age->age;
-            }
-        }
-
-        if($request->has('wanted')) {
-            foreach ($get_wanteds as $wanted) {
-                if (in_array($wanted->id, (array)$inputs['wanted'])) {
-                    $inputs['wanted_id'][] = $wanted->id;
-                    #$inputs['wanted'][] = $wanted->wanted;にしていると'wanted'に数字の配列と文字の配列の両方が入ってしまった
-                    $inputs['wanteds'][] = $wanted->wanted;
-                }
-            }
-        }
-
-        foreach ($get_prefectures as $prefecture) {
-            if ($prefecture->id == $inputs['prefecture']) {
-                $inputs['prefecture_id'] = $prefecture->id;
-                $inputs['prefecture'] = $prefecture->prefecture;
-            }
-        }
-
-        if($request->has('sex')) {
-            foreach ($get_sexes as $sex) {
-                if (in_array($sex->id, (array)$inputs['sex'])) {
-                    $inputs['sex_id'][] = $sex->id;
-                    $inputs['sexes'][] = $sex->sex;
-                }
-            }
-        }
+        list($inputs, $validated) = $this->confirmFun($request);
 
         return view('post.create_confirm', compact('inputs', 'validated'));
     }
@@ -176,21 +121,7 @@ class PostController extends Controller
         }
         DB::commit();
 
-        $post = new Post;
-        $get_posts = $post->getPosts();
-
-        $prefecture = new Prefecture;
-        $link_area_prefectures = $prefecture->linkAreaPrefectures();
-        $area_classes = $prefecture->areaClass();
-
-        $sex = new Sex;
-        $get_sexes = $sex->getSexes();
-
-        $age = new Age;
-        $get_ages = $age->getAges();
-
-        $wanted = new Wanted;
-        $get_wanteds = $wanted->getWanteds();
+        list($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds) = $this->redirectIndexFun();
 
         $request->session()->flush();
 
@@ -217,7 +148,9 @@ class PostController extends Controller
     public function editPassConfirm(Request $request, $id)
     {
         // dd($request->all());
-        $request->session()->all();
+        $inputs = $request->all();
+        $request->session()->put($inputs);
+
         $post = new Post;
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
@@ -232,13 +165,31 @@ class PostController extends Controller
     public function edit(Request $request, $id)
     {
 
-        if ($request->get('back')) {
-            return redirect('post/' . $id);
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if($action == 'back') {
+            $request->session()->flush();
+            return redirect()->route('post.show_message', compact('id'));
         }
+
+        $data = $request->session()->all();
 
         $post = new Post;
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
+
+        $age = new Age;
+        $get_ages = $age->getAges();
+
+        $wanted = new Wanted;
+        $get_wanteds = $wanted->getWanteds();
+
+        $prefecture = new Prefecture;
+        $get_prefectures = $prefecture->getPrefectures();
+
+        $sex = new Sex;
+        $get_sexes = $sex->getSexes();
 
         $passCheck = Hash::check($request->password, $detail_post->password);
 
@@ -247,7 +198,7 @@ class PostController extends Controller
         ]);
 
         if ($passCheck) {
-            return view('post.edit', compact('id', 'detail_post'));
+            return view('post.edit', compact('id', 'detail_post', 'data', 'get_ages', 'get_wanteds', 'get_prefectures', 'get_sexes'));
         } else {
             // return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
             return redirect(route('post.editPassConfirm', compact('id')))->with(['notPass', 'パスワードが一致しません']);
@@ -257,16 +208,40 @@ class PostController extends Controller
     /**
      * 編集内容確認画面
      */
-    public function editConfirm()
+    public function editConfirm(UpdatePostRequest $request, $id)
     {
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if($action == 'back') {
+            return redirect()->route('post.editPassConfirm', compact('id'));
+        }
+
+        list($inputs, $validated) = $this->confirmFun($request);
+
+        return view('post.edit_confirm', compact('inputs', 'validated'));
     }
 
     /**
      * 個人詳細変更機能
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
         //
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if ($action == 'back') {
+            $request->session()->flush();
+            return redirect()->route('post.editPassConfirm');
+        }
+
+
+        list($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds) = $this->redirectIndexFun();
+
+        $request->session()->flush();
+
+        return redirect()->route('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
     }
 
     /**
@@ -275,5 +250,79 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function confirmFun(Request $request)
+    {
+        $inputs = $request->all();
+        $request->session()->put($inputs);
+
+        $age = new Age;
+        $get_ages = $age->getAges();
+
+        $wanted = new Wanted;
+        $get_wanteds = $wanted->getWanteds();
+
+        $prefecture = new Prefecture;
+        $get_prefectures = $prefecture->getPrefectures();
+
+        $sex = new Sex;
+        $get_sexes = $sex->getSexes();
+
+        $validated = $request->validated();
+
+        foreach ($get_ages as $age) {
+            if ($age->id == $inputs['age']) {
+                $inputs['age_id'] = $age->id;
+                $inputs['age'] = $age->age;
+            }
+        }
+
+        if ($request->has('wanted')) {
+            foreach ($get_wanteds as $wanted) {
+                if (in_array($wanted->id, (array)$inputs['wanted'])) {
+                    $inputs['wanted_id'][] = $wanted->id;
+                    $inputs['wanteds'][] = $wanted->wanted;
+                }
+            }
+        }
+
+        foreach ($get_prefectures as $prefecture) {
+            if ($prefecture->id == $inputs['prefecture']) {
+                $inputs['prefecture_id'] = $prefecture->id;
+                $inputs['prefecture'] = $prefecture->prefecture;
+            }
+        }
+
+        if ($request->has('sex')) {
+            foreach ($get_sexes as $sex) {
+                if (in_array($sex->id, (array)$inputs['sex'])) {
+                    $inputs['sex_id'][] = $sex->id;
+                    $inputs['sexes'][] = $sex->sex;
+                }
+            }
+        }
+        return array($inputs, $validated);
+    }
+
+    public function redirectIndexFun()
+    {
+        $post = new Post;
+        $get_posts = $post->getPosts();
+
+        $prefecture = new Prefecture;
+        $link_area_prefectures = $prefecture->linkAreaPrefectures();
+        $area_classes = $prefecture->areaClass();
+
+        $sex = new Sex;
+        $get_sexes = $sex->getSexes();
+
+        $age = new Age;
+        $get_ages = $age->getAges();
+
+        $wanted = new Wanted;
+        $get_wanteds = $wanted->getWanteds();
+
+        return array($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds);
     }
 }

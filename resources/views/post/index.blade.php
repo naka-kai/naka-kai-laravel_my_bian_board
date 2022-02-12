@@ -89,9 +89,6 @@
                                     <!-- /地方 -->
                                 @endforeach
 
-                                {{-- <hr class="border-sky-100 mx-1"> --}}
-                                <!-- hr border -->
-
                             </div>
                             <!-- /都道府県選択 -->
 

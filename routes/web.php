@@ -34,9 +34,13 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('post')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('post.index');
+
     Route::get('/create', [PostController::class, 'create'])->name('post.create');
+
     Route::post('/create_confirm', [PostController::class, 'createConfirm'])->name('post.createConfirm');
+
     Route::post('/store', [PostController::class, 'store'])->name('post.store');
+
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show_message');
 
     Route::get('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm']);
@@ -44,8 +48,11 @@ Route::prefix('post')->group(function () {
 
     Route::get('edit/{id}', [PostController::class, 'edit']);
     Route::post('edit/{id}', [PostController::class, 'edit'])->name('post.edit');
-    
-    Route::get('edit_confirm/{id}', [PostController::class, 'editConfirm'])->name('post.edit_confirm');
+
+    Route::get('edit_confirm/{id}', [PostController::class, 'editConfirm']);
+    Route::post('edit_confirm/{id}', [PostController::class, 'editConfirm'])->name('post.edit_confirm');
+
+    Route::post('store/{id}', [PostController::class, 'update'])->name('post.update');
 });
 
 Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');

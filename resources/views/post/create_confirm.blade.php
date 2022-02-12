@@ -10,7 +10,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
             新規投稿
         </h2>
-        <a href="" class="underline text-blue-500">TOPに戻る</a>
+        <a href="{{ route('post.index') }}" class="underline text-blue-500">TOPに戻る</a>
     </x-slot>
 
     <div class="py-12">
@@ -119,7 +119,7 @@
 
                         <div class="flex items-center justify-center">
                             <div class="mr-5">
-                                <!-- confirmButton -->
+                                <!-- backButton -->
                                 <div class="mx-auto">
                                     <button
                                         class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
@@ -127,7 +127,7 @@
                                         戻る
                                     </button>
                                 </div>
-                            </div><!-- /confirmButton -->
+                            </div><!-- /backButton -->
 
                             <div>
                                 <!-- confirmButton -->
