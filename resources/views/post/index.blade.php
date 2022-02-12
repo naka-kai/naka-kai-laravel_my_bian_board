@@ -164,7 +164,7 @@
                                         <div class="flex items-center">
                                             <div class="flex flex-col justify-center">
                                                 <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                                <p class="text-sm">15分前に投稿</p>
+                                                <p class="text-sm">{{ $post->created_at->diffForHumans() }}に投稿</p>
                                             </div>
                                             <div class="ml-3">
                                                 <p>{{ $post->title }}</p>
