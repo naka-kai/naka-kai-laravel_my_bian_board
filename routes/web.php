@@ -38,9 +38,14 @@ Route::prefix('post')->group(function () {
     Route::post('/create_confirm', [PostController::class, 'createConfirm'])->name('post.createConfirm');
     Route::post('/store', [PostController::class, 'store'])->name('post.store');
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show_message');
-    Route::get('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm'])->name('post.editPassConfirm');
+
+    Route::get('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm']);
+    Route::post('edit_pass_confirm/{id}', [PostController::class, 'editPassConfirm'])->name('post.editPassConfirm');
+
+    Route::get('edit/{id}', [PostController::class, 'edit']);
     Route::post('edit/{id}', [PostController::class, 'edit'])->name('post.edit');
-    Route::post('edit_confirm/{id}', [PostController::class, 'edit_confirm'])->name('post.edit_confirm');
+    
+    Route::get('edit_confirm/{id}', [PostController::class, 'editConfirm'])->name('post.edit_confirm');
 });
 
 Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');

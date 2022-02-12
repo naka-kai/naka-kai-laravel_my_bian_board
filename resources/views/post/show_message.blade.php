@@ -19,72 +19,88 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- 初期 -->
 
+                    {{-- {{ dd($detail_post) }} --}}
                     <div class="w-2/3 mx-auto text-gray-800" x-data="accordion">
-                        <div class="flex justify-between items-center">
-                            <h3 class="py-2 font-semibold text-lg">{{ $detail_post->title }}</h3>
-                            {{-- {{ dd($detail_post) }} --}}
-                            <div class="flex">
-                                <form action="{{ route('post.editPassConfirm', ['id' => $id]) }}" method="get">
-                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 編集 ]"
-                                        name="editId">
-                                </form>
-                                <form action="" method="get">
-                                    <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]"
-                                        name="editId">
-                                </form>
+                        <form>
+                            <div class="flex justify-between items-center">
+                                <h3 class="py-2 font-semibold text-lg">{{ $detail_post->title }}</h3>
+                                <input type="hidden" name="title" value="{{ $detail_post->title }}">
                             </div>
-                        </div>
-                        <hr>
-                        <p class="pt-3 pb-2">
-                            {{ date('Y/m/d h:m', strtotime($detail_post->created_at)) }}
-                        </p>
-                        <div class="flex py-2">
-                            @if ($detail_post->wanteds)
-                                @foreach ($detail_post->wanteds as $wanted)
-                                    <div class="flex">
-                                        <div
-                                            class="@if ($wanted->id == 1)
-                                            bg-orange-100 border-orange-300
-                                            @elseif ($wanted->id == 2)
-                                            bg-pink-100 border-pink-300
-                                            @else
-                                            bg-blue-100 border-blue-300
-                                            @endif
-                                            px-2 py-1 mr-3 rounded">
-                                            <p>{{ $wanted->wanted }}</p>
+                            <hr>
+                            <p class="pt-3 pb-2">
+                                {{ date('Y/m/d h:m', strtotime($detail_post->created_at)) }}
+                            </p>
+                            @csrf
+                            <input type="hidden" name="email" value="{{ $detail_post->email }}">
+                            <div class="flex py-2">
+                                @if ($detail_post->wanteds)
+                                    @foreach ($detail_post->wanteds as $wanted)
+                                        {{-- {{ dd($wanted) }} --}}
+                                        <input type="hidden" name="wanted_id[]" value="{{ $wanted->id }}">
+                                        <input type="hidden" name="wanted[]" value="{{ $wanted->wanted }}">
+                                        <div class="flex">
+                                            <div
+                                                class="@if ($wanted->id == 1)
+                                                bg-orange-100 border-orange-300
+                                                @elseif ($wanted->id == 2)
+                                                bg-pink-100 border-pink-300
+                                                @else
+                                                bg-blue-100 border-blue-300
+@endif
+                                                px-2 py-1 mr-3 rounded">
+                                                <p>{{ $wanted->wanted }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                            <p class="px-2 py-1">{{ $detail_post->prefecture->prefecture }}</p>
-                            <p class="px-2 py-1">{{ $detail_post->age->age }}</p>
-                        </div>
+                                    @endforeach
+                                @endif
+                                <input type="hidden" name="prefecture_id" value="{{ $detail_post->prefecture_id }}">
+                                <input type="hidden" name="prefecture"
+                                    value="{{ $detail_post->prefecture->prefecture }}">
+                                <input type="hidden" name="age_id" value="{{ $detail_post->age->id }}">
+                                <input type="hidden" name="age" value="{{ $detail_post->age->age }}">
+                                <p class="px-2 py-1">{{ $detail_post->prefecture->prefecture }}</p>
+                                <p class="px-2 py-1">{{ $detail_post->age->age }}</p>
+                            </div>
 
-                        <div class="flex my-2">
-                            <p class="mr-5">名前：{{ $detail_post->name }}さん</p>
-                            @if ($detail_post->sexes)
-                                @foreach ($detail_post->sexes as $sex)
-                                    <p class="mr-3">[{{ $sex->sex }}]</p>
-                                @endforeach
-                            @endif
-                        </div>
+                            <div class="flex my-2">
+                                <input type="hidden" name="name" value="{{ $detail_post->name }}">
+                                <p class="mr-5">名前：{{ $detail_post->name }}さん</p>
+                                @if ($detail_post->sexes)
+                                    @foreach ($detail_post->sexes as $sex)
+                                        {{-- {{ dd($sex) }} --}}
+                                        <input type="hidden" name="sex_id[]" value="{{ $sex->id }}">
+                                        <input type="hidden" name="sexes[]" value="$sex->sex">
+                                        <p class="mr-3">[{{ $sex->sex }}]</p>
+                                    @endforeach
+                                @endif
+                            </div>
 
-                        <div class="py-1 leading-7">
-                            {{ $detail_post->content }}
-                        </div>
+                            <div class="py-1 leading-7">
+                                {{ $detail_post->content }}
+                            </div>
+                            <input type="hidden" name="content" value="{{ $detail_post->content }}">
+
+                            <div class="flex mt-10">
+                                <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 編集 ]"
+                                    name="editId" formaction="{{ route('post.editPassConfirm', ['id' => $id]) }}"
+                                    formmethod="POST">
+                                <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]"
+                                    name="editId" formaction="">
+                            </div>
+                        </form>
                         @if (session('message'))
                             <div class="mt-10 text-sky-400">
                                 {{ session('message') }}
                             </div>
                         @endif
-                        <div>
-                            <p class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block cursor-pointer"
-                                x-on:click="handleClick()">{{ $detail_post->name }}さんに連絡する！</p>
+                        <div id="msg_btn">
+                            <p
+                                class="mt-8 bg-white hover:bg-sky-50 py-2 px-4 border border-sky-200 rounded shadow-md shadow-sky-100 inline-block cursor-pointer">
+                                {{ $detail_post->name }}さんに連絡する！</p>
                         </div>
                         <form action="{{ route('mail.store', ['id' => $detail_post->id]) }}" method="POST">
                             @csrf
-                            <div x-ref="tab" :style="handleToggle()"
-                                class="overflow-hidden max-h-0 duration-500 transition-all mt-10">
+                            <div class="mt-10" id="msg_acd" style="display: none">
                                 <div>
                                     <div class="border border-red-400 p-2">
                                         <p>※注意事項</p>
@@ -173,34 +189,11 @@
 
                     </div>
 
-
                 </div><!-- 初期 -->
             </div>
         </div>
     </div>
 
     <x-slot name="script">
-        
-        {{-- <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.store('accordion', {
-                    tab: 0
-                });
-
-                Alpine.data('accordion', (idx) => ({
-                    init() {
-                        this.idx = idx;
-                    },
-                    idx: -1,
-                    handleClick() {
-                        this.$store.accordion.tab = this.$store.accordion.tab === this.idx ? 0 : this.idx;
-                    },
-                    handleToggle() {
-                        return this.$store.accordion.tab === this.idx ?
-                            `max-height: ${this.$refs.tab.scrollHeight}px` : '';
-                    }
-                }));
-            })
-        </script> --}}
     </x-slot>
 </x-guest-layout>

@@ -4,7 +4,7 @@ $(function() {
     let num = 2;  //clickごとに表示したい件数
     let contents = '.post'; // 対象のlist
 
-    console.log(contents + ':nth-child(n + ' + (show + 1) + ')');
+    // console.log(contents + ':nth-child(n + ' + (show + 1) + ')');
 
     $(contents + ':nth-child(n + ' + (show + 1) + ')').addClass('hidden');
     $('.more').on('click', function () {

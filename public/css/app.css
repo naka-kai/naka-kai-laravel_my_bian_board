@@ -1051,6 +1051,9 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
 }
+.bg-rainbow {
+  background-image: url('/images/rainbow.png');
+}
 .bg-cover {
   background-size: cover;
 }

@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/pref.js', 'public/js')
     .js('resources/js/morePosts.js', 'public/js')
+    .js('resources/js/messageAcd.js', 'public/js')
     .sass('resources/sass/pref.scss', 'public/css')
     .css('resources/css/board-index.css', 'public/css')
     .vue()
