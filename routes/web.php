@@ -52,7 +52,7 @@ Route::prefix('post')->group(function () {
     Route::get('edit_confirm/{id}', [PostController::class, 'editConfirm']);
     Route::post('edit_confirm/{id}', [PostController::class, 'editConfirm'])->name('post.edit_confirm');
 
-    Route::post('store/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::post('update/{id}', [PostController::class, 'update'])->name('post.update');
 });
 
 Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');
