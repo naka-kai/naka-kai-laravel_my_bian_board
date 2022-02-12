@@ -20,8 +20,8 @@
                     <!-- 初期 -->
 
                     <form class="w-full" action="{{ route('post.edit_confirm', ['id' => $id]) }}"
-                        method="get">
-                        {{-- @csrf --}}
+                        method="post">
+                        @csrf
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- title -->
                             <div class="mb-2 pr-4">
@@ -90,8 +90,7 @@
                             <div class="flex space-x-10 justify-center items-center mb-1">
                                 @foreach ($get_wanteds as $wanted)
                                     <label class="block text-gray-500 font-bold" for="{{ $wanted->inputName }}">
-                                        <input class="mr-2 leading-tight" type="checkbox" name="wanted[]"
-                                            id="{{ $wanted->inputName }}" value="{{ $wanted->id }}">
+                                        <input type="checkbox" id="{{ $wanted->inputName }}" name="wanted[]" value="{{ $wanted->id }}" @if(in_array($wanted->id, $data['wanted_id'])) checked @endif>
                                         <span class="text-sm">
                                             {{ $wanted->wanted }}
                                         </span>
@@ -124,7 +123,6 @@
                             </div>
                         </div><!-- /prefecture -->
 
-                        {{-- {{ dd($data['sex_id']) }} --}}
                         <div class="mb-6">
                             <!-- sex -->
                             <div class="mb-1 pr-4">
@@ -181,16 +179,29 @@
                             </div>
                         </div><!-- /content -->
 
-                        <div class="flex items-center">
-                            <!-- confirmButton -->
-                            <div class="mx-auto">
-                                <button
-                                    class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                    type="submit">
-                                    確認
-                                </button>
-                            </div>
-                        </div><!-- /confirmButton -->
+                        <div class="flex items-center justify-center">
+                            <div class="mr-5">
+                                <!-- backButton -->
+                                <div class="mx-auto">
+                                    <button
+                                        class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        type="submit" name="action" value="back">
+                                        戻る
+                                    </button>
+                                </div>
+                            </div><!-- /backButton -->
+
+                            <div>
+                                <!-- confirmButton -->
+                                <div class="mx-auto">
+                                    <button
+                                        class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        type="submit" name="action" value="submit">
+                                        確認
+                                    </button>
+                                </div>
+                            </div><!-- /confirmButton -->
+                        </div>
                     </form>
 
                 </div><!-- 初期 -->

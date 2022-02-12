@@ -22,13 +22,12 @@
                     <form class="w-full" action="{{ route('post.edit', ['id' => $id]) }}" method="post">
                         @csrf
 
-                    <div class="w-2/3 mx-auto mb-6">
+                        <div class="w-2/3 mx-auto mb-6">
                             <!-- password -->
                             <div class="mb-2 pr-4">
                                 <label class="text-gray-700 font-bold" for="password">
                                     パスワード
                                 </label>
-                                {{-- {{ dd(session('notPass')) }} --}}
                                 @if (session('notPass'))
                                     <p class="text-sm py-1 text-red-400">{{ session('notPass') }}</p>
                                 @endif
@@ -49,7 +48,7 @@
                                 <div class="mx-auto">
                                     <button
                                         class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                        type="submit" value="back" name="back">
+                                        type="submit" value="action" name="back">
                                         戻る
                                     </button>
                                 </div>
@@ -60,16 +59,16 @@
                                 <div class="mx-auto">
                                     <button
                                         class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                        type="submit" value="submit">
+                                        type="submit" name="action" value="submit">
                                         確認
                                     </button>
                                 </div>
                             </div><!-- /confirmButton -->
                         </div>
 
-                        </form>
+                    </form>
 
-                    </div><!-- 初期 -->
+                </div><!-- 初期 -->
             </div>
         </div>
     </div>
