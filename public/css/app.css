@@ -661,6 +661,9 @@ select {
 .mb-6 {
   margin-bottom: 1.5rem;
 }
+.mr-5 {
+  margin-right: 1.25rem;
+}
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -693,9 +696,6 @@ select {
 }
 .-mt-px {
   margin-top: -1px;
-}
-.mr-5 {
-  margin-right: 1.25rem;
 }
 .mt-10 {
   margin-top: 2.5rem;
@@ -780,9 +780,6 @@ select {
 }
 .h-9 {
   height: 2.25rem;
-}
-.max-h-0 {
-  max-height: 0px;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -1356,16 +1353,8 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
 .duration-150 {
   transition-duration: 150ms;
-}
-.duration-500 {
-  transition-duration: 500ms;
 }
 .duration-200 {
   transition-duration: 200ms;

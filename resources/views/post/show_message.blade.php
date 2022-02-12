@@ -19,7 +19,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- 初期 -->
 
-                    {{-- {{ dd($detail_post) }} --}}
                     <div class="w-2/3 mx-auto text-gray-800" x-data="accordion">
                         <form>
                             <div class="flex justify-between items-center">
@@ -195,5 +194,7 @@
     </div>
 
     <x-slot name="script">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="{{ mix('js/messageAcd.js') }}"></script>
     </x-slot>
 </x-guest-layout>
