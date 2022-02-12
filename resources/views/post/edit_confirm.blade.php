@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        新規投稿
+        編集確認
     </x-slot>
 
     <x-slot name="head">
@@ -8,7 +8,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
-            新規投稿
+            編集確認
         </h2>
         <a href="{{ route('post.index') }}" class="underline text-blue-500">TOPに戻る</a>
     </x-slot>
@@ -21,7 +21,7 @@
                     <p class="text-center">注意事項</p>
                     <p class="mb-8 text-center">※18歳未満の方の利用は禁止です。18歳になってから利用してください。</p>
 
-                    <form class="w-full" action="{{ route('post.update') }}" method="POST">
+                    <form class="w-full" action="{{ route('post.update', ['id' => $id]) }}" method="POST">
                         @csrf
                         <div class="w-1/2 mx-auto mb-6 flex">
                             <!-- title -->
@@ -50,7 +50,6 @@
                             <input type="hidden" name="age" value="{{ $inputs['age_id'] }}">
                         </div><!-- /age -->
 
-                        {{-- {{ dd($input['wanted']) }} --}}
                         @if (isset($inputs['wanted']))
                             <div class="w-1/2 mx-auto mb-6 flex">
                                 <!-- wanted -->

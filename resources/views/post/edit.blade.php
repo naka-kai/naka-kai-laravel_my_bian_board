@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        新規投稿
+        編集
     </x-slot>
 
     <x-slot name="head">
@@ -8,7 +8,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
-            新規投稿
+            編集
         </h2>
         <a href="{{ route('post.index') }}" class="underline text-blue-500">TOPに戻る</a>
     </x-slot>
@@ -22,6 +22,7 @@
                     <form class="w-full" action="{{ route('post.edit_confirm', ['id' => $id]) }}"
                         method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $id }}">
                         <div class="w-2/3 mx-auto mb-6">
                             <!-- title -->
                             <div class="mb-2 pr-4">

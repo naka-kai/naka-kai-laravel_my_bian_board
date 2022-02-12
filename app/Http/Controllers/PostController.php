@@ -164,11 +164,10 @@ class PostController extends Controller
      */
     public function edit(Request $request, $id)
     {
-
         $action = $request->get('action', 'back');
         $input = $request->except('action');
 
-        if($action == 'back') {
+        if ($action == 'back') {
             $request->session()->flush();
             return redirect()->route('post.show_message', compact('id'));
         }
@@ -213,28 +212,59 @@ class PostController extends Controller
         $action = $request->get('action', 'back');
         $input = $request->except('action');
 
-        if($action == 'back') {
+        if ($action == 'back') {
             return redirect()->route('post.editPassConfirm', compact('id'));
         }
 
         list($inputs, $validated) = $this->confirmFun($request);
 
-        return view('post.edit_confirm', compact('inputs', 'validated'));
+        return view('post.edit_confirm', compact('id', 'inputs', 'validated'));
     }
 
     /**
      * 個人詳細変更機能
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request)
     {
         //
         $action = $request->get('action', 'back');
         $input = $request->except('action');
 
         if ($action == 'back') {
+            // dd('back');
             $request->session()->flush();
             return redirect()->route('post.editPassConfirm');
         }
+
+        $inputs = session()->all();
+
+        DB::beginTransaction();
+        try {
+            // dd('ok');
+            $wanted_id = $request->wanted;
+            $sex_id = $request->sex;
+            // dd($sex_id);
+
+            $post = new Post;
+            $post->title = $inputs['title'];
+            $post->name = $inputs['name'];
+            $post->age_id = $inputs['age'];
+            $post->prefecture_id = $inputs['prefecture'];
+            $post->email = $inputs['email'];
+            $post->content = $inputs['content'];
+            dd($post);
+            $post->save();
+            dd('save');
+
+            $post->wanteds()->attach($wanted_id);
+            $post->sexes()->attach($sex_id);
+        } catch (Exception $e) {
+            // dd('no');
+            DB::rollback();
+            return back()->withInput();
+            $request->session()->flush();
+        }
+        DB::commit();
 
 
         list($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds) = $this->redirectIndexFun();
