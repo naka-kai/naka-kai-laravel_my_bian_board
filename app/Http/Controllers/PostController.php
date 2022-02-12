@@ -71,6 +71,15 @@ class PostController extends Controller
      */
     public function createConfirm(StorePostRequest $request)
     {
+
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if($action == 'back') {
+            $request->session()->flush();
+            return redirect()->route('post.index');
+        }
+
         $inputs = $request->all();
         $request->session()->put($inputs);
 
@@ -88,17 +97,20 @@ class PostController extends Controller
 
         $validated = $request->validated();
 
-        foreach($get_ages as $age) {
-            if($age->id == $inputs['age']) {
+        foreach ($get_ages as $age) {
+            if ($age->id == $inputs['age']) {
                 $inputs['age_id'] = $age->id;
                 $inputs['age'] = $age->age;
             }
         }
 
-        foreach ($get_wanteds as $wanted) {
-            if ($wanted->id == $inputs['wanted']) {
-                $inputs['wanted_id'] = $wanted->id;
-                $inputs['wanted'] = $wanted->wanted;
+        if($request->has('wanted')) {
+            foreach ($get_wanteds as $wanted) {
+                if (in_array($wanted->id, (array)$inputs['wanted'])) {
+                    $inputs['wanted_id'][] = $wanted->id;
+                    #$inputs['wanted'][] = $wanted->wanted;にしていると'wanted'に数字の配列と文字の配列の両方が入ってしまった
+                    $inputs['wanteds'][] = $wanted->wanted;
+                }
             }
         }
 
@@ -109,10 +121,12 @@ class PostController extends Controller
             }
         }
 
-        foreach ($get_sexes as $sex) {
-            if ($sex->id == $inputs['sex']) {
-                $inputs['sex_id'] = $sex->id;
-                $inputs['sex'] = $sex->sex;
+        if($request->has('sex')) {
+            foreach ($get_sexes as $sex) {
+                if (in_array($sex->id, (array)$inputs['sex'])) {
+                    $inputs['sex_id'][] = $sex->id;
+                    $inputs['sexes'][] = $sex->sex;
+                }
             }
         }
 
@@ -124,8 +138,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if ($action == 'back') {
+            $request->session()->flush();
+            return redirect()->route('post.create')->withInput();
+        }
+
         $inputs = session()->all();
-        // dd($inputs['title']);
 
         DB::beginTransaction();
         try {
@@ -133,7 +155,7 @@ class PostController extends Controller
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
 
-            $password = Hash::make($request->password);
+            $password = Hash::make($inputs['password']);
 
             $post = new Post;
             $post->title = $inputs['title'];
@@ -147,10 +169,10 @@ class PostController extends Controller
 
             $post->wanteds()->attach($wanted_id);
             $post->sexes()->attach($sex_id);
-
         } catch (Exception $e) {
             DB::rollback();
             return back()->withInput();
+            $request->session()->flush();
         }
         DB::commit();
 
@@ -170,8 +192,9 @@ class PostController extends Controller
         $wanted = new Wanted;
         $get_wanteds = $wanted->getWanteds();
 
-        return redirect()->route('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
+        $request->session()->flush();
 
+        return redirect()->route('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
     }
 
     /**
@@ -184,14 +207,17 @@ class PostController extends Controller
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
 
+
         return view('post.show_message', compact('id', 'detail_post'));
     }
 
     /**
      * 編集時のパスワード確認
      */
-    public function editPassConfirm($id)
+    public function editPassConfirm(Request $request, $id)
     {
+        // dd($request->all());
+        $request->session()->all();
         $post = new Post;
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
@@ -206,8 +232,8 @@ class PostController extends Controller
     public function edit(Request $request, $id)
     {
 
-        if($request->get('back')) {
-            return redirect('post/'. $id);
+        if ($request->get('back')) {
+            return redirect('post/' . $id);
         }
 
         $post = new Post;
@@ -220,7 +246,7 @@ class PostController extends Controller
             'password' => 'required|min:8|string',
         ]);
 
-        if($passCheck) {
+        if ($passCheck) {
             return view('post.edit', compact('id', 'detail_post'));
         } else {
             // return redirect()->route('post.editPassConfirm', compact('id'))->with(['notPass', 'パスワードが一致しません']);
@@ -233,7 +259,6 @@ class PostController extends Controller
      */
     public function editConfirm()
     {
-
     }
 
     /**

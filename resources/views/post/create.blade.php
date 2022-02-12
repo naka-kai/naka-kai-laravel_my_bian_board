@@ -33,10 +33,10 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <input
                                     class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="title" type="text" name="title">
+                                    id="title" type="text" name="title" value="{{ old('title') }}">
                             </div>
                         </div><!-- /title -->
 
@@ -50,10 +50,8 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
-                                <input
-                                    class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="name" type="text" name="name">
+                            <div>
+                                <input class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="name" type="text" name="name" value="{{ old('name') }}">
                             </div>
                         </div><!-- /name -->
 
@@ -67,13 +65,13 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <select
                                     class="block appearance-none w-full bg-sky-50 border border-sky-50 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="age" name="age">
                                     <option value="">選択してください</option>
                                     @foreach ($get_ages as $age)
-                                        <option value="{{ $age->id }}">{{ $age->age }}</option>
+                                        <option value="{{ $age->id }}" @if(old('age') == $age->id) selected @endif>{{ $age->age }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -89,8 +87,7 @@
                             <div class="flex space-x-10 justify-center items-center mb-1">
                                 @foreach ($get_wanteds as $wanted)
                                     <label class="block text-gray-500 font-bold" for="{{ $wanted->inputName }}">
-                                        <input class="mr-2 leading-tight" type="checkbox" name="wanted"
-                                            id="{{ $wanted->inputName }}" value="{{ $wanted->id }}">
+                                        <input class="mr-2 leading-tight" type="checkbox" name="wanted[]" id="{{ $wanted->inputName }}" value="{{ $wanted->id }}" {{ is_array(old('wanted')) && in_array($wanted->id, old('wanted')) ? 'checked="checked"' : '' }}>
                                         <span class="text-sm">
                                             {{ $wanted->wanted }}
                                         </span>
@@ -109,13 +106,13 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <select
                                     class="block appearance-none w-full bg-sky-50 border border-sky-50 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="prefecture">
                                     <option value="">選択してください</option>
                                     @foreach ($get_prefectures as $prefecture)
-                                        <option value="{{ $prefecture->id }}">{{ $prefecture->prefecture }}
+                                        <option value="{{ $prefecture->id }}" @if(old('prefecture') == $prefecture->id) selected @endif>{{ $prefecture->prefecture }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -133,7 +130,7 @@
                                 @foreach ($get_sexes as $sex)
                                     <label class="block text-gray-500 font-bold" for="{{ $sex->inputName }}">
                                         <input class="mr-2 leading-tight" type="checkbox" id="{{ $sex->inputName }}"
-                                            name="sex" value="{{ $sex->id }}">
+                                            name="sex[]" value="{{ $sex->id }}" {{ is_array(old('sex')) && in_array($sex->id, old('sex')) ? 'checked=checked' : '' }}>
                                         <span class="text-sm">
                                             {{ $sex->sex }}
                                         </span>
@@ -152,10 +149,10 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <input
                                     class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="email" type="email" placeholder="(非公開)" name="email">
+                                    id="email" type="email" placeholder="(非公開)" name="email" value="{{ old('email') }}">
                             </div>
                         </div><!-- /email -->
 
@@ -169,10 +166,8 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
-                                <textarea
-                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="content" rows="10" name="content"></textarea>
+                            <div>
+                                <textarea class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:outline-none focus:bg-white focus:border-gray-500" id="content" rows="10" name="content">{{ old('content') }}</textarea>
                             </div>
                         </div><!-- /content -->
 
@@ -186,7 +181,7 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <input
                                     class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="password" type="password" name="password">
@@ -203,7 +198,7 @@
                                     <p class="text-sm py-1 text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="">
+                            <div>
                                 <input
                                     class="bg-sky-50 appearance-none border-2 border-sky-50 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="password_confirmation" type="password" name="password_confirmation">
@@ -223,16 +218,30 @@
                             </label>
                         </div><!-- /caution -->
 
-                        <div class="flex items-center">
-                            <!-- confirmButton -->
-                            <div class="mx-auto">
-                                <button
-                                    class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                    type="submit">
-                                    確認
-                                </button>
-                            </div>
-                        </div><!-- /confirmButton -->
+                        <div class="flex items-center justify-center">
+                            <div class="mr-5">
+                                <!-- confirmButton -->
+                                <div class="mx-auto">
+                                    <button
+                                        class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        type="submit" name="action" value="back">
+                                        戻る
+                                    </button>
+                                </div>
+                            </div><!-- /confirmButton -->
+
+                            <div>
+                                <!-- confirmButton -->
+                                <div class="mx-auto">
+                                    <button
+                                        class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                                        type="submit" name="action" value="submit">
+                                        確認
+                                    </button>
+                                </div>
+                            </div><!-- /confirmButton -->
+                        </div>
+
                     </form>
 
                 </div><!-- 初期 -->

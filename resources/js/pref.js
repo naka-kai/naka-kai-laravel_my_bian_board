@@ -250,13 +250,6 @@ pref_kyu_list.forEach(element => {
 /**
  * アコーディオン
  */
-// $(function () {
-//     $('.acd-area').click(function () {
-//         $(this).next('.acd-prefs').slideToggle();
-//         $(this).toggleClass("open");
-//     });
-// });
-
 window.onload = function (e) {
 
     const acd_area = document.querySelectorAll(".acd-area")
@@ -271,14 +264,3 @@ window.onload = function (e) {
         });
     }
 };
-
-// const acd_area = document.querySelectorAll(".acd-area");
-// const acd_prefs = document.querySelectorAll(".acd-prefs");
-
-// for (let i = 0; i < acd_area.length; i++) {
-//     acd_area[i].addEventListener("click", function () {
-//         console.log('ok');
-//         this.classList.toggle("active");
-//         acd_prefs[i].classList.toggle("active");
-//     });
-// }

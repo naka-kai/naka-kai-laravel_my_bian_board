@@ -20,19 +20,18 @@
                 <div class="p-6 border-b border-gray-200 bg-white">
                     <!-- 初期 -->
 
-                    <form action="">
+                    {{-- <form action=""> --}}
+                    <div class="border-2 border-dashed border-sky-200 p-3">
+                        <!-- white dash border -->
 
+                        <div class="flex justify-end mb-5">
+                            <!-- 新規投稿ボタン -->
+                            <a href="{{ route('post.create') }}"
+                                class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow">新規投稿する</a>
+                        </div>
+                        <!-- /新規投稿ボタン -->
 
-                        <div class="border-2 border-dashed border-sky-200 p-3">
-                            <!-- white dash border -->
-
-                            <div class="flex justify-end mb-5">
-                                <!-- 新規投稿ボタン -->
-                                <a href="{{ route('post.create') }}"
-                                    class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow">新規投稿する</a>
-                            </div>
-                            <!-- /新規投稿ボタン -->
-
+                        <form action="">
                             <div class="border-t-4 border-b-2 border-sky-100">
                                 <!-- 都道府県選択 -->
 
@@ -140,66 +139,77 @@
                                 </div>
                             </div><!-- /wanted -->
 
-                            <div class="flex justify-end mt-3 mb-5">
-                                <!-- /resetButton -->
-                                <input type="reset"
-                                    class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow"
-                                    value="リセット" id="resetButton">
-                            </div><!-- /resetButton -->
+                            <div class="flex justify-end">
+                                <div class="flex mt-3 mb-5">
+                                    <!-- /searchButton -->
+                                    <input type="submit"
+                                        class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow mr-5"
+                                        value="検索">
+                                </div><!-- /searchButton -->
 
-                            <div class="text-gray-600">
-                                <!-- posts -->
+                                <div class="flex mt-3 mb-5">
+                                    <!-- /resetButton -->
+                                    <input type="reset"
+                                        class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow"
+                                        value="リセット" id="resetButton">
+                                </div><!-- /resetButton -->
+                            </div>
+                        </form>
 
-                                @foreach ($get_posts as $post)
-                                    <a href="{{ route('post.show_message', ['id' => $post->id]) }}" class="post">
-                                        <!-- post -->
-                                        <div class="border-t border-sky-100 flex justify-between items-center p-3">
-                                            <div class="flex items-center">
-                                                <div class="flex flex-col justify-center">
-                                                    <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
-                                                    <p class="text-sm">15分前に投稿</p>
-                                                </div>
-                                                <div class="ml-3">
-                                                    <p>{{ $post->title }}</p>
-                                                    <p>{{ $post->name }}</p>
-                                                </div>
+                        <div class="text-gray-600">
+                            <!-- posts -->
+
+                            @foreach ($get_posts as $post)
+                                <a href="{{ route('post.show_message', ['id' => $post->id]) }}"
+                                    class="post">
+                                    <!-- post -->
+                                    <div class="border-t border-sky-100 flex justify-between items-center p-3">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-col justify-center">
+                                                <i class="far fa-smile fa-3x text-gray-400 text-center mb-1"></i>
+                                                <p class="text-sm">15分前に投稿</p>
                                             </div>
-                                            {{-- {{ dd($post) }} --}}
-                                            <div class="ml-auto mr-10">
-                                                <p>{{ $post->prefecture->prefecture }}</p>
+                                            <div class="ml-3">
+                                                <p>{{ $post->title }}</p>
+                                                <p>{{ $post->name }}</p>
                                             </div>
-                                            <div>
-                                                <!-- 募集項目 -->
-                                                @foreach ($post->wanteds as $wanted)
-                                                    <div
-                                                        class="border @if ($wanted->id == 1)
+                                        </div>
+                                        {{-- {{ dd($post) }} --}}
+                                        <div class="ml-auto mr-10">
+                                            <p>{{ $post->prefecture->prefecture }}</p>
+                                        </div>
+                                        <div>
+                                            <!-- 募集項目 -->
+                                            @foreach ($post->wanteds as $wanted)
+                                                <div
+                                                    class="border @if ($wanted->id == 1)
                                                         bg-orange-100 border-orange-300
                                                         @elseif ($wanted->id == 2)
                                                         bg-pink-100 border-pink-300
                                                         @elseif ($wanted->id == 3)
                                                         bg-blue-100 border-blue-300
                                                         @endif px-2 py-1 mr-3 rounded my-1">
-                                                        <p>{{ $wanted->wanted }}</p>
-                                                    </div>
-                                                @endforeach
-                                            </div><!-- /募集項目 -->
+                                                    <p>{{ $wanted->wanted }}</p>
+                                                </div>
+                                            @endforeach
+                                        </div><!-- /募集項目 -->
 
-                                        </div>
-                                    </a>
-                                    <!-- /post -->
-                                @endforeach
+                                    </div>
+                                </a>
+                                <!-- /post -->
+                            @endforeach
 
-                            </div><!-- /posts -->
+                        </div><!-- /posts -->
 
-                            <div class="border-y-2 border-sky-100 p-3 text-gray-700 cursor-pointer more">
-                                <!-- more -->
-                                <p class="text-center">もっと見る</p>
-                            </div>
-                            <!-- /more -->
-
+                        <div class="border-y-2 border-sky-100 p-3 text-gray-700 cursor-pointer more">
+                            <!-- more -->
+                            <p class="text-center">もっと見る</p>
                         </div>
-                        <!-- /white dash border -->
-                    </form>
+                        <!-- /more -->
+
+                    </div>
+                    <!-- /white dash border -->
+                    {{-- </form> --}}
 
                 </div>
                 <!-- /初期 -->
