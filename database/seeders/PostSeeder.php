@@ -25,6 +25,8 @@ class PostSeeder extends Seeder
                 'email' => 'test1@test.com',
                 'password' => Hash::make('password1'),
                 'content' => '内容1',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトル2',
@@ -34,6 +36,8 @@ class PostSeeder extends Seeder
                 'email' => 'test2@test.com',
                 'password' => Hash::make('password2'),
                 'content' => '内容2',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトル3',
@@ -43,6 +47,8 @@ class PostSeeder extends Seeder
                 'email' => 'test3@test.com',
                 'password' => Hash::make('password3'),
                 'content' => '内容3',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトル4',
@@ -52,6 +58,8 @@ class PostSeeder extends Seeder
                 'email' => 'test4@test.com',
                 'password' => Hash::make('password4'),
                 'content' => '内容4',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
         ]);
