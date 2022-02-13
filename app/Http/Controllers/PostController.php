@@ -54,11 +54,10 @@ class PostController extends Controller
                         $search = $search->where('wanted', '=', $post->wanted);
                     }
                 }
-                dd($search);
-
             }
         };
 
+        // dd($search);
 
         $request->session()->flush();
 
@@ -79,9 +78,7 @@ class PostController extends Controller
         $wanted = new Wanted;
         $get_wanteds = $wanted->getWanteds();
 
-
-
-        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds', 'data'));
+        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds', 'data', 'search'));
     }
 
     /**
