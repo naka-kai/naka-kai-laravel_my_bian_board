@@ -6,6 +6,7 @@
     <x-slot name="head">
         <link rel="stylesheet" href="{{ mix('css/board-index.css') }}">
         <link rel="stylesheet" href="{{ mix('css/pref.css') }}">
+        <script src="{{ mix('js/searchReset.js') }}"></script>
     </x-slot>
 
     <x-slot name="header" class="bg-rainbow">
@@ -37,8 +38,8 @@
 
                                 <div class="p-1 flex items-center">
                                     <!-- 全て選択 / 解除 -->
-                                    <input type="checkbox" class="pref_all mr-1" id="pref_all">
-                                    <label for="pref_all" class="font-semibold text-gray-700" x-on:click="resetInput">
+                                    <input type="checkbox" class="pref_all mr-1" id="pref_all" name="pref_all" value="pref_all">
+                                    <label for="pref_all" class="font-semibold text-gray-700">
                                         全て選択 / 解除</label>
                                 </div>
                                 <!-- 全て選択 / 解除 -->
@@ -53,12 +54,12 @@
                                     <div class="p-1">
                                         <!-- 地方 -->
                                         <div class="acd-area flex items-center">
-                                            <!-- <input type="checkbox" name="prefs" class="pref_all_list mb-1 mr-1 pref_hokk" id="prefs_hokk" value="1">となる -->
-                                            <input type="checkbox"
+                                            <!-- <input type="checkbox" name="areas[]" class="pref_all_list mb-1 mr-1 pref_hokk" id="areas" value="1">となる -->
+                                            <input type="checkbox" name="areas[]"
                                                 class="pref_all_list mb-1 mr-1 pref_{{ $area_classes[$key] }}"
-                                                value="{{ $area_value }}">
-                                            <!-- <label for="prefs_hokk" class="font-semibold text-gray-700">北海道(東北地方)</label>となる -->
-                                            <label id="pref_{{ $area_classes[$key] }}"
+                                                value="{{ $key }}">
+                                            <!-- <label for="areas" class="font-semibold text-gray-700">北海道(東北地方)</label>となる -->
+                                            <label for="pref_{{ $area_classes[$key] }}" id="pref_{{ $area_classes[$key] }}"
                                                 class="font-semibold text-gray-700">{{ $key }}</label><i
                                                 class="fas fa-chevron-down text-gray-700 ml-2"></i>
                                         </div>
@@ -147,7 +148,7 @@
                                     <!-- /resetButton -->
                                     <input type="reset"
                                         class="block bg-white hover:bg-sky-50 text-gray-500 font-semibold py-2 px-4 border border-sky-100 rounded shadow"
-                                        value="リセット" id="resetButton">
+                                        value="リセット" id="reset_btn">
                                 </div><!-- /resetButton -->
                             </div>
                         </form>
