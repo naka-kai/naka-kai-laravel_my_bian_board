@@ -26,36 +26,44 @@ class PostController extends Controller
     public function index(Request $request)
     {
         //
-        $data = $this->searchPost($request);
+        if(!empty($request)) {
 
-        if($data != null) {
+            $data = $this->searchPost($request);
 
             if($data != null) {
-                $posts = DB::table('posts')
-                    ->join('ages', 'ages.id', '=', 'posts.age_id')
-                    ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
-                    ->join('areas', 'areas.id', '=', 'prefectures.area_id')
-                    ->join('wanteds', 'wanteds.id', '=', 'posts.id')
-                    ->join('sexes', 'sexes.id', '=', 'posts.id')
-                    ->get();
 
-                foreach ($posts as $post) {
-                    $search = $posts;
-                    if(in_array($post->prefecture_id, $data)) {
-                        $search = $search->where('prefecture_id', '=', $post->prefecture_id);
-                    }
-                    if (in_array($post->sex, $data)) {
-                        $search = $search->where('sex', '=', $post->sex);
-                    }
-                    if (in_array($post->age, $data)) {
-                        $search = $search->where('age', '=', $post->age);
-                    }
-                    if (in_array($post->wanted, $data)) {
-                        $search = $search->where('wanted', '=', $post->wanted);
+                if($data != null) {
+                    $posts = DB::table('posts')
+                        ->join('ages', 'ages.id', '=', 'posts.age_id')
+                        ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
+                        ->join('areas', 'areas.id', '=', 'prefectures.area_id')
+                        ->join('wanteds', 'wanteds.id', '=', 'posts.id')
+                        ->join('sexes', 'sexes.id', '=', 'posts.id')
+                        ->get();
+
+                    dd($posts);
+
+                    foreach ($posts as $post) {
+                        $search = $posts;
+                        if(in_array($post->prefecture_id, $data)) {
+                            $search = $search->where('prefecture_id', '=', $post->prefecture_id);
+                        }
+                        if (in_array($post->sex, $data)) {
+                            $search = $search->where('sex', '=', $post->sex);
+                        }
+                        if (in_array($post->age, $data)) {
+                            $search = $search->where('age', '=', $post->age);
+                        }
+                        if (in_array($post->wanted, $data)) {
+                            $search = $search->where('wanted', '=', $post->wanted);
+                        }
                     }
                 }
             }
-        };
+        } else {
+            $search = null;
+            return $search;
+        }
 
         // dd($search);
 
@@ -78,7 +86,7 @@ class PostController extends Controller
         $wanted = new Wanted;
         $get_wanteds = $wanted->getWanteds();
 
-        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds', 'data', 'search'));
+        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds', 'data'));
     }
 
     /**
