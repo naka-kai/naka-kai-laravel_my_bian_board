@@ -26,12 +26,44 @@ class PostController extends Controller
     public function index(Request $request)
     {
         //
+        $data = $this->searchPost($request);
+
+        if($data != null) {
+
+            if($data != null) {
+                $posts = DB::table('posts')
+                    ->join('ages', 'ages.id', '=', 'posts.age_id')
+                    ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
+                    ->join('areas', 'areas.id', '=', 'prefectures.area_id')
+                    ->join('wanteds', 'wanteds.id', '=', 'posts.id')
+                    ->join('sexes', 'sexes.id', '=', 'posts.id')
+                    ->get();
+
+                foreach ($posts as $post) {
+                    $search = $posts;
+                    if(in_array($post->prefecture_id, $data)) {
+                        $search = $search->where('prefecture_id', '=', $post->prefecture_id);
+                    }
+                    if (in_array($post->sex, $data)) {
+                        $search = $search->where('sex', '=', $post->sex);
+                    }
+                    if (in_array($post->age, $data)) {
+                        $search = $search->where('age', '=', $post->age);
+                    }
+                    if (in_array($post->wanted, $data)) {
+                        $search = $search->where('wanted', '=', $post->wanted);
+                    }
+                }
+                dd($search);
+
+            }
+        };
+
+
         $request->session()->flush();
 
         $post = new Post;
         $get_posts = $post->getPosts();
-        // dd($get_posts);
-        // $time_db = $get_posts->created_at;
 
         $prefecture = new Prefecture;
         $link_area_prefectures = $prefecture->linkAreaPrefectures();
@@ -42,15 +74,14 @@ class PostController extends Controller
 
         $age = new Age;
         $get_ages = $age->getAges();
+        // dd($get_ages);
 
         $wanted = new Wanted;
         $get_wanteds = $wanted->getWanteds();
 
 
 
-        // list($time) = $this->countTime($time_db);
-
-        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
+        return view('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds', 'data'));
     }
 
     /**
@@ -250,7 +281,6 @@ class PostController extends Controller
             // dd('ok');
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
-            // dd($sex_id);
 
             $post = new Post;
             $post->title = $inputs['title'];
@@ -268,8 +298,8 @@ class PostController extends Controller
         } catch (Exception $e) {
             // dd('no');
             DB::rollback();
-            return back()->withInput();
             $request->session()->flush();
+            return back()->withInput();
         }
         DB::commit();
 
@@ -289,6 +319,9 @@ class PostController extends Controller
         //
     }
 
+    /**
+     * confirm機能があるところに使う変数をまとめた
+     */
     public function confirmFun(Request $request)
     {
         $inputs = $request->all();
@@ -342,6 +375,9 @@ class PostController extends Controller
         return array($inputs, $validated);
     }
 
+    /**
+     * indexにredirectがあるところに使う変数をまとめた
+     */
     public function redirectIndexFun()
     {
         $post = new Post;
@@ -364,47 +400,71 @@ class PostController extends Controller
     }
 
     /**
-     * X秒前、X分前、X時間前、X日前などといった表示に変換する。
-     * 一分未満は秒、一時間未満は分、一日未満は時間、
-     * 31日以内はX日前、それ以上はX月X日と返す。
-     * X月X日表記の時、年が異なる場合はyyyy年m月d日と、年も表示する
-     *
-     * @param   <String> $time_db       strtotime()で変換できる時間文字列 (例：yyyy/mm/dd H:i:s)
-     * @return  <String>                X日前,などといった文字列
-     **/
-    public function countTime($time_db)
+     * 検索機能
+     */
+    public function searchPost(Request $request)
     {
-        $unix = strtotime($time_db);
-        $now = time();
-        $diff_sec = $now - $unix;
+        $posts = DB::table('posts')
+            ->join('ages', 'ages.id', '=', 'posts.age_id')
+            ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
+            ->join('areas', 'areas.id', '=', 'prefectures.area_id')
+            ->leftJoin('wanteds', 'wanteds.id', '=', 'posts.id')
+            ->leftJoin('sexes', 'sexes.id', '=', 'posts.id')
+            ->get()
+            ->toArray();
+        // dd($posts);
 
-        if($diff_sec < 60) {
-            $time = $diff_sec;
-            $unit = '秒前';
-        }
-        elseif($diff_sec < 3600) {
-            $time = $diff_sec / 60;
-            $unit = '分前';
-        }
-        elseif($diff_sec < 86400) {
-            $time = $diff_sec / 3600;
-            $unit = '時間前';
-        }
-        elseif($diff_sec < 2764800) {
-            $time = $diff_sec / 86400;
-            $unit = '日前';
-        }
-        else {
-            if(date("Y") != date("Y", $unix)) {
-                $time = date("Y年n月j日", $unix);
+        $searchPrefs = $request->input('prefs');
+        $searchSexes = $request->input('sexes');
+        $searchAges = $request->input('ages');
+        $searchWanteds = $request->input('wanteds');
+
+        try {
+            if ($request->has('prefs') && $searchPrefs != null) {
+                foreach ($posts as $post) {
+                    if (in_array($post->prefecture_id, $searchPrefs)) {
+                        $datas[] = $post->prefecture_id;
+                        $data = array_unique($datas);
+                    }
+                }
             }
-            else {
-                $time = date("n月j日", $unix);
+            if ($request->has('sexes') && $searchSexes != null) {
+                foreach ($posts as $post) {
+                    if (in_array($post->sex, $searchSexes)) {
+                        $datas[] = $post->sex;
+                        $data = array_unique($datas);
+                    }
+                }
+            }
+            if ($request->has('ages') && $searchAges != null) {
+                foreach ($posts as $post) {
+                    if (in_array($post->age, $searchAges)) {
+                        $datas[] = $post->age;
+                        $data = array_unique($datas);
+                    }
+                }
+            }
+            if ($request->has('wanteds') && $searchWanteds != null) {
+                foreach ($posts as $post) {
+                    if (in_array($post->wanted, $searchWanteds)) {
+                        $datas[] = $post->wanted;
+                        $data = array_unique($datas);
+                    }
+                }
             }
 
-            return $time;
-        }
+            if(!empty($data)) {
+                // dd('true');
+                return $data;
+            } else {
+                // dd('else');
+                return $data = null;
+            }
 
-        return (int)$time . $unit;
+        } catch (e) {
+            // dd('catch');
+            $data = '';
+            return redirect(route('post.index', 'data'));
+        }
     }
 }

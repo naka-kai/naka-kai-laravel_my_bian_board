@@ -93,7 +93,7 @@
                             <div class="border-y-2 border-t-0 border-sky-100 p-3">
                                 <!-- sex -->
                                 <div class="flex space-x-10 justify-center items-center">
-                                    @foreach ($get_sexes as $sexKey => $sex)
+                                    @foreach ($get_sexes as $i => $sex)
                                         <label class="block text-gray-500 font-bold">
                                             <input class="mr-2 leading-tight" type="checkbox" name="sexes[]"
                                                 value="{{ $sex->sex }}">
@@ -105,18 +105,17 @@
                                 </div>
                             </div><!-- /sex -->
 
-                            <div class="border-y-2 border-t-0 border-sky-100 p-3">
+                            <div class="flex items-center justify-center py-3 border-y-2 border-t-0 border-sky-100">
                                 <!-- age -->
-                                <div class="flex space-x-10 justify-center items-center">
-                                    @foreach ($get_ages as $ageKey => $age)
-                                        <label class="block text-gray-500 font-bold">
-                                            <input class="mr-2 leading-tight" type="checkbox" name="ages[]"
-                                                value="{{ $age->age }}">
-                                            <span class="text-sm">
-                                                {{ $age->age }}
-                                            </span>
-                                        </label>
-                                    @endforeach
+                                <div class="w-1/3 mx-auto" id="reset">
+                                    <select
+                                        class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        id="age">
+                                        <option>全年代</option>
+                                        @foreach ($get_ages as $age)
+                                            <option value="{{ $age->id }}">{{ $age->age }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div><!-- /age -->
 
@@ -125,8 +124,8 @@
                                 <div class="flex space-x-10 justify-center items-center" id="reset">
                                     @foreach ($get_wanteds as $wanted)
                                         <label class="block text-gray-500 font-bold">
-                                            <input class="mr-2 leading-tight" type="checkbox" name="wanteds[]"
-                                                value="{{ $wanted->wanted }}">
+                                            <input class="mr-2 leading-tight" type="checkbox"
+                                                value="{{ $wanted->id }}">
                                             <span class="text-sm">
                                                 {{ $wanted->wanted }}
                                             </span>
