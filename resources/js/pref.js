@@ -249,6 +249,7 @@ pref_kyu_list.forEach(element => {
 
 /**
  * アコーディオン
+ * 東北地方を押すとその都道府県が出る
  */
 window.onload = function (e) {
 

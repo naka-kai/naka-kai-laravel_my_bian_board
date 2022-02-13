@@ -56,3 +56,5 @@ Route::prefix('post')->group(function () {
 });
 
 Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');
+
+Route::get('/search', [PostController::class, 'index'])->name('search');
