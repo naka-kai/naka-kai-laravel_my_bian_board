@@ -294,9 +294,9 @@ class PostController extends Controller
             $post->prefecture_id = $inputs['prefecture'];
             $post->email = $inputs['email'];
             $post->content = $inputs['content'];
-            dd($post);
+            // dd($post);
             $post->save();
-            dd('save');
+            // dd('save');
 
             $post->wanteds()->attach($wanted_id);
             $post->sexes()->attach($sex_id);
@@ -304,7 +304,13 @@ class PostController extends Controller
             // dd('no');
             DB::rollback();
             $request->session()->flush();
-            return back()->withInput();
+            // if ($action == 'submit') {
+            //     dd('test');
+            // }
+            // dd(back());
+            return redirect()->route('post.edit',4)->withInput();
+            // return back()->withInput();
+            // return false;
         }
         DB::commit();
 
@@ -466,8 +472,9 @@ class PostController extends Controller
                 return $data = null;
             }
 
-        } catch (e) {
+        } catch (Exception $e) {
             // dd('catch');
+            echo $e;
             $data = '';
             return redirect(route('post.index', 'data'));
         }
