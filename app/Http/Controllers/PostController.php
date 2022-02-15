@@ -474,7 +474,8 @@ class PostController extends Controller
 
         } catch (Exception $e) {
             // dd('catch');
-            echo $e;
+            // echo $e;
+            // dd($e);
             $data = '';
             return redirect(route('post.index', 'data'));
         }
