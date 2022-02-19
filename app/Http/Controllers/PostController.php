@@ -26,13 +26,14 @@ class PostController extends Controller
     public function index(Request $request)
     {
         //
+        // dd('index');
         if(!empty($request)) {
 
             $data = $this->searchPost($request);
 
             if($data != null) {
 
-                if($data != null) {
+                // if($data != null) {
                     $posts = DB::table('posts')
                         ->join('ages', 'ages.id', '=', 'posts.age_id')
                         ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
@@ -58,7 +59,7 @@ class PostController extends Controller
                             $search = $search->where('wanted', '=', $post->wanted);
                         }
                     }
-                }
+                // }
             }
         } else {
             $search = null;
@@ -139,28 +140,48 @@ class PostController extends Controller
 
         DB::beginTransaction();
         try {
-
+            // dd('ok');
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
 
             $password = Hash::make($inputs['password']);
 
-            $post = new Post;
-            $post->title = $inputs['title'];
-            $post->name = $inputs['name'];
-            $post->age_id = $inputs['age'];
-            $post->prefecture_id = $inputs['prefecture'];
-            $post->email = $inputs['email'];
-            $post->content = $inputs['content'];
-            $post->password = $password;
-            $post->save();
+            $data = [
+                'title' => $inputs['title'],
+                'name' => $inputs['name'],
+                'age_id' => $inputs['age'],
+                'prefecture_id' => $inputs['prefecture'],
+                'email' => $inputs['email'],
+                'content' => $inputs['content'],
+                'password' => $password
+            ];
 
+            // dd($data);
+            // dd('ok');
+            $post = new Post;
+            $post->fill($data)->save();
+            // $post->create($data);
+            // dd('ok');
+            // $post->title = $inputs['title'];
+            // $post->name = $inputs['name'];
+            // $post->age_id = $inputs['age'];
+            // $post->prefecture_id = $inputs['prefecture'];
+            // $post->email = $inputs['email'];
+            // $post->content = $inputs['content'];
+            // $post->password = $password;
+            // $post->save();
+            // dd($wanted_id);
+            // dd($post->id);
             $post->wanteds()->attach($wanted_id);
+            // dd('ok');
             $post->sexes()->attach($sex_id);
+            // dd('ok');
         } catch (Exception $e) {
+            // dd($e);
             DB::rollback();
-            return back()->withInput();
-            $request->session()->flush();
+            return redirect(route('post.create'))->withInput();
+            // return back()->withInput();
+            // $request->session()->flush();
         }
         DB::commit();
 
@@ -177,6 +198,7 @@ class PostController extends Controller
     public function show($id)
     {
         //
+        // dd('show');
         $post = new Post;
         $get_posts = $post->getPosts();
         $detail_post = $get_posts->find($id);
@@ -270,6 +292,7 @@ class PostController extends Controller
     public function update(Request $request)
     {
         //
+        // dd($request->all());
         $action = $request->get('action', 'back');
         $input = $request->except('action');
 
@@ -280,6 +303,8 @@ class PostController extends Controller
         }
 
         $inputs = session()->all();
+        $id = $inputs['id'];
+        // dd($inputs);
 
         DB::beginTransaction();
         try {
@@ -287,33 +312,36 @@ class PostController extends Controller
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
 
-            $post = new Post;
-            $post->title = $inputs['title'];
-            $post->name = $inputs['name'];
-            $post->age_id = $inputs['age'];
-            $post->prefecture_id = $inputs['prefecture'];
-            $post->email = $inputs['email'];
-            $post->content = $inputs['content'];
-            // dd($post);
-            $post->save();
+            // $data = [
+            //     'title' => $inputs['title'],
+            //     'name' => $inputs['name'],
+            //     'age_id' => $inputs['age'],
+            //     'prefecture_id' => $inputs['prefecture'],
+            //     'email' => $inputs['email'],
+            //     'content' => $inputs['content']
+            // ];
+            // dd($data);
+
+            // $post = new Post;
+            // $post->update($data);
+            // dd('ok');
+            // $post->save();
             // dd('save');
 
-            $post->wanteds()->attach($wanted_id);
-            $post->sexes()->attach($sex_id);
+            $post = Post::find($inputs['id']);
+            // dd($post);
+            $post->fill($request->all())->save();
+
+            $post->wanteds()->sync($wanted_id);
+            // dd('ok');
+            $post->sexes()->sync($sex_id);
         } catch (Exception $e) {
-            // dd('no');
+            dd('no');
             DB::rollback();
             $request->session()->flush();
-            // if ($action == 'submit') {
-            //     dd('test');
-            // }
-            // dd(back());
-            return redirect()->route('post.edit',4)->withInput();
-            // return back()->withInput();
-            // return false;
+            return redirect()->route('post.edit', compact('id'))->withInput();
         }
         DB::commit();
-
 
         list($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds) = $this->redirectIndexFun();
 
