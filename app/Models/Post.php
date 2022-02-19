@@ -15,9 +15,11 @@ class Post extends Model
     protected $fillable = [
         'title',
         'name',
+        'age_id',
         'prefecture_id',
         'email',
-        'content'
+        'content',
+        'password'
     ];
 
     public function getPosts()
