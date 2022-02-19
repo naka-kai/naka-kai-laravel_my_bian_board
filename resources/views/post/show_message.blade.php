@@ -84,7 +84,7 @@
                                     name="editId" formaction="{{ route('post.editPassConfirm', ['id' => $id]) }}"
                                     formmethod="POST">
                                 <input type="submit" class="mr-3 text-blue-400 cursor-pointer" value="[ 削除 ]"
-                                    name="editId" formaction="">
+                                    name="deletId" formaction="{{ route('post.deletePassConfirm', ['id' => $id]) }}" formmethod="POST">
                             </div>
                         </form>
                         @if (session('message'))
