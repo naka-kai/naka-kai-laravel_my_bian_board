@@ -54,6 +54,11 @@ Route::prefix('post')->group(function () {
     Route::post('edit_confirm/{id}', [PostController::class, 'editConfirm'])->name('post.edit_confirm');
 
     Route::post('update/{id}', [PostController::class, 'update'])->name('post.update');
+
+    Route::get('delete_pass_confirm/{id}', [PostController::class, 'deletePassConfirm']);
+    Route::post('delete_pass_confirm/{id}', [PostController::class, 'deletePassConfirm'])->name('post.deletePassConfirm');
+
+    Route::post('delete/{id}', [PostController::class, 'destroy'])->name('post.delete');
 });
 
 Route::post('/mail/{id}', [MailSendController::class, 'store'])->name('mail.store');

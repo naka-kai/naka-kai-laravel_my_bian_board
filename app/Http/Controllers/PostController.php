@@ -25,8 +25,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // dd('index');
         if(!empty($request)) {
 
             $data = $this->searchPost($request);
@@ -156,32 +154,13 @@ class PostController extends Controller
                 'password' => $password
             ];
 
-            // dd($data);
-            // dd('ok');
             $post = new Post;
             $post->fill($data)->save();
-            // $post->create($data);
-            // dd('ok');
-            // $post->title = $inputs['title'];
-            // $post->name = $inputs['name'];
-            // $post->age_id = $inputs['age'];
-            // $post->prefecture_id = $inputs['prefecture'];
-            // $post->email = $inputs['email'];
-            // $post->content = $inputs['content'];
-            // $post->password = $password;
-            // $post->save();
-            // dd($wanted_id);
-            // dd($post->id);
             $post->wanteds()->attach($wanted_id);
-            // dd('ok');
             $post->sexes()->attach($sex_id);
-            // dd('ok');
         } catch (Exception $e) {
-            // dd($e);
             DB::rollback();
             return redirect(route('post.create'))->withInput();
-            // return back()->withInput();
-            // $request->session()->flush();
         }
         DB::commit();
 
@@ -292,48 +271,26 @@ class PostController extends Controller
     public function update(Request $request)
     {
         //
-        // dd($request->all());
         $action = $request->get('action', 'back');
         $input = $request->except('action');
 
         if ($action == 'back') {
-            // dd('back');
             $request->session()->flush();
             return redirect()->route('post.editPassConfirm');
         }
 
         $inputs = session()->all();
         $id = $inputs['id'];
-        // dd($inputs);
 
         DB::beginTransaction();
         try {
-            // dd('ok');
             $wanted_id = $request->wanted;
             $sex_id = $request->sex;
 
-            // $data = [
-            //     'title' => $inputs['title'],
-            //     'name' => $inputs['name'],
-            //     'age_id' => $inputs['age'],
-            //     'prefecture_id' => $inputs['prefecture'],
-            //     'email' => $inputs['email'],
-            //     'content' => $inputs['content']
-            // ];
-            // dd($data);
-
-            // $post = new Post;
-            // $post->update($data);
-            // dd('ok');
-            // $post->save();
-            // dd('save');
-
             $post = Post::find($inputs['id']);
-            // dd($post);
             $post->fill($request->all())->save();
 
             $post->wanteds()->sync($wanted_id);
-            // dd('ok');
             $post->sexes()->sync($sex_id);
         } catch (Exception $e) {
             dd('no');
@@ -350,12 +307,56 @@ class PostController extends Controller
         return redirect()->route('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds'));
     }
 
+    public function deletePassConfirm(Request $request, $id)
+    {
+        $inputs = $request->all();
+        // dd($inputs);
+        $request->session()->put($inputs);
+
+        $post = new Post;
+        $get_posts = $post->getPosts();
+        $detail_post = $get_posts->find($id);
+
+        return view('post.delete_pass_confirm', compact('id', 'detail_post'));
+    }
+
     /**
      * 個人詳細削除機能
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request, $id)
     {
-        //
+        $action = $request->get('action', 'back');
+        $input = $request->except('action');
+
+        if ($action == 'back') {
+            return redirect()->route('post.show_message', compact('id'));
+        }
+
+        $data = $request->session()->all();
+
+        list($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds) = $this->redirectIndexFun();
+        $detail_post = $get_posts->find($id);
+
+        // dd($detail_post);
+
+        $passCheck = Hash::check($request->password, $detail_post->password);
+
+        // dd($passCheck);
+
+        if ($passCheck) {
+
+            $post = Post::find($request->id);
+            $post->delete();
+
+            $request->session()->flush();
+
+            return redirect(route('post.index', compact('get_posts', 'link_area_prefectures', 'area_classes', 'get_sexes', 'get_ages', 'get_wanteds')));
+        } else {
+            return redirect(route('post.deletePassConfirm', compact('id')))->with('notPass', 'パスワードが一致しません');
+        }
+
+        dd($request->all());
+
     }
 
     /**
