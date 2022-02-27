@@ -25,43 +25,59 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if(!empty($request)) {
+        $requests = $request->all();
+        $data = null;
+        // dd($requests);
+        if (!empty($requests)) {
 
-            $data = $this->searchPost($request);
+            // $data = $this->searchPost($requests);
+            $postModel = new Post;
+            $data = $postModel->searchPost($requests);
+            // dd($data);
 
-            if($data != null) {
+            if ($data != null) {
 
-                // if($data != null) {
-                    $posts = DB::table('posts')
-                        ->join('ages', 'ages.id', '=', 'posts.age_id')
-                        ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
-                        ->join('areas', 'areas.id', '=', 'prefectures.area_id')
-                        ->join('wanteds', 'wanteds.id', '=', 'posts.id')
-                        ->join('sexes', 'sexes.id', '=', 'posts.id')
-                        ->get();
+                // $posts = DB::table('posts')
+                //     ->join('ages', 'ages.id', '=', 'posts.age_id')
+                //     ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
+                //     ->join('areas', 'areas.id', '=', 'prefectures.area_id')
+                //     ->join('wanteds', 'wanteds.id', '=', 'posts.id')
+                //     ->join('sexes', 'sexes.id', '=', 'posts.id')
+                //     ->get();
 
-                    dd($posts);
+                $posts = Post::with([
+                    'age',
+                    'prefecture.area',
+                    'wanteds',
+                    'sexes'
+                ])
+                    ->get();
 
-                    foreach ($posts as $post) {
-                        $search = $posts;
-                        if(in_array($post->prefecture_id, $data)) {
-                            $search = $search->where('prefecture_id', '=', $post->prefecture_id);
-                        }
-                        if (in_array($post->sex, $data)) {
-                            $search = $search->where('sex', '=', $post->sex);
-                        }
-                        if (in_array($post->age, $data)) {
-                            $search = $search->where('age', '=', $post->age);
-                        }
-                        if (in_array($post->wanted, $data)) {
-                            $search = $search->where('wanted', '=', $post->wanted);
-                        }
+                // dd($posts);
+
+                foreach ($posts as $post) {
+                    $search = $posts;
+                    // dd($data);
+                    if (in_array($post->prefecture_id, $data)) {
+                        $search = $search->where('prefecture_id', '=', $post->prefecture_id);
                     }
+                    if (in_array($post->sex, $data)) {
+                        $search = $search->where('sex', '=', $post->sex);
+                    }
+                    // dd($post->age);
+                    if (in_array($post->age, $data)) {
+                        $search = $search->where('age', '=', $post->age);
+                    }
+                    // dd($search);
+                    if (in_array($post->wanted, $data)) {
+                        $search = $search->where('wanted', '=', $post->wanted);
+                    }
+                }
                 // }
             }
         } else {
             $search = null;
-            return $search;
+            // return $search;
         }
 
         // dd($search);
@@ -293,7 +309,7 @@ class PostController extends Controller
             $post->wanteds()->sync($wanted_id);
             $post->sexes()->sync($sex_id);
         } catch (Exception $e) {
-            dd('no');
+            // dd('no');
             DB::rollback();
             $request->session()->flush();
             return redirect()->route('post.edit', compact('id'))->withInput();
@@ -344,9 +360,22 @@ class PostController extends Controller
         // dd($passCheck);
 
         if ($passCheck) {
-
-            $post = Post::find($request->id);
-            $post->delete();
+?>
+            <script type="text/javascript">
+                let checked = confirm('削除しますか？');
+                let deleteBtn = document.getElementById('delete');
+                deleteBtn.addEventListener('click', function(checked) {
+                    if (checked == false) {
+                        return false;
+                    } else {
+                        <?php
+                        $post = Post::find($request->id);
+                        $post->delete();
+                        ?>
+                    }
+                });
+            </script>
+<?php
 
             $request->session()->flush();
 
@@ -355,8 +384,7 @@ class PostController extends Controller
             return redirect(route('post.deletePassConfirm', compact('id')))->with('notPass', 'パスワードが一致しません');
         }
 
-        dd($request->all());
-
+        // dd($request->all());
     }
 
     /**
@@ -437,76 +465,5 @@ class PostController extends Controller
         $get_wanteds = $wanted->getWanteds();
 
         return array($get_posts, $link_area_prefectures, $area_classes, $get_sexes, $get_ages, $get_wanteds);
-    }
-
-    /**
-     * 検索機能
-     */
-    public function searchPost(Request $request)
-    {
-        $posts = DB::table('posts')
-            ->join('ages', 'ages.id', '=', 'posts.age_id')
-            ->join('prefectures', 'prefectures.id', '=', 'posts.prefecture_id')
-            ->join('areas', 'areas.id', '=', 'prefectures.area_id')
-            ->leftJoin('wanteds', 'wanteds.id', '=', 'posts.id')
-            ->leftJoin('sexes', 'sexes.id', '=', 'posts.id')
-            ->get()
-            ->toArray();
-        // dd($posts);
-
-        $searchPrefs = $request->input('prefs');
-        $searchSexes = $request->input('sexes');
-        $searchAges = $request->input('ages');
-        $searchWanteds = $request->input('wanteds');
-
-        try {
-            if ($request->has('prefs') && $searchPrefs != null) {
-                foreach ($posts as $post) {
-                    if (in_array($post->prefecture_id, $searchPrefs)) {
-                        $datas[] = $post->prefecture_id;
-                        $data = array_unique($datas);
-                    }
-                }
-            }
-            if ($request->has('sexes') && $searchSexes != null) {
-                foreach ($posts as $post) {
-                    if (in_array($post->sex, $searchSexes)) {
-                        $datas[] = $post->sex;
-                        $data = array_unique($datas);
-                    }
-                }
-            }
-            if ($request->has('ages') && $searchAges != null) {
-                foreach ($posts as $post) {
-                    if (in_array($post->age, $searchAges)) {
-                        $datas[] = $post->age;
-                        $data = array_unique($datas);
-                    }
-                }
-            }
-            if ($request->has('wanteds') && $searchWanteds != null) {
-                foreach ($posts as $post) {
-                    if (in_array($post->wanted, $searchWanteds)) {
-                        $datas[] = $post->wanted;
-                        $data = array_unique($datas);
-                    }
-                }
-            }
-
-            if(!empty($data)) {
-                // dd('true');
-                return $data;
-            } else {
-                // dd('else');
-                return $data = null;
-            }
-
-        } catch (Exception $e) {
-            // dd('catch');
-            // echo $e;
-            // dd($e);
-            $data = '';
-            return redirect(route('post.index', 'data'));
-        }
     }
 }

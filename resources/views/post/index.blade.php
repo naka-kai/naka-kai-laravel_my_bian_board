@@ -72,7 +72,7 @@
                                                         <input type="checkbox" name="prefs[]"
                                                             class="pref_all_list mr-1 pref_{{ $area_classes[$key] }}_list"
                                                             id="pref_{{ $prefecture_key }}"
-                                                            value="{{ $prefecture_key }}">
+                                                            value="{{ $prefecture_val }}">
                                                         <!-- <label for="1(prefecture->idのこと)" class="text-gray-600 mr-2">北海道(青森県)</label> -->
                                                         <label for="pref_{{ $prefecture_key }}"
                                                             class="text-gray-600 mr-4">{{ $prefecture_val }}</label>
