@@ -59,7 +59,7 @@
                                 <div class="mx-auto">
                                     <button
                                         class="bg-red-300 hover:bg-red-200 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                                        type="submit" name="action" value="submit" id="delete">
+                                        type="button" name="action" value="submit" id="delete">
                                         削除する
                                     </button>
                                 </div>
@@ -74,6 +74,5 @@
     </div>
 
     <x-slot name="script">
-        <script src="{{ mix('js/deleteAlert.js') }}"></script>
     </x-slot>
 </x-guest-layout>
